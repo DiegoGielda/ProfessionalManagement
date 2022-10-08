@@ -6,9 +6,10 @@ inherited frmListingCompany: TfrmListingCompany
   inherited dbgPattern: TDBGrid
     Anchors = [akLeft, akTop, akRight]
     DataSource = dsCompany
-    OnDblClick = dbgPadraoDblClick
+    OnDblClick = dbgPatternDblClick
     Columns = <
       item
+        Alignment = taCenter
         Expanded = False
         FieldName = 'ID_COMPANY'
         Title.Alignment = taCenter
@@ -22,6 +23,7 @@ inherited frmListingCompany: TfrmListingCompany
         Visible = True
       end
       item
+        Alignment = taCenter
         Expanded = False
         FieldName = 'DESCRIPTION'
         Title.Alignment = taCenter
@@ -37,7 +39,10 @@ inherited frmListingCompany: TfrmListingCompany
   end
   inherited pnlHeader: TPanel
     inherited btnEdit: TSpeedButton
-      OnClick = btnNovoClick
+      OnClick = btnEditClick
+    end
+    inherited btnNew: TSpeedButton
+      OnClick = btnNewClick
     end
   end
   object dsCompany: TDataSource
@@ -56,6 +61,7 @@ inherited frmListingCompany: TfrmListingCompany
       FieldName = 'ID_COMPANY'
       Origin = 'ID_COMPANY'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = True
       Required = True
     end
     object qryCompanyDESCRIPTION: TStringField

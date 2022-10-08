@@ -15,18 +15,18 @@ type
     lblIDJob: TLabel;
     lookCompany: TDBLookupComboBox;
     lblCompany: TLabel;
-    procedure btnAnteriorClick(Sender: TObject);
-    procedure btnCancelarClick(Sender: TObject);
-    procedure btnDeletarClick(Sender: TObject);
-    procedure btnEditarClick(Sender: TObject);
-    procedure btnNovoClick(Sender: TObject);
-    procedure btnProximoClick(Sender: TObject);
-    procedure btnSalvarClick(Sender: TObject);
+    procedure btnCancelClick(Sender: TObject);
+    procedure btnDeleteClick(Sender: TObject);
+    procedure btnEditClick(Sender: TObject);
+    procedure btnNewClick(Sender: TObject);
+    procedure btnNextClick(Sender: TObject);
+    procedure btnPriorClick(Sender: TObject);
+    procedure btnSaveClick(Sender: TObject);
   private
     { Private declarations }
   public
     procedure ButtonsState;
-    procedure AtualizarRegistro;
+    procedure UpdateRegistration;
   end;
 
 var
@@ -40,21 +40,13 @@ uses
   formListingJob,
   Data.db;
 
-procedure TfrmRegJob.AtualizarRegistro;
+procedure TfrmRegJob.UpdateRegistration;
 begin
   frmListingJob.qryJob.Refresh;
   frmListingJob.qryJobCompany.Refresh;
 end;
 
-procedure TfrmRegJob.btnAnteriorClick(Sender: TObject);
-begin
-  inherited;
-  frmListingJob.qryJob.Prior;
-  ButtonsState;
-  ConfigureButtons;
-end;
-
-procedure TfrmRegJob.btnCancelarClick(Sender: TObject);
+procedure TfrmRegJob.btnCancelClick(Sender: TObject);
 begin
   inherited;
   frmListingJob.qryJob.Cancel;
@@ -62,26 +54,26 @@ begin
   ConfigureButtons;
 end;
 
-procedure TfrmRegJob.btnDeletarClick(Sender: TObject);
+procedure TfrmRegJob.btnDeleteClick(Sender: TObject);
 begin
   inherited;
   case Application.MessageBox('Deseja excluir o Cargo ?', 'Excluir Cargo', MB_YESNO + MB_ICONQUESTION) of
-  IDYES :
+    IDYES :
     begin
-     frmListingJob.qryJob.Delete;
-     ShowMessage('O Cargo foi excluido');
-     ButtonsState;
-     ConfigureButtons;
-     AtualizarRegistro;
+      frmListingJob.qryJob.Delete;
+      ShowMessage('O Cargo foi excluido');
+      ButtonsState;
+      ConfigureButtons;
+      UpdateRegistration;
     end;
-  IDNO :
+    IDNO :
     begin
       exit;
     end;
   end;
 end;
 
-procedure TfrmRegJob.btnEditarClick(Sender: TObject);
+procedure TfrmRegJob.btnEditClick(Sender: TObject);
 begin
   inherited;
   frmListingJob.qryJob.Edit;
@@ -89,7 +81,7 @@ begin
   ConfigureButtons;
 end;
 
-procedure TfrmRegJob.btnNovoClick(Sender: TObject);
+procedure TfrmRegJob.btnNewClick(Sender: TObject);
 begin
   inherited;
   frmListingJob.qryJob.Insert;
@@ -97,7 +89,7 @@ begin
   ConfigureButtons;
 end;
 
-procedure TfrmRegJob.btnProximoClick(Sender: TObject);
+procedure TfrmRegJob.btnNextClick(Sender: TObject);
 begin
   inherited;
   frmListingJob.qryJob.Next;
@@ -105,7 +97,15 @@ begin
   ConfigureButtons;
 end;
 
-procedure TfrmRegJob.btnSalvarClick(Sender: TObject);
+procedure TfrmRegJob.btnPriorClick(Sender: TObject);
+begin
+  inherited;
+  frmListingJob.qryJob.Prior;
+  ButtonsState;
+  ConfigureButtons;
+end;
+
+procedure TfrmRegJob.btnSaveClick(Sender: TObject);
 begin
   inherited;
   try
@@ -113,7 +113,7 @@ begin
     Application.MessageBox('Registro gravado com sucesso!', 'Confirmação', MB_ICONEXCLAMATION + MB_OK);
     ButtonsState;
     ConfigureButtons;
-    AtualizarRegistro;
+    UpdateRegistration;
   except
     Application.MessageBox('NÃO FOI POSSÍVEL GRAVAR O REGISTRO. Reinicie o sistema', 'Falha', MB_ICONERROR + MB_OK);
   end;

@@ -20,11 +20,11 @@ type
     qryJobJOB: TStringField;
     qryJobCD_COMPANY: TIntegerField;
     qryJobCOMPANY1: TStringField;
-    procedure btnNovoClick(Sender: TObject);
-    procedure btnEditarClick(Sender: TObject);
-    procedure dbgPadraoDblClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure btnEditClick(Sender: TObject);
+    procedure btnNewClick(Sender: TObject);
+    procedure dbgPatternDblClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -42,7 +42,7 @@ uses
   dmConnectionFD,
   formRegJob;
 
-procedure TfrmListingJob.btnEditarClick(Sender: TObject);
+procedure TfrmListingJob.btnEditClick(Sender: TObject);
 begin
   inherited;
   frmRegJob := TfrmRegJob.Create(Self);
@@ -54,7 +54,7 @@ begin
   end;
 end;
 
-procedure TfrmListingJob.btnNovoClick(Sender: TObject);
+procedure TfrmListingJob.btnNewClick(Sender: TObject);
 begin
   inherited;
   frmRegJob := TfrmRegJob.Create(Self);
@@ -66,7 +66,7 @@ begin
   end;
 end;
 
-procedure TfrmListingJob.dbgPadraoDblClick(Sender: TObject);
+procedure TfrmListingJob.dbgPatternDblClick(Sender: TObject);
 begin
   inherited;
   frmRegJob := TfrmRegJob.Create(Self);

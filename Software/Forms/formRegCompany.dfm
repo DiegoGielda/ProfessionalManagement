@@ -29,6 +29,29 @@ inherited frmRegCompany: TfrmRegCompany
       Font.Style = []
       ParentFont = False
     end
+    inherited pnlHeader: TPanel
+      inherited btnNew: TSpeedButton
+        OnClick = btnNewClick
+      end
+      inherited btnSave: TSpeedButton
+        OnClick = btnSaveClick
+      end
+      inherited btnEdit: TSpeedButton
+        OnClick = btnEditClick
+      end
+      inherited btnNext: TSpeedButton
+        OnClick = btnNextClick
+      end
+      inherited btnPrior: TSpeedButton
+        OnClick = btnPriorClick
+      end
+      inherited btnCancel: TSpeedButton
+        OnClick = btnCancelClick
+      end
+      inherited btnDelete: TSpeedButton
+        OnClick = btnDeleteClick
+      end
+    end
     object edtIDCompany: TDBEdit
       Left = 25
       Top = 88

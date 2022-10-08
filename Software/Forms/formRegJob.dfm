@@ -44,7 +44,25 @@ inherited frmRegJob: TfrmRegJob
     end
     inherited pnlHeader: TPanel
       inherited btnNew: TSpeedButton
-        OnClick = btnDeletarClick
+        OnClick = btnNewClick
+      end
+      inherited btnSave: TSpeedButton
+        OnClick = btnSaveClick
+      end
+      inherited btnEdit: TSpeedButton
+        OnClick = btnEditClick
+      end
+      inherited btnNext: TSpeedButton
+        OnClick = btnNextClick
+      end
+      inherited btnPrior: TSpeedButton
+        OnClick = btnPriorClick
+      end
+      inherited btnCancel: TSpeedButton
+        OnClick = btnCancelClick
+      end
+      inherited btnDelete: TSpeedButton
+        OnClick = btnDeleteClick
       end
     end
     object edtIDJob: TDBEdit
@@ -84,6 +102,7 @@ inherited frmRegJob: TfrmRegJob
       Width = 215
       Height = 24
       DataField = 'CD_COMPANY'
+      DataSource = frmListingJob.dsJob
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -13
@@ -92,6 +111,7 @@ inherited frmRegJob: TfrmRegJob
       KeyField = 'ID_COMPANY'
       ListField = 'COMPANY'
       ListFieldIndex = 5
+      ListSource = frmListingJob.dsJobCompany
       ParentFont = False
       TabOrder = 3
     end

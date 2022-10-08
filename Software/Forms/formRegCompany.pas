@@ -13,17 +13,17 @@ type
     edtDescriptionCompany: TDBEdit;
     lblIDCompany: TLabel;
     lblDescriptionCompany: TLabel;
-    procedure btnAnteriorClick(Sender: TObject);
-    procedure btnCancelarClick(Sender: TObject);
-    procedure btnDeletarClick(Sender: TObject);
-    procedure btnEditarClick(Sender: TObject);
-    procedure btnNovoClick(Sender: TObject);
-    procedure btnProximoClick(Sender: TObject);
-    procedure btnSalvarClick(Sender: TObject);
+    procedure btnCancelClick(Sender: TObject);
+    procedure btnDeleteClick(Sender: TObject);
+    procedure btnEditClick(Sender: TObject);
+    procedure btnNewClick(Sender: TObject);
+    procedure btnNextClick(Sender: TObject);
+    procedure btnPriorClick(Sender: TObject);
+    procedure btnSaveClick(Sender: TObject);
   private
     { Private declarations }
-    procedure EstadoBotoes;
-    procedure AtualizarRegistro;
+    procedure ButtonsState;
+    procedure UpdateRegistration;
   public
     { Public declarations }
   end;
@@ -39,28 +39,20 @@ uses
   formListingCompany,
   Data.db;
 
-procedure TfrmRegCompany.AtualizarRegistro;
+procedure TfrmRegCompany.UpdateRegistration;
 begin
   frmListingCompany.qryCompany.Refresh;
 end;
 
-procedure TfrmRegCompany.btnAnteriorClick(Sender: TObject);
-begin
-  inherited;
-  frmListingCompany.qryCompany.Prior;
-  EstadoBotoes;
-  ConfigureButtons;
-end;
-
-procedure TfrmRegCompany.btnCancelarClick(Sender: TObject);
+procedure TfrmRegCompany.btnCancelClick(Sender: TObject);
 begin
   inherited;
   frmListingCompany.qryCompany.Cancel;
-  EstadoBotoes;
+  ButtonsState;
   ConfigureButtons;
 end;
 
-procedure TfrmRegCompany.btnDeletarClick(Sender: TObject);
+procedure TfrmRegCompany.btnDeleteClick(Sender: TObject);
 begin
   inherited;
   case Application.MessageBox('Deseja excluir o Empresa ?', 'Excluir Empresa', MB_YESNO + MB_ICONQUESTION) of
@@ -68,9 +60,9 @@ begin
     begin
      frmListingCompany.qryCompany.Delete;
      ShowMessage('O Empresa foi excluido');
-     EstadoBotoes;
+     ButtonsState;
      ConfigureButtons;
-     AtualizarRegistro;
+     UpdateRegistration;
     end;
   IDNO :
     begin
@@ -79,45 +71,53 @@ begin
   end;
 end;
 
-procedure TfrmRegCompany.btnEditarClick(Sender: TObject);
+procedure TfrmRegCompany.btnEditClick(Sender: TObject);
 begin
   inherited;
   frmListingCompany.qryCompany.Edit;
-  EstadoBotoes;
+  ButtonsState;
   ConfigureButtons;
 end;
 
-procedure TfrmRegCompany.btnNovoClick(Sender: TObject);
+procedure TfrmRegCompany.btnNewClick(Sender: TObject);
 begin
   inherited;
   frmListingCompany.qryCompany.Insert;
-  EstadoBotoes;
+  ButtonsState;
   ConfigureButtons;
 end;
 
-procedure TfrmRegCompany.btnProximoClick(Sender: TObject);
+procedure TfrmRegCompany.btnNextClick(Sender: TObject);
 begin
   inherited;
   frmListingCompany.qryCompany.Next;
-  EstadoBotoes;
+  ButtonsState;
   ConfigureButtons;
 end;
 
-procedure TfrmRegCompany.btnSalvarClick(Sender: TObject);
+procedure TfrmRegCompany.btnPriorClick(Sender: TObject);
+begin
+  inherited;
+  frmListingCompany.qryCompany.Prior;
+  ButtonsState;
+  ConfigureButtons;
+end;
+
+procedure TfrmRegCompany.btnSaveClick(Sender: TObject);
 begin
   inherited;
   try
     frmListingCompany.qryCompany.Post;
     Application.MessageBox('Registro gravado com sucesso!', 'Confirmação', MB_ICONEXCLAMATION + MB_OK);
-    EstadoBotoes;
+    ButtonsState;
     ConfigureButtons;
-    AtualizarRegistro;
+    UpdateRegistration;
   except
     Application.MessageBox('NÃO FOI POSSÍVEL GRAVAR O REGISTRO. Reinicie o sistema', 'Falha', MB_ICONERROR + MB_OK);
   end;
 end;
 
-procedure TfrmRegCompany.EstadoBotoes;
+procedure TfrmRegCompany.ButtonsState;
 begin
   btnPrior.Enabled := frmListingCompany.qryCompany.State in [dsBrowse];
   btnNext.Enabled := frmListingCompany.qryCompany.State in [dsBrowse];

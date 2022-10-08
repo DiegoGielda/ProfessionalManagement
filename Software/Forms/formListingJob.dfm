@@ -5,7 +5,7 @@ inherited frmListingJob: TfrmListingJob
   TextHeight = 13
   inherited dbgPattern: TDBGrid
     DataSource = dsJob
-    OnDblClick = dbgPadraoDblClick
+    OnDblClick = dbgPatternDblClick
     Columns = <
       item
         Alignment = taCenter
@@ -66,7 +66,10 @@ inherited frmListingJob: TfrmListingJob
   end
   inherited pnlHeader: TPanel
     inherited btnEdit: TSpeedButton
-      OnClick = btnNovoClick
+      OnClick = btnEditClick
+    end
+    inherited btnNew: TSpeedButton
+      OnClick = btnNewClick
     end
   end
   object qryJob: TFDQuery
@@ -83,6 +86,7 @@ inherited frmListingJob: TfrmListingJob
       FieldName = 'ID_JOB'
       Origin = 'ID_JOB'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = True
       Required = True
     end
     object qryJobJOB: TStringField

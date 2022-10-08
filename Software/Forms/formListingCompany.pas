@@ -14,11 +14,11 @@ type
     qryCompany: TFDQuery;
     qryCompanyID_COMPANY: TIntegerField;
     qryCompanyDESCRIPTION: TStringField;
-    procedure dbgPadraoDblClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure btnNovoClick(Sender: TObject);
-    procedure btnEditarClick(Sender: TObject);
+    procedure btnNewClick(Sender: TObject);
+    procedure btnEditClick(Sender: TObject);
+    procedure dbgPatternDblClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -36,7 +36,7 @@ uses
   dmConnectionFD,
   formRegCompany;
 
-procedure TfrmListingCompany.btnEditarClick(Sender: TObject);
+procedure TfrmListingCompany.btnEditClick(Sender: TObject);
 begin
   inherited;
   frmRegCompany := TfrmRegCompany.Create(Self);
@@ -48,7 +48,7 @@ begin
   end;
 end;
 
-procedure TfrmListingCompany.btnNovoClick(Sender: TObject);
+procedure TfrmListingCompany.btnNewClick(Sender: TObject);
 begin
   inherited;
   frmRegCompany := TfrmRegCompany.Create(Self);
@@ -60,7 +60,7 @@ begin
   end;
 end;
 
-procedure TfrmListingCompany.dbgPadraoDblClick(Sender: TObject);
+procedure TfrmListingCompany.dbgPatternDblClick(Sender: TObject);
 begin
   inherited;
   frmRegCompany := TfrmRegCompany.Create(Self);
