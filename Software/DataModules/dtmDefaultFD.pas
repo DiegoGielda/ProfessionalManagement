@@ -1,4 +1,4 @@
-unit dmDefaultFD;
+unit dtmDefaultFD;
 
 interface
 
@@ -7,10 +7,9 @@ uses
   FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client;
 
 type
-  TdtmDefaultFD = class(TDataModule)
+  TdmDefaultFD = class(TDataModule)
     qryMain: TFDQuery;
     dsMain: TDataSource;
-    procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -18,23 +17,12 @@ type
   end;
 
 var
-  dtmDefaultFD: TdtmDefaultFD;
+  dmDefaultFD: TdmDefaultFD;
 
 implementation
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
 {$R *.dfm}
-
-uses
-  dmConnectionFD;
-
-procedure TdtmDefaultFD.DataModuleCreate(Sender: TObject);
-begin
-  qryMain.Connection := dtmConnectionFD.fdConnection;
-  qryMain.Close;
-
-  dsMain.DataSet := qryMain.DataSource.DataSet;
-end;
 
 end.

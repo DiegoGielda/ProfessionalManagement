@@ -100,13 +100,18 @@
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
-        <DCCReference Include="..\DataModules\dmConnectionFD.pas">
-            <Form>dtmConnectionFD</Form>
+        <DCCReference Include="..\DataModules\dtmConnectionFD.pas">
+            <Form>dmConnectionFD</Form>
             <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
-        <DCCReference Include="..\DataModules\dmDefaultFD.pas">
-            <Form>dtmDefaultFD</Form>
+        <DCCReference Include="..\DataModules\dtmDefaultFD.pas">
+            <Form>dmDefaultFD</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="..\DataModules\dtmTaskFD.pas">
+            <Form>dmTaskFD</Form>
             <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
@@ -122,6 +127,10 @@
         <DCCReference Include="..\Forms\formListingJob.pas">
             <Form>frmListingJob</Form>
         </DCCReference>
+        <DCCReference Include="..\Forms\formListingTask.pas">
+            <Form>frmListingTask</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <DCCReference Include="..\Forms\formMain.pas">
             <Form>frmMain</Form>
         </DCCReference>
@@ -130,6 +139,10 @@
         </DCCReference>
         <DCCReference Include="..\Forms\formRegJob.pas">
             <Form>frmRegJob</Form>
+        </DCCReference>
+        <DCCReference Include="..\Forms\formRegTask.pas">
+            <Form>frmRegTask</Form>
+            <FormType>dfm</FormType>
         </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
@@ -152,6 +165,7 @@
                     <Source Name="MainSource">ProfessionalManagement.dpr</Source>
                 </Source>
                 <Excluded_Packages>
+                    <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\20.0\Bpl\PascalScript_Core_D26.bpl">RemObjects Pascal Script - Core Package</Excluded_Packages>
                     <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\20.0\Bpl\dclcxPivotGridOLAPRS26.bpl">ExpressPivotGrid OLAP by Developer Express Inc.</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\dcloffice2k260.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\dclofficexp260.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>

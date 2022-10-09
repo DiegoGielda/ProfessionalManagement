@@ -73,7 +73,7 @@ inherited frmListingJob: TfrmListingJob
     end
   end
   object qryJob: TFDQuery
-    Connection = dtmConnectionFD.fdConnection
+    Connection = dmConnectionFD.fdConnection
     SQL.Strings = (
       
         'select J.ID_JOB as ID_JOB, J.DESCRIPTION as JOB, J.CD_COMPANY as' +
@@ -83,6 +83,7 @@ inherited frmListingJob: TfrmListingJob
     Left = 472
     Top = 104
     object qryJobID_JOB: TIntegerField
+      AutoGenerateValue = arAutoInc
       FieldName = 'ID_JOB'
       Origin = 'ID_JOB'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -115,13 +116,14 @@ inherited frmListingJob: TfrmListingJob
     Top = 104
   end
   object qryJobCompany: TFDQuery
-    Connection = dtmConnectionFD.fdConnection
+    Connection = dmConnectionFD.fdConnection
     SQL.Strings = (
       'select COM.ID_COMPANY as ID_COMPANY, COM.DESCRIPTION as COMPANY'
       'from COMPANY as COM')
     Left = 472
     Top = 176
     object qryJobCompanyID_COMPANY: TIntegerField
+      AutoGenerateValue = arAutoInc
       FieldName = 'ID_COMPANY'
       Origin = 'ID_COMPANY'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]

@@ -1,4 +1,4 @@
-object dtmConnectionFD: TdtmConnectionFD
+object dmConnectionFD: TdmConnectionFD
   OldCreateOrder = False
   OnCreate = DataModuleCreate
   Height = 93

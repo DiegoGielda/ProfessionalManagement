@@ -13,9 +13,12 @@ type
     mnCompany: TMenuItem;
     pnlMain: TPanel;
     mnJob: TMenuItem;
+    mnTask: TMenuItem;
+    mnRegistrationTask: TMenuItem;
     procedure mnCompanyClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure mnJobClick(Sender: TObject);
+    procedure mnRegistrationTaskClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -30,9 +33,10 @@ implementation
 {$R *.dfm}
 
 uses
-  dmConnectionFD,
+  dtmConnectionFD,
   formListingCompany,
-  formListingJob;
+  formListingJob,
+  formListingTask;
 
 procedure TfrmMain.mnJobClick(Sender: TObject);
 begin
@@ -44,10 +48,20 @@ begin
   end;
 end;
 
+procedure TfrmMain.mnRegistrationTaskClick(Sender: TObject);
+begin
+  frmListingTask := TfrmListingTask.Create(Self);
+  try
+    frmListingTask.ShowModal;
+  finally
+    FreeAndNil(frmListingTask);
+  end;
+end;
+
 procedure TfrmMain.FormCreate(Sender: TObject);
 begin
   try
-    dtmConnectionFD := TdtmConnectionFD.Create(Self);
+    dmConnectionFD := TdmConnectionFD.Create(Self);
   except
     Application.Terminate;
     raise Exception.Create('Não foi possível iniciar a aplicação.');

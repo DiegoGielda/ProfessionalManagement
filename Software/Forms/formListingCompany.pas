@@ -33,7 +33,7 @@ implementation
 {$R *.dfm}
 
 uses
-  dmConnectionFD,
+  dtmConnectionFD,
   formRegCompany;
 
 procedure TfrmListingCompany.btnEditClick(Sender: TObject);

@@ -39,7 +39,7 @@ implementation
 {$R *.dfm}
 
 uses
-  dmConnectionFD,
+  dtmConnectionFD,
   formRegJob;
 
 procedure TfrmListingJob.btnEditClick(Sender: TObject);

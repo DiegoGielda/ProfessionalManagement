@@ -51,13 +51,14 @@ inherited frmListingCompany: TfrmListingCompany
     Top = 288
   end
   object qryCompany: TFDQuery
-    Connection = dtmConnectionFD.fdConnection
+    Connection = dmConnectionFD.fdConnection
     SQL.Strings = (
       'select COM.ID_COMPANY, COM.DESCRIPTION'
       'from COMPANY as COM')
     Left = 584
     Top = 224
     object qryCompanyID_COMPANY: TIntegerField
+      AutoGenerateValue = arAutoInc
       FieldName = 'ID_COMPANY'
       Origin = 'ID_COMPANY'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]

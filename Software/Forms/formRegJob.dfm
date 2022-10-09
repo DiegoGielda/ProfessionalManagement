@@ -96,24 +96,30 @@ inherited frmRegJob: TfrmRegJob
       ParentFont = False
       TabOrder = 2
     end
-    object lookCompany: TDBLookupComboBox
+    object lookStateTask: TcxDBLookupComboBox
       Left = 362
       Top = 88
-      Width = 215
-      Height = 24
-      DataField = 'CD_COMPANY'
-      DataSource = frmListingJob.dsJob
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      KeyField = 'ID_COMPANY'
-      ListField = 'COMPANY'
-      ListFieldIndex = 5
-      ListSource = frmListingJob.dsJobCompany
-      ParentFont = False
+      AutoSize = False
+      DataBinding.DataField = 'CD_COMPANY'
+      DataBinding.DataSource = frmListingJob.dsJob
+      Properties.KeyFieldNames = 'ID_COMPANY'
+      Properties.ListColumns = <
+        item
+          Caption = 'ID'
+          HeaderAlignment = taCenter
+          FieldName = 'ID_COMPANY'
+        end
+        item
+          Caption = 'Empresa'
+          HeaderAlignment = taCenter
+          FieldName = 'COMPANY'
+        end>
+      Properties.ListFieldIndex = 1
+      Properties.ListOptions.ShowHeader = False
+      Properties.ListSource = frmListingJob.dsJobCompany
       TabOrder = 3
+      Height = 24
+      Width = 255
     end
   end
 end
