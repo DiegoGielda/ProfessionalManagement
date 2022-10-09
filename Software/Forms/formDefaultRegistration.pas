@@ -26,8 +26,12 @@ type
     imgDelete: TImage;
   private
     { Private declarations }
-  public
+
+  strict protected
     procedure ConfigureButtons;
+    procedure ChangeStateFields(pTForm: TForm; pEnabled: Boolean = False);
+
+  public
   end;
 
 var
@@ -37,7 +41,33 @@ implementation
 
 {$R *.dfm}
 
+uses
+  Vcl.DBCtrls, cxDBLookupComboBox, cxDBEdit;
+
 { TfrmDefaultCadastro }
+
+procedure TfrmDefaultRegistration.ChangeStateFields(pTForm: TForm; pEnabled: Boolean = False);
+var
+  lCouter: Integer;
+begin
+  for lCouter := 0 to pTForm.ComponentCount -1 do
+  begin
+    if (pTForm.Components[lCouter] is TDBEdit) then
+    begin
+      (pTForm.Components[lCouter] as TDBEdit).Enabled := pEnabled;
+    end
+    else
+    if (pTForm.Components[lCouter] is TcxDBLookupComboBox) then
+    begin
+      (pTForm.Components[lCouter] as TcxDBLookupComboBox).Enabled := pEnabled;
+    end
+    else
+    if (pTForm.Components[lCouter] is TcxDBDateEdit) then
+    begin
+      (pTForm.Components[lCouter] as TcxDBDateEdit).Enabled := pEnabled;
+    end;
+  end;
+end;
 
 procedure TfrmDefaultRegistration.ConfigureButtons;
 begin

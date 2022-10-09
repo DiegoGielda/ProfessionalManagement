@@ -50,6 +50,7 @@ begin
   frmListingCompany.qryCompany.Cancel;
   ButtonsState;
   ConfigureButtons;
+  ChangeStateFields(Self, False);
 end;
 
 procedure TfrmRegCompany.btnDeleteClick(Sender: TObject);
@@ -63,6 +64,7 @@ begin
      ButtonsState;
      ConfigureButtons;
      UpdateRegistration;
+     ChangeStateFields(Self, False);
     end;
   IDNO :
     begin
@@ -77,6 +79,7 @@ begin
   frmListingCompany.qryCompany.Edit;
   ButtonsState;
   ConfigureButtons;
+  ChangeStateFields(Self, True);
 end;
 
 procedure TfrmRegCompany.btnNewClick(Sender: TObject);
@@ -85,6 +88,7 @@ begin
   frmListingCompany.qryCompany.Insert;
   ButtonsState;
   ConfigureButtons;
+  ChangeStateFields(Self, True);
 end;
 
 procedure TfrmRegCompany.btnNextClick(Sender: TObject);
@@ -93,6 +97,7 @@ begin
   frmListingCompany.qryCompany.Next;
   ButtonsState;
   ConfigureButtons;
+  ChangeStateFields(Self, False);
 end;
 
 procedure TfrmRegCompany.btnPriorClick(Sender: TObject);
@@ -101,6 +106,7 @@ begin
   frmListingCompany.qryCompany.Prior;
   ButtonsState;
   ConfigureButtons;
+  ChangeStateFields(Self, False);
 end;
 
 procedure TfrmRegCompany.btnSaveClick(Sender: TObject);
@@ -115,6 +121,7 @@ begin
   except
     Application.MessageBox('NÃO FOI POSSÍVEL GRAVAR O REGISTRO. Reinicie o sistema', 'Falha', MB_ICONERROR + MB_OK);
   end;
+  ChangeStateFields(Self, False);
 end;
 
 procedure TfrmRegCompany.ButtonsState;
