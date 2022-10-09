@@ -1,4 +1,4 @@
-unit dmConnectionFD;
+unit dtmConnectionFD;
 
 interface
 
@@ -8,7 +8,7 @@ uses
   Data.DB, FireDAC.Comp.Client, FireDAC.VCLUI.Error;
 
 type
-  TdtmConnectionFD = class(TDataModule)
+  TdmConnectionFD = class(TDataModule)
     fdConnection: TFDConnection;
     fdCursor: TFDGUIxWaitCursor;
     fdDriver: TFDPhysFBDriverLink;
@@ -21,7 +21,7 @@ type
   end;
 
 var
-  dtmConnectionFD: TdtmConnectionFD;
+  dmConnectionFD: TdmConnectionFD;
 
 implementation
 
@@ -29,7 +29,7 @@ implementation
 
 {$R *.dfm}
 
-procedure TdtmConnectionFD.DataModuleCreate(Sender: TObject);
+procedure TdmConnectionFD.DataModuleCreate(Sender: TObject);
 var
   lWay: string;
 begin

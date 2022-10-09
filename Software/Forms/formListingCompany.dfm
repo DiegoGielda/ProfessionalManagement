@@ -51,7 +51,7 @@ inherited frmListingCompany: TfrmListingCompany
     Top = 288
   end
   object qryCompany: TFDQuery
-    Connection = dtmConnectionFD.fdConnection
+    Connection = dmConnectionFD.fdConnection
     SQL.Strings = (
       'select COM.ID_COMPANY, COM.DESCRIPTION'
       'from COMPANY as COM')

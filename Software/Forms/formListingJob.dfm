@@ -73,7 +73,7 @@ inherited frmListingJob: TfrmListingJob
     end
   end
   object qryJob: TFDQuery
-    Connection = dtmConnectionFD.fdConnection
+    Connection = dmConnectionFD.fdConnection
     SQL.Strings = (
       
         'select J.ID_JOB as ID_JOB, J.DESCRIPTION as JOB, J.CD_COMPANY as' +
@@ -115,7 +115,7 @@ inherited frmListingJob: TfrmListingJob
     Top = 104
   end
   object qryJobCompany: TFDQuery
-    Connection = dtmConnectionFD.fdConnection
+    Connection = dmConnectionFD.fdConnection
     SQL.Strings = (
       'select COM.ID_COMPANY as ID_COMPANY, COM.DESCRIPTION as COMPANY'
       'from COMPANY as COM')

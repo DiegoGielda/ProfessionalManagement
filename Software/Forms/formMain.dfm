@@ -39,5 +39,12 @@ object frmMain: TfrmMain
         OnClick = mnJobClick
       end
     end
+    object mnTask: TMenuItem
+      Caption = 'Tarefas'
+      object mnRegistrationTask: TMenuItem
+        Caption = 'Cadastro de Tarefa'
+        OnClick = mnRegistrationTaskClick
+      end
+    end
   end
 end

@@ -2,15 +2,17 @@ program ProfessionalManagement;
 
 uses
   Vcl.Forms,
-  dmConnectionFD in '..\DataModules\dmConnectionFD.pas' {dtmConnectionFD: TDataModule},
-  dmDefaultFD in '..\DataModules\dmDefaultFD.pas' {dtmDefaultFD: TDataModule},
+  dtmConnectionFD in '..\DataModules\dtmConnectionFD.pas' {dmConnectionFD: TDataModule},
+  dtmDefaultFD in '..\DataModules\dtmDefaultFD.pas' {dmDefaultFD: TDataModule},
   formDefaultListing in '..\Forms\formDefaultListing.pas' {frmDefaultListing},
   formDefaultRegistration in '..\Forms\formDefaultRegistration.pas' {frmDefaultRegistration},
   formListingCompany in '..\Forms\formListingCompany.pas' {frmListingCompany},
   formListingJob in '..\Forms\formListingJob.pas' {frmListingJob},
+  formListingTask in '..\Forms\formListingTask.pas' {frmListingTask},
   formMain in '..\Forms\formMain.pas' {frmMain},
   formRegCompany in '..\Forms\formRegCompany.pas' {frmRegCompany},
-  formRegJob in '..\Forms\formRegJob.pas' {frmRegJob};
+  formRegJob in '..\Forms\formRegJob.pas' {frmRegJob},
+  formRegTask in '..\Forms\formRegTask.pas' {frmRegTask};
 
 {$R *.res}
 
