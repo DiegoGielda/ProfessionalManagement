@@ -110,6 +110,11 @@
             <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
+        <DCCReference Include="..\DataModules\dtmTaskFD.pas">
+            <Form>dmTaskFD</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
         <DCCReference Include="..\Forms\formDefaultListing.pas">
             <Form>frmDefaultListing</Form>
         </DCCReference>

@@ -58,6 +58,7 @@ inherited frmListingCompany: TfrmListingCompany
     Left = 584
     Top = 224
     object qryCompanyID_COMPANY: TIntegerField
+      AutoGenerateValue = arAutoInc
       FieldName = 'ID_COMPANY'
       Origin = 'ID_COMPANY'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]

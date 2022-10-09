@@ -83,6 +83,7 @@ inherited frmListingJob: TfrmListingJob
     Left = 472
     Top = 104
     object qryJobID_JOB: TIntegerField
+      AutoGenerateValue = arAutoInc
       FieldName = 'ID_JOB'
       Origin = 'ID_JOB'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -122,6 +123,7 @@ inherited frmListingJob: TfrmListingJob
     Left = 472
     Top = 176
     object qryJobCompanyID_COMPANY: TIntegerField
+      AutoGenerateValue = arAutoInc
       FieldName = 'ID_COMPANY'
       Origin = 'ID_COMPANY'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]

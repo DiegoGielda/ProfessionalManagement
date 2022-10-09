@@ -4,6 +4,7 @@ uses
   Vcl.Forms,
   dtmConnectionFD in '..\DataModules\dtmConnectionFD.pas' {dmConnectionFD: TDataModule},
   dtmDefaultFD in '..\DataModules\dtmDefaultFD.pas' {dmDefaultFD: TDataModule},
+  dtmTaskFD in '..\DataModules\dtmTaskFD.pas' {dmTaskFD: TDataModule},
   formDefaultListing in '..\Forms\formDefaultListing.pas' {frmDefaultListing},
   formDefaultRegistration in '..\Forms\formDefaultRegistration.pas' {frmDefaultRegistration},
   formListingCompany in '..\Forms\formListingCompany.pas' {frmListingCompany},

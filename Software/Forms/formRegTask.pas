@@ -5,7 +5,8 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, dxGDIPlusClasses, Vcl.ExtCtrls, Vcl.Buttons, Vcl.StdCtrls, Vcl.Mask, Vcl.DBCtrls,
-  formDefaultRegistration;
+  formDefaultRegistration, cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters, cxContainer, cxEdit, cxTextEdit, cxMaskEdit, cxDropDownEdit,
+  cxLookupEdit, cxDBLookupEdit, cxDBLookupComboBox, cxCalendar, cxDBEdit;
 
 type
   TfrmRegTask = class(TfrmDefaultRegistration)
@@ -13,7 +14,20 @@ type
     lblIDTask: TLabel;
     lblDescriptionTask: TLabel;
     edtDescriptionTask: TDBEdit;
-    lblPeriod: TLabel;
+    lblStateTask: TLabel;
+    lookStateTask: TcxDBLookupComboBox;
+    lookPeriodTask: TcxDBLookupComboBox;
+    lblPeriodTask: TLabel;
+    lblRemarckTask: TLabel;
+    edtRemarckTask: TDBEdit;
+    lookContextTask: TcxDBLookupComboBox;
+    lblContextTask: TLabel;
+    edtDateRegistrationTask: TcxDBDateEdit;
+    lblDateRegistrationTask: TLabel;
+    lblDateToDoTask: TLabel;
+    edtDateToDoTask: TcxDBDateEdit;
+    edtDateConcludedTask: TcxDBDateEdit;
+    lblDateConcludedTask: TLabel;
     procedure btnCancelClick(Sender: TObject);
     procedure btnDeleteClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
@@ -21,6 +35,8 @@ type
     procedure btnNextClick(Sender: TObject);
     procedure btnPriorClick(Sender: TObject);
     procedure btnSaveClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
   private
     { Private declarations }
     procedure ButtonsState;
@@ -37,6 +53,7 @@ implementation
 {$R *.dfm}
 
 uses
+  dtmTaskFD,
   formListingTask,
   Data.db;
 
@@ -124,6 +141,18 @@ begin
   btnNew.Enabled := frmListingTask.qryTask.State in [dsBrowse];
   btnEdit.Enabled := frmListingTask.qryTask.State in [dsBrowse];
   btnDelete.Enabled := frmListingTask.qryTask.State in [dsbrowse];
+end;
+
+procedure TfrmRegTask.FormCreate(Sender: TObject);
+begin
+  inherited;
+  dmTaskFD := TdmTaskFD.Create(Self);
+end;
+
+procedure TfrmRegTask.FormDestroy(Sender: TObject);
+begin
+  inherited;
+  FreeAndNil(dmTaskFD);
 end;
 
 procedure TfrmRegTask.UpdateRegistration;

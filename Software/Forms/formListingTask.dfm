@@ -151,6 +151,7 @@ inherited frmListingTask: TfrmListingTask
     Left = 488
     Top = 208
     object qryTaskID_TASK: TIntegerField
+      AutoGenerateValue = arAutoInc
       FieldName = 'ID_TASK'
       Origin = 'ID_TASK'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
