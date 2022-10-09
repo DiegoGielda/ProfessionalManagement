@@ -65,6 +65,7 @@ begin
   frmListingTask.qryTask.Cancel;
   ButtonsState;
   ConfigureButtons;
+  ChangeStateFields(Self, False);
 end;
 
 procedure TfrmRegTask.btnDeleteClick(Sender: TObject);
@@ -84,6 +85,7 @@ begin
       exit;
     end;
   end;
+  ChangeStateFields(Self, False);
 end;
 
 procedure TfrmRegTask.btnEditClick(Sender: TObject);
@@ -92,6 +94,7 @@ begin
   frmListingTask.qryTask.Edit;
   ButtonsState;
   ConfigureButtons;
+  ChangeStateFields(Self, True);
 end;
 
 procedure TfrmRegTask.btnNewClick(Sender: TObject);
@@ -100,6 +103,7 @@ begin
   frmListingTask.qryTask.Insert;
   ButtonsState;
   ConfigureButtons;
+  ChangeStateFields(Self, True);
 end;
 
 procedure TfrmRegTask.btnNextClick(Sender: TObject);
@@ -108,6 +112,7 @@ begin
   frmListingTask.qryTask.Next;
   ButtonsState;
   ConfigureButtons;
+  ChangeStateFields(Self, False);
 end;
 
 procedure TfrmRegTask.btnPriorClick(Sender: TObject);
@@ -116,6 +121,7 @@ begin
   frmListingTask.qryTask.Prior;
   ButtonsState;
   ConfigureButtons;
+  ChangeStateFields(Self, False);
 end;
 
 procedure TfrmRegTask.btnSaveClick(Sender: TObject);
@@ -130,6 +136,7 @@ begin
   except
     Application.MessageBox('NÃO FOI POSSÍVEL GRAVAR O REGISTRO. Reinicie o sistema', 'Falha', MB_ICONERROR + MB_OK);
   end;
+  ChangeStateFields(Self, False);
 end;
 
 procedure TfrmRegTask.ButtonsState;

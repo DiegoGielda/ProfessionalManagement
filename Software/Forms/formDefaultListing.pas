@@ -32,26 +32,26 @@ implementation
 
 procedure TfrmDefaultListing.dbgPatternDrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
 begin
-      if Odd( dbgPattern.DataSource.DataSet.RecNo) then
-    begin
-      dbgPattern.Canvas.Brush.Color := $00E9E9E9;
-    end
-    else
-    begin
-      dbgPattern.Canvas.Brush.Color := clWhite;
-    end;
+  if Odd( dbgPattern.DataSource.DataSet.RecNo) then
+  begin
+    dbgPattern.Canvas.Brush.Color := $00E9E9E9;
+  end
+  else
+  begin
+    dbgPattern.Canvas.Brush.Color := clWhite;
+  end;
 
-    if (gdSelected in State) then
-    begin
-      dbgPattern.Canvas.Brush.Color := clRed;
-      dbgPattern.Canvas.Font.Color := clWhite;
-      dbgPattern.Canvas.Font.Style := [fsBold];
-    end;
+  if (gdSelected in State) then
+  begin
+    dbgPattern.Canvas.Brush.Color := clRed;
+    dbgPattern.Canvas.Font.Color := clWhite;
+    dbgPattern.Canvas.Font.Style := [fsBold];
+  end;
 
-    dbgPattern.Canvas.FillRect(Rect);
-    dbgPattern.DefaultDrawColumnCell(Rect, DataCol, Column, State);
+  dbgPattern.Canvas.FillRect(Rect);
+  dbgPattern.DefaultDrawColumnCell(Rect, DataCol, Column, State);
 
-    dbgPattern.Canvas.TextRect(Rect, Rect.Left + 8, Rect.Top + 0, Column.Field.DisplayText);
+  dbgPattern.Canvas.TextRect(Rect, Rect.Left + 8, Rect.Top + 0, Column.Field.DisplayText);
 end;
 
 procedure TfrmDefaultListing.FormShow(Sender: TObject);
