@@ -88,6 +88,7 @@
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1033</VerInfo_Locale>
+        <Icon_MainIcon>..\..\Files\Icons\Home.ico</Icon_MainIcon>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
@@ -113,6 +114,11 @@
             <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
+        <DCCReference Include="..\DataModules\dtmFinancialAccountFD.pas">
+            <Form>dmFinancialAccountFD</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
         <DCCReference Include="..\DataModules\dtmTaskFD.pas">
             <Form>dmTaskFD</Form>
             <FormType>dfm</FormType>
@@ -127,6 +133,10 @@
         <DCCReference Include="..\Forms\formListingCompany.pas">
             <Form>frmListingCompany</Form>
         </DCCReference>
+        <DCCReference Include="..\Forms\formListingFinancialAccount.pas">
+            <Form>frmListingFinancialAccount</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <DCCReference Include="..\Forms\formListingJob.pas">
             <Form>frmListingJob</Form>
         </DCCReference>
@@ -139,6 +149,10 @@
         </DCCReference>
         <DCCReference Include="..\Forms\formRegCompany.pas">
             <Form>frmRegCompany</Form>
+        </DCCReference>
+        <DCCReference Include="..\Forms\formRegFinancialAccount.pas">
+            <Form>frmRegFinancialAccount</Form>
+            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Forms\formRegJob.pas">
             <Form>frmRegJob</Form>
@@ -175,16 +189,16 @@
                 </Excluded_Packages>
             </Delphi.Personality>
             <Deployment Version="3">
+                <DeployFile LocalName="Win32\Debug\ProfessionalManagement.exe" Configuration="Debug" Class="ProjectOutput">
+                    <Platform Name="Win32">
+                        <RemoteName>ProfessionalManagement.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile LocalName="..\..\Files\Icons\Home.ico" Configuration="Debug" Class="UWP_DelphiLogo44">
                     <Platform Name="Win32">
                         <RemoteDir>Assets\</RemoteDir>
                         <RemoteName>Logo44x44.png</RemoteName>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="Win32\Debug\ProfessionalManagement.exe" Configuration="Debug" Class="ProjectOutput">
-                    <Platform Name="Win32">
-                        <RemoteName>ProfessionalManagement.exe</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>

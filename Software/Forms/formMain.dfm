@@ -46,5 +46,12 @@ object frmMain: TfrmMain
         OnClick = mnRegistrationTaskClick
       end
     end
+    object mnFinancial: TMenuItem
+      Caption = 'Financeiro'
+      object mnRegistrationAccount: TMenuItem
+        Caption = 'Conta'
+        OnClick = mnRegistrationAccountClick
+      end
+    end
   end
 end

@@ -15,10 +15,13 @@ type
     mnJob: TMenuItem;
     mnTask: TMenuItem;
     mnRegistrationTask: TMenuItem;
+    mnFinancial: TMenuItem;
+    mnRegistrationAccount: TMenuItem;
     procedure mnCompanyClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure mnJobClick(Sender: TObject);
     procedure mnRegistrationTaskClick(Sender: TObject);
+    procedure mnRegistrationAccountClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -36,7 +39,8 @@ uses
   dtmConnectionFD,
   formListingCompany,
   formListingJob,
-  formListingTask;
+  formListingTask,
+  formListingFinancialAccount;
 
 procedure TfrmMain.mnJobClick(Sender: TObject);
 begin
@@ -45,6 +49,16 @@ begin
     frmListingJob.ShowModal;
   finally
     FreeAndNil(frmListingJob);
+  end;
+end;
+
+procedure TfrmMain.mnRegistrationAccountClick(Sender: TObject);
+begin
+  frmListingFinancialAccount := TfrmListingFinancialAccount.Create(Self);
+  try
+    frmListingFinancialAccount.ShowModal;
+  finally
+    FreeAndNil(frmListingFinancialAccount);
   end;
 end;
 
