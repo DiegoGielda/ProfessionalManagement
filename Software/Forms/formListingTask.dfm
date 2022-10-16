@@ -17,7 +17,21 @@ inherited frmListingTask: TfrmListingTask
         Title.Font.Height = -13
         Title.Font.Name = 'Tahoma'
         Title.Font.Style = [fsBold]
-        Width = 71
+        Width = 96
+        Visible = True
+      end
+      item
+        Alignment = taCenter
+        Expanded = False
+        FieldName = 'ID_TASK'
+        Title.Alignment = taCenter
+        Title.Caption = 'ID_TAREFA'
+        Title.Font.Charset = DEFAULT_CHARSET
+        Title.Font.Color = clMoneyGreen
+        Title.Font.Height = -13
+        Title.Font.Name = 'Tahoma'
+        Title.Font.Style = [fsBold]
+        Width = 85
         Visible = True
       end
       item
@@ -59,7 +73,7 @@ inherited frmListingTask: TfrmListingTask
         Title.Font.Height = -13
         Title.Font.Name = 'Tahoma'
         Title.Font.Style = [fsBold]
-        Width = 89
+        Width = 123
         Visible = True
       end
       item
@@ -73,7 +87,7 @@ inherited frmListingTask: TfrmListingTask
         Title.Font.Height = -13
         Title.Font.Name = 'Tahoma'
         Title.Font.Style = [fsBold]
-        Width = 99
+        Width = 79
         Visible = True
       end
       item
@@ -116,20 +130,6 @@ inherited frmListingTask: TfrmListingTask
         Title.Font.Name = 'Tahoma'
         Title.Font.Style = [fsBold]
         Visible = True
-      end
-      item
-        Alignment = taCenter
-        Expanded = False
-        FieldName = 'ID_TASK'
-        Title.Alignment = taCenter
-        Title.Caption = 'ID_TAREFA'
-        Title.Font.Charset = DEFAULT_CHARSET
-        Title.Font.Color = clMoneyGreen
-        Title.Font.Height = -13
-        Title.Font.Name = 'Tahoma'
-        Title.Font.Style = [fsBold]
-        Width = 85
-        Visible = True
       end>
   end
   inherited pnlHeader: TPanel
@@ -167,6 +167,7 @@ inherited frmListingTask: TfrmListingTask
       FieldName = 'STATE'
       Origin = 'STATE'
       Required = True
+      OnGetText = qryTaskSTATEGetText
       FixedChar = True
       Size = 1
     end
@@ -179,6 +180,7 @@ inherited frmListingTask: TfrmListingTask
       FieldName = 'PERIOD'
       Origin = 'PERIOD'
       Required = True
+      OnGetText = qryTaskPERIODGetText
       FixedChar = True
       Size = 1
     end
@@ -186,6 +188,7 @@ inherited frmListingTask: TfrmListingTask
       FieldName = 'CONTEXT'
       Origin = 'CONTEXT'
       Required = True
+      OnGetText = qryTaskCONTEXTGetText
       FixedChar = True
       Size = 1
     end
