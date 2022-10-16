@@ -29,7 +29,7 @@ type
 
   strict protected
     procedure ConfigureButtons;
-    procedure ChangeStateFields(pTForm: TForm; pEnabled: Boolean = False);
+    procedure ChangeStateFields(pTForm: TForm; pIDForm: string = ''; pEnabled: Boolean = False);
 
   public
   end;
@@ -46,25 +46,28 @@ uses
 
 { TfrmDefaultCadastro }
 
-procedure TfrmDefaultRegistration.ChangeStateFields(pTForm: TForm; pEnabled: Boolean = False);
+procedure TfrmDefaultRegistration.ChangeStateFields(pTForm: TForm; pIDForm: string = ''; pEnabled: Boolean = False);
 var
   lCouter: Integer;
 begin
   for lCouter := 0 to pTForm.ComponentCount -1 do
   begin
-    if (pTForm.Components[lCouter] is TDBEdit) then
+    if (pTForm.Components[lCouter].Name <> pIDForm) then
     begin
-      (pTForm.Components[lCouter] as TDBEdit).Enabled := pEnabled;
-    end
-    else
-    if (pTForm.Components[lCouter] is TcxDBLookupComboBox) then
-    begin
-      (pTForm.Components[lCouter] as TcxDBLookupComboBox).Enabled := pEnabled;
-    end
-    else
-    if (pTForm.Components[lCouter] is TcxDBDateEdit) then
-    begin
-      (pTForm.Components[lCouter] as TcxDBDateEdit).Enabled := pEnabled;
+      if (pTForm.Components[lCouter] is TDBEdit) then
+      begin
+        (pTForm.Components[lCouter] as TDBEdit).Enabled := pEnabled;
+      end
+      else
+      if (pTForm.Components[lCouter] is TcxDBLookupComboBox) then
+      begin
+        (pTForm.Components[lCouter] as TcxDBLookupComboBox).Enabled := pEnabled;
+      end
+      else
+      if (pTForm.Components[lCouter] is TcxDBDateEdit) then
+      begin
+        (pTForm.Components[lCouter] as TcxDBDateEdit).Enabled := pEnabled;
+      end;
     end;
   end;
 end;
