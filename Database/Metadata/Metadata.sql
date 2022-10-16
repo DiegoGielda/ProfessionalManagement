@@ -54,39 +54,49 @@ CREATE GENERATOR GEN_TASK;
 
 
 CREATE TABLE COMPANY (
-    ID_COMPANY   INTEGER NOT NULL,
-    DESCRIPTION  VARCHAR(50) NOT NULL
+    ID_COMPANY              INTEGER NOT NULL,
+    DESCRIPTION             VARCHAR(50) NOT NULL,
+    LOG_DATE_INSERT_RECORD  TIMESTAMP default current_timestamp NOT NULL,
+    LOG_DATE_UPDATE_RECORD  TIMESTAMP default current_timestamp NOT NULL
 );
 
 CREATE TABLE JOB (
-    ID_JOB       INTEGER NOT NULL,
-    DESCRIPTION  VARCHAR(30) NOT NULL,
-    CD_COMPANY   INTEGER NOT NULL
+    ID_JOB                  INTEGER NOT NULL,
+    DESCRIPTION             VARCHAR(30) NOT NULL,
+    CD_COMPANY              INTEGER NOT NULL,
+    LOG_DATE_INSERT_RECORD  TIMESTAMP default current_timestamp NOT NULL,
+    LOG_DATE_UPDATE_RECORD  TIMESTAMP default current_timestamp NOT NULL
 );
 
 CREATE TABLE JOB_HISTORIC (
-    ID_JOB_HISTORIC   INTEGER NOT NULL,
-    CD_PERSON         INTEGER NOT NULL,
-    CD_JOB            INTEGER NOT NULL,
-    CD_COMPANY        INTEGER NOT NULL,
-    DATE_ADMISSION    DATE NOT NULL,
-    DATE_RESIGNATION  DATE DEFAULT CURRENT_DATE NOT NULL
+    ID_JOB_HISTORIC         INTEGER NOT NULL,
+    CD_PERSON               INTEGER NOT NULL,
+    CD_JOB                  INTEGER NOT NULL,
+    CD_COMPANY              INTEGER NOT NULL,
+    DATE_ADMISSION          DATE NOT NULL,
+    DATE_RESIGNATION        DATE DEFAULT CURRENT_DATE NOT NULL,
+    LOG_DATE_INSERT_RECORD  TIMESTAMP default current_timestamp NOT NULL,
+    LOG_DATE_UPDATE_RECORD  TIMESTAMP default current_timestamp NOT NULL
 );
 
 CREATE TABLE PERSON (
-    ID_PERSON  INTEGER NOT NULL,
-    NAME       VARCHAR(50) NOT NULL,
-    CPF        CHAR(11) NOT NULL,
-    CLASS_ONE  LOGICAL
+    ID_PERSON               INTEGER NOT NULL,
+    NAME                    VARCHAR(50) NOT NULL,
+    CPF                     CHAR(11) NOT NULL,
+    CLASS_ONE               LOGICAL,
+    LOG_DATE_INSERT_RECORD  TIMESTAMP default current_timestamp NOT NULL,
+    LOG_DATE_UPDATE_RECORD  TIMESTAMP default current_timestamp NOT NULL
 );
 
 CREATE TABLE PERSON_EMPLOYEE (
-    ID_PERSON_EMPLOYEE  INTEGER NOT NULL,
-    CD_PERSON           INTEGER NOT NULL,
-    CD_JOB              INTEGER NOT NULL,
-    DATE_ADMISSION      DATE DEFAULT CURRENT_DATE,
-    ENROLLMENT          CHAR(10),
-    PIS                 CHAR(12)
+    ID_PERSON_EMPLOYEE      INTEGER NOT NULL,
+    CD_PERSON               INTEGER NOT NULL,
+    CD_JOB                  INTEGER NOT NULL,
+    DATE_ADMISSION          DATE DEFAULT CURRENT_DATE,
+    ENROLLMENT              CHAR(10),
+    PIS                     CHAR(12),
+    LOG_DATE_INSERT_RECORD  TIMESTAMP default current_timestamp NOT NULL,
+    LOG_DATE_UPDATE_RECORD  TIMESTAMP default current_timestamp NOT NULL
 );
 
 CREATE TABLE RECORD_SHEET (
@@ -98,19 +108,23 @@ CREATE TABLE RECORD_SHEET (
     TIME_START_TWO          TIME,
     TIME_END_TWO            TIME,
     INTERVAL_PERIOD         TIME,
-    AMOUNT_HOUR_WORKED_DAY  TIME
+    AMOUNT_HOUR_WORKED_DAY  TIME,
+    LOG_DATE_INSERT_RECORD  TIMESTAMP default current_timestamp NOT NULL,
+    LOG_DATE_UPDATE_RECORD  TIMESTAMP default current_timestamp NOT NULL
 );
 
 CREATE TABLE TASK (
-    ID_TASK            INTEGER NOT NULL,
-    DESCRIPTION        VARCHAR(255) NOT NULL,
-    STATE              TASK_STATE NOT NULL,
-    REMARK             VARCHAR(500),
-    PERIOD             TASK_PERIOD NOT NULL,
-    CONTEXT            TASK_CONTEXT NOT NULL,
-    DATE_REGISTRATION  DATE DEFAULT CURRENT_DATE NOT NULL,
-    DATE_TO_DO         DATE,
-    DATE_CONCLUDED     DATE
+    ID_TASK                 INTEGER NOT NULL,
+    DESCRIPTION             VARCHAR(255) NOT NULL,
+    STATE                   TASK_STATE NOT NULL,
+    REMARK                  VARCHAR(500),
+    PERIOD                  TASK_PERIOD NOT NULL,
+    CONTEXT                 TASK_CONTEXT NOT NULL,
+    DATE_REGISTRATION       DATE DEFAULT CURRENT_DATE NOT NULL,
+    DATE_TO_DO              DATE,
+    DATE_CONCLUDED          DATE,
+    LOG_DATE_INSERT_RECORD  TIMESTAMP default current_timestamp NOT NULL,
+    LOG_DATE_UPDATE_RECORD  TIMESTAMP default current_timestamp NOT NULL
 );
 
 
@@ -155,6 +169,132 @@ SET TERM ^ ;
 /******************************************************************************/
 
 
+
+/* Trigger: TBIU_COMPANY_LOG */
+CREATE TRIGGER TBIU_COMPANY_LOG FOR COMPANY
+ACTIVE BEFORE INSERT OR UPDATE POSITION 1
+as
+begin
+  if (inserting) then
+  begin
+    new.LOG_DATE_INSERT_RECORD = current_timestamp;
+    new.LOG_DATE_UPDATE_RECORD = current_timestamp;
+  end
+  else
+  if (updating) then
+  begin
+    new.LOG_DATE_UPDATE_RECORD = current_timestamp;
+  end
+end
+^
+
+/* Trigger: TBIU_JOB_HISTORIC_LOG */
+CREATE TRIGGER TBIU_JOB_HISTORIC_LOG FOR JOB_HISTORIC
+ACTIVE BEFORE INSERT OR UPDATE POSITION 1
+as
+begin
+  if (inserting) then
+  begin
+    new.LOG_DATE_INSERT_RECORD = current_timestamp;
+    new.LOG_DATE_UPDATE_RECORD = current_timestamp;
+  end
+  else
+  if (updating) then
+  begin
+    new.LOG_DATE_UPDATE_RECORD = current_timestamp;
+  end
+end
+^
+
+/* Trigger: TBIU_JOB_LOG */
+CREATE TRIGGER TBIU_JOB_LOG FOR JOB
+ACTIVE BEFORE INSERT OR UPDATE POSITION 1
+as
+begin
+  if (inserting) then
+  begin
+    new.LOG_DATE_INSERT_RECORD = current_timestamp;
+    new.LOG_DATE_UPDATE_RECORD = current_timestamp;
+  end
+  else
+  if (updating) then
+  begin
+    new.LOG_DATE_UPDATE_RECORD = current_timestamp;
+  end
+end
+^
+
+/* Trigger: TBIU_PERSON_EMPLOYEE_LOG */
+CREATE TRIGGER TBIU_PERSON_EMPLOYEE_LOG FOR PERSON_EMPLOYEE
+ACTIVE BEFORE INSERT OR UPDATE POSITION 1
+as
+begin
+  if (inserting) then
+  begin
+    new.LOG_DATE_INSERT_RECORD = current_timestamp;
+    new.LOG_DATE_UPDATE_RECORD = current_timestamp;
+  end
+  else
+  if (updating) then
+  begin
+    new.LOG_DATE_UPDATE_RECORD = current_timestamp;
+  end
+end
+^
+
+/* Trigger: TBIU_PERSON_LOG */
+CREATE TRIGGER TBIU_PERSON_LOG FOR PERSON
+ACTIVE BEFORE INSERT OR UPDATE POSITION 1
+as
+begin
+  if (inserting) then
+  begin
+    new.LOG_DATE_INSERT_RECORD = current_timestamp;
+    new.LOG_DATE_UPDATE_RECORD = current_timestamp;
+  end
+  else
+  if (updating) then
+  begin
+    new.LOG_DATE_UPDATE_RECORD = current_timestamp;
+  end
+end
+^
+
+/* Trigger: TBIU_RECORD_SHEET_LOG */
+CREATE TRIGGER TBIU_RECORD_SHEET_LOG FOR RECORD_SHEET
+ACTIVE BEFORE INSERT OR UPDATE POSITION 1
+as
+begin
+  if (inserting) then
+  begin
+    new.LOG_DATE_INSERT_RECORD = current_timestamp;
+    new.LOG_DATE_UPDATE_RECORD = current_timestamp;
+  end
+  else
+  if (updating) then
+  begin
+    new.LOG_DATE_UPDATE_RECORD = current_timestamp;
+  end
+end
+^
+
+/* Trigger: TBIU_TASK_LOG */
+CREATE TRIGGER TBIU_TASK_LOG FOR TASK
+ACTIVE BEFORE INSERT OR UPDATE POSITION 1
+as
+begin
+  if (inserting) then
+  begin
+    new.LOG_DATE_INSERT_RECORD = current_timestamp;
+    new.LOG_DATE_UPDATE_RECORD = current_timestamp;
+  end
+  else
+  if (updating) then
+  begin
+    new.LOG_DATE_UPDATE_RECORD = current_timestamp;
+  end
+end
+^
 
 /* Trigger: TBI_COMPANY */
 CREATE TRIGGER TBI_COMPANY FOR COMPANY
