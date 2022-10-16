@@ -141,6 +141,7 @@ inherited frmListingTask: TfrmListingTask
     end
   end
   object qryTask: TFDQuery
+    OnNewRecord = qryTaskNewRecord
     Connection = dmConnectionFD.fdConnection
     SQL.Strings = (
       

@@ -29,6 +29,7 @@ type
     procedure qryTaskSTATEGetText(Sender: TField; var Text: string; DisplayText: Boolean);
     procedure qryTaskPERIODGetText(Sender: TField; var Text: string; DisplayText: Boolean);
     procedure qryTaskCONTEXTGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+    procedure qryTaskNewRecord(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -127,6 +128,16 @@ begin
   begin
     Text := 'EMPREENDIMENTO';
   end;
+end;
+
+procedure TfrmListingTask.qryTaskNewRecord(DataSet: TDataSet);
+begin
+  inherited;
+  qryTaskSTATE.AsString := 'A';
+  qryTaskPERIOD.AsString := 'D';
+  qryTaskCONTEXT.AsString := 'W';
+  qryTaskDATE_REGISTRATION.AsDateTime := Date();
+  qryTaskDATE_TO_DO.AsDateTime := Date();
 end;
 
 procedure TfrmListingTask.qryTaskPERIODGetText(Sender: TField; var Text: string; DisplayText: Boolean);
