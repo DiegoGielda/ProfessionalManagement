@@ -4,12 +4,12 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, formDefaultRegistration, dxGDIPlusClasses, Vcl.ExtCtrls, Vcl.Buttons, cxGraphics, cxControls, cxLookAndFeels,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs,formDefault, formDefaultRegistration, dxGDIPlusClasses, Vcl.ExtCtrls, Vcl.Buttons, cxGraphics, cxControls, cxLookAndFeels,
   cxLookAndFeelPainters, cxContainer, cxEdit, cxDropDownEdit, cxCalendar, cxDBEdit, cxTextEdit, cxMaskEdit, cxLookupEdit, cxDBLookupEdit,
   cxDBLookupComboBox, Vcl.StdCtrls, Vcl.Mask, Vcl.DBCtrls;
 
 type
-  TfrmRegFinancialAccount = class(TfrmDefaultRegistration)
+  TfrmRegFinancialAccount = class(TfrmDefault)
     edtIDFinancialAccount: TDBEdit;
     lblIDFinancialAccount: TLabel;
     edtDescriptionFinancialAccount: TDBEdit;
