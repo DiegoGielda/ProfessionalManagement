@@ -4,22 +4,21 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, dxGDIPlusClasses, Vcl.ExtCtrls, Vcl.Buttons, Vcl.StdCtrls, Vcl.Mask, Vcl.DBCtrls,
-  formDefault, formDefaultRegistration;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, formDefaultRegistration, Vcl.StdCtrls, Vcl.Mask, Vcl.DBCtrls, dxGDIPlusClasses, Vcl.ExtCtrls, Vcl.Buttons;
 
 type
   TfrmRegCompany = class(TfrmDefaultRegistration)
-    edtIDCompany: TDBEdit;
     edtDescriptionCompany: TDBEdit;
-    lblIDCompany: TLabel;
+    edtIDCompany: TDBEdit;
     lblDescriptionCompany: TLabel;
+    lblIDCompany: TLabel;
     procedure btnCancelClick(Sender: TObject);
-    procedure btnDeleteClick(Sender: TObject);
-    procedure btnEditClick(Sender: TObject);
-    procedure btnNewClick(Sender: TObject);
-    procedure btnNextClick(Sender: TObject);
-    procedure btnPriorClick(Sender: TObject);
     procedure btnSaveClick(Sender: TObject);
+    procedure btnPriorClick(Sender: TObject);
+    procedure btnNextClick(Sender: TObject);
+    procedure btnNewClick(Sender: TObject);
+    procedure btnEditClick(Sender: TObject);
+    procedure btnDeleteClick(Sender: TObject);
   private
     { Private declarations }
     procedure ButtonsState;
@@ -123,6 +122,7 @@ begin
   end;
   ChangeStateFields(Self, 'edtIDCompany', False);
 end;
+
 
 procedure TfrmRegCompany.ButtonsState;
 begin

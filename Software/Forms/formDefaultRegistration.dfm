@@ -1,4 +1,4 @@
-inherited frmDefault1: TfrmDefault1
+inherited frmDefaultRegistration: TfrmDefaultRegistration
   Caption = 'frmDefaultRegistration'
   PixelsPerInch = 96
   TextHeight = 13

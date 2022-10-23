@@ -4,30 +4,32 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, dxGDIPlusClasses, Vcl.ExtCtrls, Vcl.Buttons, Vcl.StdCtrls, Vcl.Mask, Vcl.DBCtrls,
-  formDefault, formDefaultRegistration, cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters, cxContainer, cxEdit, cxTextEdit, cxMaskEdit, cxDropDownEdit,
-  cxLookupEdit, cxDBLookupEdit, cxDBLookupComboBox, cxCalendar, cxDBEdit;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, formDefaultRegistration, cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters, cxContainer, cxEdit,
+  cxDropDownEdit, cxLookupEdit, cxDBLookupEdit, cxDBLookupComboBox, Vcl.StdCtrls, Vcl.Mask, Vcl.DBCtrls, cxTextEdit, cxMaskEdit, cxCalendar, cxDBEdit,
+  dxGDIPlusClasses, Vcl.ExtCtrls, Vcl.Buttons;
 
 type
-  TfrmRegTask = class(TfrmDefault)
-    edtIDTask: TDBEdit;
-    lblIDTask: TLabel;
-    lblDescriptionTask: TLabel;
-    edtDescriptionTask: TDBEdit;
-    lblStateTask: TLabel;
-    lookStateTask: TcxDBLookupComboBox;
-    lookPeriodTask: TcxDBLookupComboBox;
-    lblPeriodTask: TLabel;
-    lblRemarckTask: TLabel;
-    edtRemarckTask: TDBEdit;
-    lookContextTask: TcxDBLookupComboBox;
-    lblContextTask: TLabel;
+  TfrmRegTask = class(TfrmDefaultRegistration)
+    edtDateConcludedTask: TcxDBDateEdit;
     edtDateRegistrationTask: TcxDBDateEdit;
+    edtDateToDoTask: TcxDBDateEdit;
+    edtDescriptionTask: TDBEdit;
+    edtIDTask: TDBEdit;
+    edtRemarckTask: TDBEdit;
+    lblContextTask: TLabel;
+    lblDateConcludedTask: TLabel;
     lblDateRegistrationTask: TLabel;
     lblDateToDoTask: TLabel;
-    edtDateToDoTask: TcxDBDateEdit;
-    edtDateConcludedTask: TcxDBDateEdit;
-    lblDateConcludedTask: TLabel;
+    lblDescriptionTask: TLabel;
+    lblIDTask: TLabel;
+    lblPeriodTask: TLabel;
+    lblRemarckTask: TLabel;
+    lblStateTask: TLabel;
+    lookContextTask: TcxDBLookupComboBox;
+    lookPeriodTask: TcxDBLookupComboBox;
+    lookStateTask: TcxDBLookupComboBox;
+    procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
     procedure btnDeleteClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
@@ -35,8 +37,6 @@ type
     procedure btnNextClick(Sender: TObject);
     procedure btnPriorClick(Sender: TObject);
     procedure btnSaveClick(Sender: TObject);
-    procedure FormCreate(Sender: TObject);
-    procedure FormDestroy(Sender: TObject);
   private
     { Private declarations }
     procedure ButtonsState;

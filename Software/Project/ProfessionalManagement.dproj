@@ -147,8 +147,21 @@
         <DCCReference Include="..\Forms\formMain.pas">
             <Form>frmMain</Form>
         </DCCReference>
+        <DCCReference Include="..\Forms\formListingRecordSheet.pas">
+            <Form>frmListingRecordSheet</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Forms\formDefaultRegistration.pas">
+            <Form>frmDefaultRegistration</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <DCCReference Include="..\Forms\formRegCompany.pas">
             <Form>frmRegCompany</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Forms\formRegTask.pas">
+            <Form>frmRegTask</Form>
+            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Forms\formRegFinancialAccount.pas">
             <Form>frmRegFinancialAccount</Form>
@@ -156,17 +169,6 @@
         </DCCReference>
         <DCCReference Include="..\Forms\formRegJob.pas">
             <Form>frmRegJob</Form>
-        </DCCReference>
-        <DCCReference Include="..\Forms\formRegTask.pas">
-            <Form>frmRegTask</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
-        <DCCReference Include="..\Forms\formListingRecordSheet.pas">
-            <Form>frmListingRecordSheet</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
-        <DCCReference Include="..\Forms\formDefaultRegistration.pas">
-            <Form>frmDefaultRegistration</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <BuildConfiguration Include="Release">
@@ -196,16 +198,16 @@
                 </Excluded_Packages>
             </Delphi.Personality>
             <Deployment Version="3">
+                <DeployFile LocalName="Win32\Debug\ProfessionalManagement.exe" Configuration="Debug" Class="ProjectOutput">
+                    <Platform Name="Win32">
+                        <RemoteName>ProfessionalManagement.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile LocalName="..\..\Files\Icons\Home.ico" Configuration="Debug" Class="UWP_DelphiLogo44">
                     <Platform Name="Win32">
                         <RemoteDir>Assets\</RemoteDir>
                         <RemoteName>Logo44x44.png</RemoteName>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="Win32\Debug\ProfessionalManagement.exe" Configuration="Debug" Class="ProjectOutput">
-                    <Platform Name="Win32">
-                        <RemoteName>ProfessionalManagement.exe</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>

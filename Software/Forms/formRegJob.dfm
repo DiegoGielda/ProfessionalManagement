@@ -3,7 +3,20 @@ inherited frmRegJob: TfrmRegJob
   PixelsPerInch = 96
   TextHeight = 13
   inherited pnlRegistration: TPanel
-    object lblDescriptionJob: TLabel [0]
+    object lblCompany: TLabel [0]
+      Left = 362
+      Top = 69
+      Width = 52
+      Height = 16
+      Caption = 'Empresa'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lblDescriptionJob: TLabel [1]
       Left = 90
       Top = 69
       Width = 58
@@ -16,25 +29,12 @@ inherited frmRegJob: TfrmRegJob
       Font.Style = []
       ParentFont = False
     end
-    object lblIDJob: TLabel [1]
+    object lblIDJob: TLabel [2]
       Left = 25
       Top = 67
       Width = 12
       Height = 16
       Caption = 'ID'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Arial'
-      Font.Style = []
-      ParentFont = False
-    end
-    object lblCompany: TLabel [2]
-      Left = 362
-      Top = 69
-      Width = 52
-      Height = 16
-      Caption = 'Empresa'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -13
@@ -65,14 +65,13 @@ inherited frmRegJob: TfrmRegJob
         OnClick = btnDeleteClick
       end
     end
-    object edtIDJob: TDBEdit
-      Left = 25
+    object edtDescriptionJob: TDBEdit
+      Left = 90
       Top = 88
-      Width = 40
+      Width = 248
       Height = 24
-      DataField = 'ID_JOB'
+      DataField = 'JOB'
       DataSource = frmListingJob.dsJob
-      Enabled = False
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -13
@@ -81,13 +80,14 @@ inherited frmRegJob: TfrmRegJob
       ParentFont = False
       TabOrder = 1
     end
-    object edtDescriptionJob: TDBEdit
-      Left = 90
+    object edtIDJob: TDBEdit
+      Left = 25
       Top = 88
-      Width = 248
+      Width = 40
       Height = 24
-      DataField = 'JOB'
+      DataField = 'ID_JOB'
       DataSource = frmListingJob.dsJob
+      Enabled = False
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -13
