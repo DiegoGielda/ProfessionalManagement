@@ -30,61 +30,103 @@ inherited frmListingRecordSheet: TfrmListingRecordSheet
         Title.Font.Height = -13
         Title.Font.Name = 'Tahoma'
         Title.Font.Style = [fsBold]
-        Width = 118
+        Width = 124
         Visible = True
       end
       item
+        Alignment = taCenter
         Expanded = False
+        FieldName = 'ID_RECORD_SHEET_TIME'
+        Title.Alignment = taCenter
+        Title.Caption = 'ID TEMPO'
+        Title.Font.Charset = DEFAULT_CHARSET
+        Title.Font.Color = clMoneyGreen
+        Title.Font.Height = -13
+        Title.Font.Name = 'Tahoma'
+        Title.Font.Style = [fsBold]
+        Width = 87
         Visible = True
       end
       item
+        Alignment = taCenter
         Expanded = False
+        FieldName = 'TIME_START'
+        Title.Alignment = taCenter
+        Title.Caption = 'TEMPO IN'#205'CIO'
+        Title.Font.Charset = DEFAULT_CHARSET
+        Title.Font.Color = clMoneyGreen
+        Title.Font.Height = -13
+        Title.Font.Name = 'Tahoma'
+        Title.Font.Style = [fsBold]
+        Width = 112
         Visible = True
       end
       item
+        Alignment = taCenter
         Expanded = False
-        Visible = True
-      end
-      item
-        Expanded = False
-        Visible = True
-      end
-      item
-        Expanded = False
-        Visible = True
-      end
-      item
-        Expanded = False
-        Visible = True
-      end
-      item
-        Expanded = False
-        Visible = True
-      end
-      item
-        Expanded = False
-        Visible = True
-      end
-      item
-        Expanded = False
+        FieldName = 'TIME_END'
+        Title.Alignment = taCenter
+        Title.Caption = 'TEMPO FINAL'
+        Title.Font.Charset = DEFAULT_CHARSET
+        Title.Font.Color = clMoneyGreen
+        Title.Font.Height = -13
+        Title.Font.Name = 'Tahoma'
+        Title.Font.Style = [fsBold]
+        Width = 99
         Visible = True
       end>
   end
   object qryRecordSheet: TFDQuery
+    Active = True
     Connection = dmConnectionFD.fdConnection
     SQL.Strings = (
       
-        'select REC_SHE.ID_RECORD_SHEET, REC_SHE.CD_PERSON_EMPLOYEE, REC_' +
-        'SHE.DATE_RECORD, REC_SHE.TIME_START_ONE,'
+        'select R_SHEET.ID_RECORD_SHEET, R_SHEET.CD_PERSON_EMPLOYEE, R_SH' +
+        'EET.DATE_RECORD, RS_TIME.ID_RECORD_SHEET_TIME,'
+      '       RS_TIME.TIME_START, RS_TIME.TIME_END'
+      'from RECORD_SHEET as R_SHEET'
       
-        '       REC_SHE.TIME_END_ONE, REC_SHE.TIME_START_TWO, REC_SHE.TIM' +
-        'E_END_TWO, REC_SHE.INTERVAL_PERIOD,'
-      
-        '       REC_SHE.AMOUNT_HOUR_WORKED_DAY, REC_SHE.LOG_DATE_INSERT_R' +
-        'ECORD, REC_SHE.LOG_DATE_UPDATE_RECORD'
-      'from RECORD_SHEET as REC_SHE  ')
+        'inner join RECORD_SHEET_TIME as RS_TIME on (RS_TIME.CD_RECORD_SH' +
+        'EET = R_SHEET.ID_RECORD_SHEET)')
     Left = 544
     Top = 112
+    object qryRecordSheetID_RECORD_SHEET: TIntegerField
+      FieldName = 'ID_RECORD_SHEET'
+      Origin = 'ID_RECORD_SHEET'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object qryRecordSheetCD_PERSON_EMPLOYEE: TIntegerField
+      FieldName = 'CD_PERSON_EMPLOYEE'
+      Origin = 'CD_PERSON_EMPLOYEE'
+      Required = True
+    end
+    object qryRecordSheetDATE_RECORD: TDateField
+      FieldName = 'DATE_RECORD'
+      Origin = 'DATE_RECORD'
+      Required = True
+    end
+    object qryRecordSheetID_RECORD_SHEET_TIME: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'ID_RECORD_SHEET_TIME'
+      Origin = 'ID_RECORD_SHEET_TIME'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object qryRecordSheetTIME_START: TTimeField
+      AutoGenerateValue = arDefault
+      FieldName = 'TIME_START'
+      Origin = 'TIME_START'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object qryRecordSheetTIME_END: TTimeField
+      AutoGenerateValue = arDefault
+      FieldName = 'TIME_END'
+      Origin = 'TIME_END'
+      ProviderFlags = []
+      ReadOnly = True
+    end
   end
   object dmRecordSheet: TDataSource
     DataSet = qryRecordSheet

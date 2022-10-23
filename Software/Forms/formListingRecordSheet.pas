@@ -12,6 +12,12 @@ type
   TfrmListingRecordSheet = class(TfrmDefaultListing)
     qryRecordSheet: TFDQuery;
     dmRecordSheet: TDataSource;
+    qryRecordSheetID_RECORD_SHEET: TIntegerField;
+    qryRecordSheetCD_PERSON_EMPLOYEE: TIntegerField;
+    qryRecordSheetDATE_RECORD: TDateField;
+    qryRecordSheetID_RECORD_SHEET_TIME: TIntegerField;
+    qryRecordSheetTIME_START: TTimeField;
+    qryRecordSheetTIME_END: TTimeField;
   private
     { Private declarations }
   public
