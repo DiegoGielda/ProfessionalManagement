@@ -127,8 +127,8 @@
         <DCCReference Include="..\Forms\formDefaultListing.pas">
             <Form>frmDefaultListing</Form>
         </DCCReference>
-        <DCCReference Include="..\Forms\formDefaultRegistration.pas">
-            <Form>frmDefaultRegistration</Form>
+        <DCCReference Include="..\Forms\formDefault.pas">
+            <Form>frmDefault</Form>
         </DCCReference>
         <DCCReference Include="..\Forms\formListingCompany.pas">
             <Form>frmListingCompany</Form>
@@ -147,8 +147,21 @@
         <DCCReference Include="..\Forms\formMain.pas">
             <Form>frmMain</Form>
         </DCCReference>
+        <DCCReference Include="..\Forms\formListingRecordSheet.pas">
+            <Form>frmListingRecordSheet</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Forms\formDefaultRegistration.pas">
+            <Form>frmDefaultRegistration</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <DCCReference Include="..\Forms\formRegCompany.pas">
             <Form>frmRegCompany</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Forms\formRegTask.pas">
+            <Form>frmRegTask</Form>
+            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Forms\formRegFinancialAccount.pas">
             <Form>frmRegFinancialAccount</Form>
@@ -156,9 +169,14 @@
         </DCCReference>
         <DCCReference Include="..\Forms\formRegJob.pas">
             <Form>frmRegJob</Form>
+            <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="..\Forms\formRegTask.pas">
-            <Form>frmRegTask</Form>
+        <DCCReference Include="..\Forms\formDefaultRegistrationDetail.pas">
+            <Form>frmDefaultRegistrationDetail</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Forms\formRegRecordSheet.pas">
+            <Form>frmRegRecordSheet</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <BuildConfiguration Include="Release">
@@ -182,7 +200,6 @@
                     <Source Name="MainSource">ProfessionalManagement.dpr</Source>
                 </Source>
                 <Excluded_Packages>
-                    <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\20.0\Bpl\PascalScript_Core_D26.bpl">RemObjects Pascal Script - Core Package</Excluded_Packages>
                     <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\20.0\Bpl\dclcxPivotGridOLAPRS26.bpl">ExpressPivotGrid OLAP by Developer Express Inc.</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\dcloffice2k260.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\dclofficexp260.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>

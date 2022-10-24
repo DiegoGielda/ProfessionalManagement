@@ -3,12 +3,12 @@ inherited frmRegCompany: TfrmRegCompany
   PixelsPerInch = 96
   TextHeight = 13
   inherited pnlRegistration: TPanel
-    object lblIDCompany: TLabel [0]
-      Left = 25
-      Top = 67
-      Width = 12
+    object lblDescriptionCompany: TLabel [0]
+      Left = 90
+      Top = 69
+      Width = 58
       Height = 16
-      Caption = 'ID'
+      Caption = 'Descri'#231#227'o'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -13
@@ -16,12 +16,12 @@ inherited frmRegCompany: TfrmRegCompany
       Font.Style = []
       ParentFont = False
     end
-    object lblDescriptionCompany: TLabel [1]
-      Left = 90
-      Top = 69
-      Width = 58
+    object lblIDCompany: TLabel [1]
+      Left = 25
+      Top = 67
+      Width = 12
       Height = 16
-      Caption = 'Descri'#231#227'o'
+      Caption = 'ID'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -13
@@ -52,14 +52,13 @@ inherited frmRegCompany: TfrmRegCompany
         OnClick = btnDeleteClick
       end
     end
-    object edtIDCompany: TDBEdit
-      Left = 25
+    object edtDescriptionCompany: TDBEdit
+      Left = 90
       Top = 88
-      Width = 40
+      Width = 248
       Height = 24
-      DataField = 'ID_COMPANY'
+      DataField = 'DESCRIPTION'
       DataSource = frmListingCompany.dsCompany
-      Enabled = False
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -13
@@ -68,13 +67,14 @@ inherited frmRegCompany: TfrmRegCompany
       ParentFont = False
       TabOrder = 1
     end
-    object edtDescriptionCompany: TDBEdit
-      Left = 90
+    object edtIDCompany: TDBEdit
+      Left = 25
       Top = 88
-      Width = 248
+      Width = 40
       Height = 24
-      DataField = 'DESCRIPTION'
+      DataField = 'ID_COMPANY'
       DataSource = frmListingCompany.dsCompany
+      Enabled = False
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -13

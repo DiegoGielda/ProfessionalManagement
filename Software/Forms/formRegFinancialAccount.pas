@@ -4,22 +4,22 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, formDefaultRegistration, dxGDIPlusClasses, Vcl.ExtCtrls, Vcl.Buttons, cxGraphics, cxControls, cxLookAndFeels,
-  cxLookAndFeelPainters, cxContainer, cxEdit, cxDropDownEdit, cxCalendar, cxDBEdit, cxTextEdit, cxMaskEdit, cxLookupEdit, cxDBLookupEdit,
-  cxDBLookupComboBox, Vcl.StdCtrls, Vcl.Mask, Vcl.DBCtrls;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, formDefaultRegistration, cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters, cxContainer, cxEdit,
+  cxDropDownEdit, cxLookupEdit, cxDBLookupEdit, cxDBLookupComboBox, Vcl.StdCtrls, Vcl.Mask, Vcl.DBCtrls, cxTextEdit, cxMaskEdit, cxCalendar, cxDBEdit,
+  dxGDIPlusClasses, Vcl.ExtCtrls, Vcl.Buttons;
 
 type
   TfrmRegFinancialAccount = class(TfrmDefaultRegistration)
-    edtIDFinancialAccount: TDBEdit;
-    lblIDFinancialAccount: TLabel;
-    edtDescriptionFinancialAccount: TDBEdit;
-    lblDescriptionFinancialAccount: TLabel;
-    lookTypeFinancialAccount: TcxDBLookupComboBox;
-    lblTypeFinancialAccount: TLabel;
     edtDateAccountFinancialAccount: TcxDBDateEdit;
-    lblDateAccountFinancialAccount: TLabel;
+    edtDescriptionFinancialAccount: TDBEdit;
+    edtIDFinancialAccount: TDBEdit;
     edtValueAccountFinancialAccount: TDBEdit;
+    lblDateAccountFinancialAccount: TLabel;
+    lblDescriptionFinancialAccount: TLabel;
+    lblIDFinancialAccount: TLabel;
+    lblTypeFinancialAccount: TLabel;
     lblValueAccountFinancialAccount: TLabel;
+    lookTypeFinancialAccount: TcxDBLookupComboBox;
     procedure btnCancelClick(Sender: TObject);
     procedure btnDeleteClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
