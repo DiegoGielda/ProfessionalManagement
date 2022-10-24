@@ -20,7 +20,6 @@ type
     { Public declarations }
   end;
 
-type
   TDBGridPadrao = class(TDBGrid);
 
 var
@@ -56,6 +55,7 @@ end;
 
 procedure TfrmDefaultListing.FormShow(Sender: TObject);
 begin
+  inherited;
   TDBGridPadrao(dbgPattern).DefaultRowHeight := 30;
   TDBGridPadrao(dbgPattern).ClientHeight := (30  * TDBGridPadrao(dbgPattern).RowCount) + 30;
 end;

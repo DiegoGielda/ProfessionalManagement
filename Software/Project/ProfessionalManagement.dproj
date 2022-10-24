@@ -171,6 +171,14 @@
             <Form>frmRegJob</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="..\Forms\formDefaultRegistrationDetail.pas">
+            <Form>frmDefaultRegistrationDetail</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Forms\formRegRecordSheet.pas">
+            <Form>frmRegRecordSheet</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

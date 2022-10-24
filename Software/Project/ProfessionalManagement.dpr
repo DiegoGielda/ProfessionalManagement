@@ -18,7 +18,9 @@ uses
   formRegCompany in '..\Forms\formRegCompany.pas' {frmRegCompany},
   formRegTask in '..\Forms\formRegTask.pas' {frmRegTask},
   formRegFinancialAccount in '..\Forms\formRegFinancialAccount.pas' {frmRegFinancialAccount},
-  formRegJob in '..\Forms\formRegJob.pas' {frmRegJob};
+  formRegJob in '..\Forms\formRegJob.pas' {frmRegJob},
+  formDefaultRegistrationDetail in '..\Forms\formDefaultRegistrationDetail.pas' {frmDefaultRegistrationDetail},
+  formRegRecordSheet in '..\Forms\formRegRecordSheet.pas' {frmRegRecordSheet};
 
 {$R *.res}
 
@@ -27,10 +29,5 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TfrmMain, frmMain);
-  Application.CreateForm(TfrmDefaultRegistration, frmDefaultRegistration);
-  Application.CreateForm(TfrmRegCompany, frmRegCompany);
-  Application.CreateForm(TfrmRegTask, frmRegTask);
-  Application.CreateForm(TfrmRegFinancialAccount, frmRegFinancialAccount);
-  Application.CreateForm(TfrmRegJob, frmRegJob);
   Application.Run;
 end.

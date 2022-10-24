@@ -53,5 +53,12 @@ object frmMain: TfrmMain
         OnClick = mnRegistrationAccountClick
       end
     end
+    object mmRecordSheet: TMenuItem
+      Caption = 'Folha Registro'
+      object mnRegistrationRecordSheet: TMenuItem
+        Caption = 'Registro'
+        OnClick = mnRegistrationRecordSheetClick
+      end
+    end
   end
 end

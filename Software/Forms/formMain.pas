@@ -17,11 +17,14 @@ type
     mnRegistrationTask: TMenuItem;
     mnFinancial: TMenuItem;
     mnRegistrationAccount: TMenuItem;
+    mmRecordSheet: TMenuItem;
+    mnRegistrationRecordSheet: TMenuItem;
     procedure mnCompanyClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure mnJobClick(Sender: TObject);
     procedure mnRegistrationTaskClick(Sender: TObject);
     procedure mnRegistrationAccountClick(Sender: TObject);
+    procedure mnRegistrationRecordSheetClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -40,7 +43,8 @@ uses
   formListingCompany,
   formListingJob,
   formListingTask,
-  formListingFinancialAccount;
+  formListingFinancialAccount,
+  formListingRecordSheet;
 
 procedure TfrmMain.mnJobClick(Sender: TObject);
 begin
@@ -59,6 +63,16 @@ begin
     frmListingFinancialAccount.ShowModal;
   finally
     FreeAndNil(frmListingFinancialAccount);
+  end;
+end;
+
+procedure TfrmMain.mnRegistrationRecordSheetClick(Sender: TObject);
+begin
+  frmListingRecordSheet := TfrmListingRecordSheet.Create(Self);
+  try
+    frmListingRecordSheet.ShowModal;
+  finally
+    FreeAndNil(frmListingRecordSheet);
   end;
 end;
 
