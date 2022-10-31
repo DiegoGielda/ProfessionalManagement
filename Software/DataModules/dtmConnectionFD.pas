@@ -52,6 +52,7 @@ begin
     finally
       lFileINI.Free;
     end;
+    ShowMessage('Configure o arquivo "Config.ini" corretamente.');
   end;
 
   lWay := Copy(GetCurrentDir, 1, Pos('\ProfessionalManagement', GetCurrentDir));
@@ -67,7 +68,7 @@ begin
 {$ENDIF}
 {$IFDEF DEBUG}
   lWay := Copy(GetCurrentDir, 1, Pos('\ProfessionalManagement', GetCurrentDir));
-  fdConnection.Params.Database := lWay + 'ProfessionalManagement\Database\ProfessionalManagement.FDB';
+  fdConnection.Params.Database := lWay + 'ProfessionalManagement\Database\Development.FDB';
   fdDriver.VendorLib := lWay + 'ProfessionalManagement\Database\fbclient.dll';
   fdConnection.Params.UserName := 'sysdba';
   fdConnection.Params.Password := 'masterkey';
@@ -81,7 +82,7 @@ begin
     fdConnection.Connected := true;
   except
     on E: Exception do
-      ShowMessage('Verifique sua configuração no arquivo config.INI' + #13 + 'Erro: ' + E.Message );
+      ShowMessage('Verifique sua configuração no arquivo config.INI' + #13 + #13 + 'Erro: ' + E.Message );
   end;
 end;
 

@@ -5,9 +5,7 @@ object dmConnectionFD: TdmConnectionFD
   Width = 365
   object fdConnection: TFDConnection
     Params.Strings = (
-      
-        'Database=C:\Users\diego.gielda\Documents\ArquivosGIT\Professiona' +
-        'lManagement\Database\ProfessionalManagement.FDB'
+      'Database=C:\ProfessionalManagement\Database\Development.FDB'
       'User_Name=sysdba'
       'Password=masterkey'
       'DriverID=FB')
@@ -21,9 +19,7 @@ object dmConnectionFD: TdmConnectionFD
     Top = 16
   end
   object fdDriver: TFDPhysFBDriverLink
-    VendorLib = 
-      'C:\Users\diego.gielda\Documents\ArquivosGIT\ProfessionalManageme' +
-      'nt\Database\fbclient.dll'
+    VendorLib = 'C:\ProfessionalManagement\Database\fbclient.dll'
     Left = 192
     Top = 16
   end

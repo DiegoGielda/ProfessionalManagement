@@ -88,12 +88,7 @@ end;
 
 procedure TfrmMain.FormCreate(Sender: TObject);
 begin
-  try
-    dmConnectionFD := TdmConnectionFD.Create(Self);
-  except
-    Application.Terminate;
-    raise Exception.Create('Não foi possível iniciar a aplicação.');
-  end;
+  dmConnectionFD := TdmConnectionFD.Create(Self);
 end;
 
 procedure TfrmMain.mnCompanyClick(Sender: TObject);
