@@ -93,6 +93,7 @@ begin
   qryFinancialAccount.SQL.Clear;
   qryFinancialAccount.SQL.Add(' select FA.ID_FINANCIAL_ACCOUNT, FA.DESCRIPTION, FA.TYPE_ACCOUNT, FA.DATA_ACCOUNT, FA.VALUE_ACCOUNT ');
   qryFinancialAccount.SQL.Add(' from FINANCIAL_ACCOUNT FA ');
+  qryFinancialAccount.SQL.Add(' order by FA.DATA_ACCOUNT, FA.TYPE_ACCOUNT, FA.VALUE_ACCOUNT desc ');
   qryFinancialAccount.Open;
 end;
 

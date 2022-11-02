@@ -92,7 +92,8 @@ inherited frmListingFinancialAccount: TfrmListingFinancialAccount
       
         'select FA.ID_FINANCIAL_ACCOUNT, FA.DESCRIPTION, FA.TYPE_ACCOUNT,' +
         ' FA.DATA_ACCOUNT, FA.VALUE_ACCOUNT'
-      'from FINANCIAL_ACCOUNT FA')
+      'from FINANCIAL_ACCOUNT FA'
+      'order by FA.DATA_ACCOUNT, FA.TYPE_ACCOUNT, FA.VALUE_ACCOUNT desc')
     Left = 480
     Top = 120
     object qryFinancialAccountID_FINANCIAL_ACCOUNT: TIntegerField
