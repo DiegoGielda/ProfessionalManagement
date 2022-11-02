@@ -94,7 +94,6 @@ CREATE TABLE PERSON (
     ID_PERSON               INTEGER NOT NULL,
     NAME                    VARCHAR(50) NOT NULL,
     CPF                     CHAR(11) NOT NULL,
-    CLASS_ONE               LOGICAL,
     LOG_DATE_INSERT_RECORD  TIMESTAMP default current_timestamp NOT NULL,
     LOG_DATE_UPDATE_RECORD  TIMESTAMP default current_timestamp NOT NULL
 );
