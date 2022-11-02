@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, formDefaultRegistration, dxGDIPlusClasses, Vcl.ExtCtrls, Vcl.Buttons, cxGraphics, cxControls, cxLookAndFeels,
   cxLookAndFeelPainters, cxContainer, cxEdit, cxTextEdit, cxMaskEdit, cxDropDownEdit, cxLookupEdit, cxDBLookupEdit, cxDBLookupComboBox, Vcl.StdCtrls,
-  Vcl.Mask, Vcl.DBCtrls;
+  Vcl.Mask, Vcl.DBCtrls, cxCalendar, cxDBEdit;
 
 type
   TfrmRegJob = class(TfrmDefaultRegistration)
@@ -16,6 +16,10 @@ type
     lblDescriptionJob: TLabel;
     lblIDJob: TLabel;
     lookStateTask: TcxDBLookupComboBox;
+    edtDateAdmissionJob: TcxDBDateEdit;
+    lblDateAdmissionJob: TLabel;
+    lblDateResignationJob: TLabel;
+    edtDateResignationJob: TcxDBDateEdit;
     procedure btnSaveClick(Sender: TObject);
     procedure btnPriorClick(Sender: TObject);
     procedure btnNextClick(Sender: TObject);

@@ -20,11 +20,14 @@ type
     qryJobJOB: TStringField;
     qryJobCD_COMPANY: TIntegerField;
     qryJobCOMPANY1: TStringField;
+    qryJobDATE_ADMISSION: TDateField;
+    qryJobDATE_RESIGNATION: TDateField;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
     procedure btnNewClick(Sender: TObject);
     procedure dbgPatternDblClick(Sender: TObject);
+    procedure qryJobNewRecord(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -93,7 +96,8 @@ begin
   inherited;
   qryJob.Close;
   qryJob.SQL.Clear;
-  qryJob.SQL.Add(' select J.ID_JOB as ID_JOB, J.DESCRIPTION as JOB, J.CD_COMPANY as CD_COMPANY, COM.DESCRIPTION as COMPANY ');
+  qryJob.SQL.Add(' select J.ID_JOB as ID_JOB, J.DESCRIPTION as JOB, J.CD_COMPANY as CD_COMPANY, COM.DESCRIPTION as COMPANY, ');
+  qryJob.SQL.Add(' J.DATE_ADMISSION, J.DATE_RESIGNATION ');
   qryJob.SQL.Add(' from JOB as J ');
   qryJob.SQL.Add(' inner join COMPANY as COM on (COM.ID_COMPANY = J.CD_COMPANY) ');
   qryJob.Open;
@@ -103,6 +107,12 @@ begin
   qryJobCompany.SQL.Add(' select COM.ID_COMPANY as ID_COMPANY, COM.DESCRIPTION as COMPANY ');
   qryJobCompany.SQL.Add(' from COMPANY as COM ');
   qryJobCompany.Open;
+end;
+
+procedure TfrmListingJob.qryJobNewRecord(DataSet: TDataSet);
+begin
+  inherited;
+  qryJobDATE_ADMISSION.AsDateTime := Date();
 end;
 
 end.
