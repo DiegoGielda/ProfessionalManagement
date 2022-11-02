@@ -4,8 +4,8 @@ inherited frmRegJob: TfrmRegJob
   TextHeight = 13
   inherited pnlRegistration: TPanel
     object lblCompany: TLabel [0]
-      Left = 362
-      Top = 69
+      Left = 25
+      Top = 117
       Width = 52
       Height = 16
       Caption = 'Empresa'
@@ -42,6 +42,32 @@ inherited frmRegJob: TfrmRegJob
       Font.Style = []
       ParentFont = False
     end
+    object lblDateAdmissionJob: TLabel [3]
+      Left = 449
+      Top = 118
+      Width = 61
+      Height = 16
+      Caption = 'Data In'#237'cio'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lblDateResignationJob: TLabel [4]
+      Left = 595
+      Top = 118
+      Width = 53
+      Height = 16
+      Caption = 'Data Fim'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
+    end
     inherited pnlHeader: TPanel
       inherited btnNew: TSpeedButton
         OnClick = btnNewClick
@@ -68,7 +94,7 @@ inherited frmRegJob: TfrmRegJob
     object edtDescriptionJob: TDBEdit
       Left = 90
       Top = 88
-      Width = 248
+      Width = 632
       Height = 24
       DataField = 'JOB'
       DataSource = frmListingJob.dsJob
@@ -97,8 +123,8 @@ inherited frmRegJob: TfrmRegJob
       TabOrder = 2
     end
     object lookStateTask: TcxDBLookupComboBox
-      Left = 362
-      Top = 88
+      Left = 25
+      Top = 136
       AutoSize = False
       DataBinding.DataField = 'CD_COMPANY'
       DataBinding.DataSource = frmListingJob.dsJob
@@ -119,7 +145,27 @@ inherited frmRegJob: TfrmRegJob
       Properties.ListSource = frmListingJob.dsJobCompany
       TabOrder = 3
       Height = 24
-      Width = 255
+      Width = 398
+    end
+    object edtDateAdmissionJob: TcxDBDateEdit
+      Left = 449
+      Top = 136
+      AutoSize = False
+      DataBinding.DataField = 'DATE_ADMISSION'
+      DataBinding.DataSource = frmListingJob.dsJob
+      TabOrder = 4
+      Height = 24
+      Width = 127
+    end
+    object edtDateResignationJob: TcxDBDateEdit
+      Left = 595
+      Top = 136
+      AutoSize = False
+      DataBinding.DataField = 'DATE_RESIGNATION'
+      DataBinding.DataSource = frmListingJob.dsJob
+      TabOrder = 5
+      Height = 24
+      Width = 127
     end
   end
 end

@@ -62,6 +62,34 @@ inherited frmListingJob: TfrmListingJob
         Title.Font.Style = [fsBold]
         Width = 379
         Visible = True
+      end
+      item
+        Alignment = taCenter
+        Expanded = False
+        FieldName = 'DATE_ADMISSION'
+        Title.Alignment = taCenter
+        Title.Caption = 'DATA IN'#205'CIO'
+        Title.Font.Charset = DEFAULT_CHARSET
+        Title.Font.Color = clMoneyGreen
+        Title.Font.Height = -13
+        Title.Font.Name = 'Tahoma'
+        Title.Font.Style = [fsBold]
+        Width = 104
+        Visible = True
+      end
+      item
+        Alignment = taCenter
+        Expanded = False
+        FieldName = 'DATE_RESIGNATION'
+        Title.Alignment = taCenter
+        Title.Caption = 'DATA FIM'
+        Title.Font.Charset = DEFAULT_CHARSET
+        Title.Font.Color = clMoneyGreen
+        Title.Font.Height = -13
+        Title.Font.Name = 'Tahoma'
+        Title.Font.Style = [fsBold]
+        Width = 92
+        Visible = True
       end>
   end
   inherited pnlHeader: TPanel
@@ -73,11 +101,13 @@ inherited frmListingJob: TfrmListingJob
     end
   end
   object qryJob: TFDQuery
+    OnNewRecord = qryJobNewRecord
     Connection = dmConnectionFD.fdConnection
     SQL.Strings = (
       
         'select J.ID_JOB as ID_JOB, J.DESCRIPTION as JOB, J.CD_COMPANY as' +
-        ' CD_COMPANY, COM.DESCRIPTION as COMPANY'
+        ' CD_COMPANY, COM.DESCRIPTION as COMPANY,'
+      '       J.DATE_ADMISSION, J.DATE_RESIGNATION'
       'from JOB as J'
       'inner join COMPANY as COM on (COM.ID_COMPANY = J.CD_COMPANY)')
     Left = 472
@@ -108,6 +138,15 @@ inherited frmListingJob: TfrmListingJob
       ProviderFlags = []
       ReadOnly = True
       Size = 50
+    end
+    object qryJobDATE_ADMISSION: TDateField
+      FieldName = 'DATE_ADMISSION'
+      Origin = 'DATE_ADMISSION'
+      Required = True
+    end
+    object qryJobDATE_RESIGNATION: TDateField
+      FieldName = 'DATE_RESIGNATION'
+      Origin = 'DATE_RESIGNATION'
     end
   end
   object dsJob: TDataSource

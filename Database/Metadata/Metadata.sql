@@ -85,6 +85,8 @@ CREATE TABLE JOB (
     ID_JOB                  INTEGER NOT NULL,
     DESCRIPTION             VARCHAR(30) NOT NULL,
     CD_COMPANY              INTEGER NOT NULL,
+    DATE_ADMISSION          DATE default current_date NOT NULL,
+    DATE_RESIGNATION        DATE,
     LOG_DATE_INSERT_RECORD  TIMESTAMP default current_timestamp NOT NULL,
     LOG_DATE_UPDATE_RECORD  TIMESTAMP default current_timestamp NOT NULL
 );
