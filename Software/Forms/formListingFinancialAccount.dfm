@@ -125,6 +125,7 @@ inherited frmListingFinancialAccount: TfrmListingFinancialAccount
       FieldName = 'VALUE_ACCOUNT'
       Origin = 'VALUE_ACCOUNT'
       Required = True
+      DisplayFormat = '###,##0.00'
       Precision = 18
       Size = 2
     end
