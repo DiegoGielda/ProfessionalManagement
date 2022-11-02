@@ -38,6 +38,10 @@ object frmMain: TfrmMain
         Caption = 'Cargo'
         OnClick = mnJobClick
       end
+      object mnPerson: TMenuItem
+        Caption = 'Pessoa'
+        OnClick = mnPersonClick
+      end
     end
     object mnTask: TMenuItem
       Caption = 'Tarefas'
