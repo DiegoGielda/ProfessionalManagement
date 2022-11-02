@@ -33,7 +33,7 @@ inherited frmListingCompany: TfrmListingCompany
         Title.Font.Height = -13
         Title.Font.Name = 'Tahoma'
         Title.Font.Style = [fsBold]
-        Width = 485
+        Width = 588
         Visible = True
       end>
   end
@@ -69,7 +69,7 @@ inherited frmListingCompany: TfrmListingCompany
       FieldName = 'DESCRIPTION'
       Origin = 'DESCRIPTION'
       Required = True
-      Size = 50
+      Size = 100
     end
   end
 end

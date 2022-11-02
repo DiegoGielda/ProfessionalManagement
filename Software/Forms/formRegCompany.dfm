@@ -55,7 +55,7 @@ inherited frmRegCompany: TfrmRegCompany
     object edtDescriptionCompany: TDBEdit
       Left = 90
       Top = 88
-      Width = 248
+      Width = 959
       Height = 24
       DataField = 'DESCRIPTION'
       DataSource = frmListingCompany.dsCompany
