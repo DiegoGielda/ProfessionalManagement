@@ -20,6 +20,9 @@ type
     mmRecordSheet: TMenuItem;
     mnRegistrationRecordSheet: TMenuItem;
     mnPerson: TMenuItem;
+    N1: TMenuItem;
+    mnPrintFinancial: TMenuItem;
+    mmPrintAcont: TMenuItem;
     procedure mnCompanyClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure mnJobClick(Sender: TObject);
@@ -27,6 +30,7 @@ type
     procedure mnRegistrationAccountClick(Sender: TObject);
     procedure mnRegistrationRecordSheetClick(Sender: TObject);
     procedure mnPersonClick(Sender: TObject);
+    procedure mmPrintAcontClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -46,7 +50,9 @@ uses
   formListingJob,
   formListingTask,
   formListingFinancialAccount,
-  formListingRecordSheet, formListingPerson;
+  formListingRecordSheet,
+  formListingPerson,
+  reportDefaultFR;
 
 procedure TfrmMain.mnJobClick(Sender: TObject);
 begin
@@ -101,6 +107,16 @@ end;
 procedure TfrmMain.FormCreate(Sender: TObject);
 begin
   dmConnectionFD := TdmConnectionFD.Create(Self);
+end;
+
+procedure TfrmMain.mmPrintAcontClick(Sender: TObject);
+begin
+  rptDefaultFR := TrptDefaultFR.Create(Self);
+  try
+    rptDefaultFR.ShowModal;
+  finally
+    FreeAndNil(rptDefaultFR);
+  end;
 end;
 
 procedure TfrmMain.mnCompanyClick(Sender: TObject);

@@ -56,6 +56,16 @@ object frmMain: TfrmMain
         Caption = 'Conta'
         OnClick = mnRegistrationAccountClick
       end
+      object N1: TMenuItem
+        Caption = '-'
+      end
+      object mnPrintFinancial: TMenuItem
+        Caption = 'Relat'#243'rios'
+        object mmPrintAcont: TMenuItem
+          Caption = 'Contas a Pagar e a Receber'
+          OnClick = mmPrintAcontClick
+        end
+      end
     end
     object mmRecordSheet: TMenuItem
       Caption = 'Folha Registro'

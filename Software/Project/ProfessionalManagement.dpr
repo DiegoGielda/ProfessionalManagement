@@ -22,7 +22,10 @@ uses
   formRegJob in '..\Forms\formRegJob.pas' {frmRegJob},
   formRegPerson in '..\Forms\formRegPerson.pas' {frmRegPerson},
   formRegRecordSheet in '..\Forms\formRegRecordSheet.pas' {frmRegRecordSheet},
-  formRegTask in '..\Forms\formRegTask.pas' {frmRegTask};
+  formRegTask in '..\Forms\formRegTask.pas' {frmRegTask},
+  reportDefaultFR in '..\Reports\reportDefaultFR.pas' {rptDefaultFR},
+  Vcl.Styles,
+  Vcl.Themes;
 
 {$R *.res}
 
@@ -30,6 +33,7 @@ begin
   ReportMemoryLeaksOnShutdown := True;
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
+  TStyleManager.TrySetStyle('Turquoise Gray');
   Application.CreateForm(TfrmMain, frmMain);
   Application.Run;
 end.
