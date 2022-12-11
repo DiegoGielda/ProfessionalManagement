@@ -22,7 +22,8 @@ uses
   formRegJob in '..\Forms\formRegJob.pas' {frmRegJob},
   formRegPerson in '..\Forms\formRegPerson.pas' {frmRegPerson},
   formRegRecordSheet in '..\Forms\formRegRecordSheet.pas' {frmRegRecordSheet},
-  formRegTask in '..\Forms\formRegTask.pas' {frmRegTask};
+  formRegTask in '..\Forms\formRegTask.pas' {frmRegTask},
+  reportDefaultFR in '..\Reports\reportDefaultFR.pas' {rptDefaultFR};
 
 {$R *.res}
 

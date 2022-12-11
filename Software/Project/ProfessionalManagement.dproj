@@ -187,6 +187,10 @@
             <Form>frmRegTask</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="..\Reports\reportDefaultFR.pas">
+            <Form>rptDefaultFR</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
