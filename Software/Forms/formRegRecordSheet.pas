@@ -49,6 +49,7 @@ uses
 procedure TfrmRegRecordSheet.btnCancelClick(Sender: TObject);
 begin
   inherited;
+  dbgPatternDetail.ReadOnly := True;
   if (frmListingRecordSheet.qryRecordSheet.State in [dsInsert, dsEdit]) then
   begin
     frmListingRecordSheet.qryRecordSheet.Cancel;
@@ -165,23 +166,22 @@ procedure TfrmRegRecordSheet.btnSaveClick(Sender: TObject);
 begin
   inherited;
   try
+    dbgPatternDetail.ReadOnly := True;
     if (frmListingRecordSheet.qryRecordSheet.State in [dsInsert, dsEdit]) then
     begin
       frmListingRecordSheet.qryRecordSheet.Post; // Master
       frmListingRecordSheet.qryRecordSheet.Refresh;
       ChangeStateFields(Self, 'edtIDRecordSheet', False);
-      ButtonsState;
-      ConfigureButtons;
     end
     else
+    if (frmListingRecordSheet.qryRecordSheetItemTime.State in [dsInsert, dsEdit]) then
     begin
-      dbgPatternDetail.ReadOnly := True;
       frmListingRecordSheet.qryRecordSheetItemTime.Post;  // Child
       frmListingRecordSheet.qryRecordSheetItemTime.Refresh;
-      ButtonsState;
-      ConfigureButtons;
       ButtonsDetailsState;
     end;
+    ButtonsState;
+    ConfigureButtons;
     Application.MessageBox('Registro gravado com sucesso!', 'Confirmação', MB_ICONEXCLAMATION + MB_OK);
   except
     Application.MessageBox('NÃO FOI POSSÍVEL GRAVAR O REGISTRO. Reinicie o sistema', 'Falha', MB_ICONERROR + MB_OK);
