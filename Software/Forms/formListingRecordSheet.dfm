@@ -126,10 +126,14 @@ inherited frmListingRecordSheet: TfrmListingRecordSheet
       FieldName = 'TIME_START'
       Origin = 'TIME_START'
       Required = True
+      DisplayFormat = 'hh:nn'
+      EditMask = '!90:00;1;_'
     end
     object qryRecordSheetItemTimeTIME_END: TTimeField
       FieldName = 'TIME_END'
       Origin = 'TIME_END'
+      DisplayFormat = 'hh:nn'
+      EditMask = '!90:00;1;_'
     end
   end
   object dsRecordSheet: TDataSource
