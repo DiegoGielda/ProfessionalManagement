@@ -10,14 +10,6 @@ uses
 
 type
   TfrmListingRecordSheet = class(TfrmDefaultListing)
-    qryConRecordSheet: TFDQuery;
-    dsConRecordSheet: TDataSource;
-    qryConRecordSheetID_RECORD_SHEET: TIntegerField;
-    qryConRecordSheetCD_PERSON_EMPLOYEE: TIntegerField;
-    qryConRecordSheetDATE_RECORD: TDateField;
-    qryConRecordSheetID_RECORD_SHEET_TIME: TIntegerField;
-    qryConRecordSheetTIME_START: TTimeField;
-    qryConRecordSheetTIME_END: TTimeField;
     qryRecordSheet: TFDQuery;
     qryRecordSheetItemTime: TFDQuery;
     dsRecordSheet: TDataSource;
@@ -38,12 +30,14 @@ type
     qryPersonEmployeeENROLLMENT: TStringField;
     qryPersonEmployeePIS: TStringField;
     qryPersonEmployeeNAME: TStringField;
+    qryRecordSheetTIME_DAY_TOTAL: TTimeField;
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure dbgPatternDblClick(Sender: TObject);
     procedure btnNewClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
     procedure qryRecordSheetNewRecord(DataSet: TDataSet);
+    procedure qryRecordSheetTIME_DAY_TOTALGetText(Sender: TField; var Text: string; DisplayText: Boolean);
   private
     { Private declarations }
   public
@@ -100,9 +94,6 @@ end;
 procedure TfrmListingRecordSheet.FormCreate(Sender: TObject);
 begin
   inherited;
-  qryConRecordSheet.Active := false;
-  qryConRecordSheet.Active := true;
-
   qryRecordSheet.Active := false;
   qryRecordSheet.Active := true;
 
@@ -116,23 +107,27 @@ end;
 procedure TfrmListingRecordSheet.FormShow(Sender: TObject);
 begin
   inherited;
-  qryConRecordSheet.Close;
-  qryConRecordSheet.Open;
 
   qryRecordSheet.Close;
   qryRecordSheet.SQL.Clear;
-  qryRecordSheet.SQL.Add(' select R_SHEET.ID_RECORD_SHEET, R_SHEET.CD_PERSON_EMPLOYEE, R_SHEET.DATE_RECORD ');
-  qryRecordSheet.SQL.Add(' from RECORD_SHEET as R_SHEET ');
+  qryRecordSheet.SQL.Text :=
+    ' select R_SHEET.ID_RECORD_SHEET, R_SHEET.CD_PERSON_EMPLOYEE, R_SHEET.DATE_RECORD, R_SHEET.TIME_DAY_TOTAL ' + sLineBreak +
+    ' from RECORD_SHEET as R_SHEET ';
   qryRecordSheet.Open;
 
   qryRecordSheetItemTime.Close;
   qryRecordSheetItemTime.SQL.Clear;
-  qryRecordSheetItemTime.SQL.Add(' select RS_TIME.ID_RECORD_SHEET_TIME, RS_TIME.CD_RECORD_SHEET, RS_TIME.TIME_START, RS_TIME.TIME_END ');
-  qryRecordSheetItemTime.SQL.Add(' from RECORD_SHEET_TIME as RS_TIME ');
-  qryRecordSheetItemTime.SQL.Add(' where RS_TIME.CD_RECORD_SHEET = :ID_RECORD_SHEET ');
+  qryRecordSheetItemTime.SQL.Text :=
+    ' select RS_TIME.ID_RECORD_SHEET_TIME, RS_TIME.CD_RECORD_SHEET, RS_TIME.TIME_START, RS_TIME.TIME_END ' + sLineBreak +
+    ' from RECORD_SHEET_TIME as RS_TIME ' + sLineBreak +
+    ' where RS_TIME.CD_RECORD_SHEET = :ID_RECORD_SHEET ';
   qryRecordSheetItemTime.Open;
 
   qryPersonEmployee.Close;
+  qryPersonEmployee.SQL.Text :=
+    ' select P_EMP.ID_PERSON_EMPLOYEE, P_EMP.CD_PERSON, P_EMP.CD_JOB, P_EMP.DATE_ADMISSION, P_EMP.ENROLLMENT, P_EMP.PIS, PER.NAME ' + sLineBreak +
+    ' from PERSON_EMPLOYEE as P_EMP ' + sLineBreak +
+    ' inner join PERSON as PER on (PER.ID_PERSON = P_EMP.CD_PERSON) ';
   qryPersonEmployee.Open;
 end;
 
@@ -141,6 +136,20 @@ begin
   inherited;
   qryRecordSheetDATE_RECORD.AsDateTime := Date();
   qryRecordSheetCD_PERSON_EMPLOYEE.AsInteger := 1;
+  qryRecordSheetTIME_DAY_TOTAL.AsString := '00:00:00';
+end;
+
+procedure TfrmListingRecordSheet.qryRecordSheetTIME_DAY_TOTALGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+begin
+  inherited;
+  if Sender.Value = '00:00:00' then
+  begin
+    Text := '';
+  end
+  else
+  begin
+    Text := Sender.Value;
+  end;
 end;
 
 end.

@@ -80,13 +80,13 @@ inherited frmRegRecordSheet: TfrmRegRecordSheet
       end
       inherited dbgPatternDetail: TDBGrid
         DataSource = frmListingRecordSheet.dsRecordSheetItemTime
-        Options = [dgEditing, dgTitles, dgColumnResize, dgColLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgTitleClick]
+        Options = [dgEditing, dgTitles, dgColumnResize, dgColLines, dgAlwaysShowSelection, dgConfirmDelete, dgTitleClick]
+        ReadOnly = True
         Columns = <
           item
             Alignment = taCenter
             Expanded = False
             FieldName = 'ID_RECORD_SHEET_TIME'
-            ReadOnly = True
             Title.Alignment = taCenter
             Title.Caption = 'ID TEMPO RECORD'
             Title.Font.Charset = DEFAULT_CHARSET

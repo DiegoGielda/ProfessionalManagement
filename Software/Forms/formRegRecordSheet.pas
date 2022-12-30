@@ -4,9 +4,9 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, formDefaultRegistrationDetail, Data.DB, Vcl.Grids, Vcl.DBGrids, Vcl.ExtCtrls, dxGDIPlusClasses, Vcl.Buttons,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, formDefaultRegistrationDetail, Vcl.Grids, Vcl.DBGrids, Vcl.ExtCtrls, dxGDIPlusClasses, Vcl.Buttons,
   cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters, cxContainer, cxEdit, cxDropDownEdit, cxCalendar, cxDBEdit, cxTextEdit, cxMaskEdit,
-  cxLookupEdit, cxDBLookupEdit, cxDBLookupComboBox, Vcl.StdCtrls, Vcl.Mask, Vcl.DBCtrls;
+  cxLookupEdit, cxDBLookupEdit, cxDBLookupComboBox, Vcl.StdCtrls, Vcl.Mask, Vcl.DBCtrls, Data.DB;
 
 type
   TfrmRegRecordSheet = class(TfrmDefaultRegistrationDetail)
@@ -26,11 +26,12 @@ type
     procedure btnNewDetailClick(Sender: TObject);
     procedure btnEditDetailClick(Sender: TObject);
     procedure btnDeleteDetailClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
-    { Private declarations }
-  public
     procedure ButtonsState;
-    procedure UpdateRegistration;
+    procedure ButtonsDetailsState;
+  public
+
   end;
 
 var
@@ -40,7 +41,6 @@ implementation
 
 uses
   formListingRecordSheet;
-  //Data.db;
 
 {$R *.dfm}
 
@@ -49,7 +49,14 @@ uses
 procedure TfrmRegRecordSheet.btnCancelClick(Sender: TObject);
 begin
   inherited;
-  frmListingRecordSheet.qryRecordSheet.Cancel;
+  if (frmListingRecordSheet.qryRecordSheet.State in [dsInsert, dsEdit]) then
+  begin
+    frmListingRecordSheet.qryRecordSheet.Cancel;
+  end
+  else
+  begin
+    frmListingRecordSheet.qryRecordSheetItemTime.Cancel;
+  end;
   ButtonsState;
   ConfigureButtons;
   ChangeStateFields(Self, 'edtIDRecordSheet', False);
@@ -62,12 +69,12 @@ begin
     IDYES :
     begin
       frmListingRecordSheet.qryRecordSheet.Delete;
-      //ShowMessage('O Registro foi excluido');
+      ShowMessage('O Registro foi excluido');
+      frmListingRecordSheet.qryRecordSheet.Refresh;
+      frmListingRecordSheet.qryRecordSheetItemTime.Refresh;
       ButtonsState;
       ConfigureButtons;
-      UpdateRegistration;
       ChangeStateFields(Self, 'edtIDRecordSheet', False);
-      frmRegRecordSheet.Close;
     end;
     IDNO :
     begin
@@ -79,11 +86,15 @@ end;
 procedure TfrmRegRecordSheet.btnDeleteDetailClick(Sender: TObject);
 begin
   inherited;
+  if (frmListingRecordSheet.qryRecordSheet.State in [dsInsert, dsEdit]) then
+  begin
+    frmListingRecordSheet.qryRecordSheet.Post;
+    ChangeStateFields(Self, 'edtIDRecordSheet', False);
+  end;
   frmListingRecordSheet.qryRecordSheetItemTime.Delete;
   ButtonsState;
+  ButtonsDetailsState;
   ConfigureButtons;
-  UpdateRegistration;
-  ChangeStateFields(Self, 'edtIDRecordSheet', False);
 end;
 
 procedure TfrmRegRecordSheet.btnEditClick(Sender: TObject);
@@ -98,16 +109,21 @@ end;
 procedure TfrmRegRecordSheet.btnEditDetailClick(Sender: TObject);
 begin
   inherited;
+  if (frmListingRecordSheet.qryRecordSheet.State in [dsInsert, dsEdit]) then
+  begin
+    frmListingRecordSheet.qryRecordSheet.Post;
+    ChangeStateFields(Self, 'edtIDRecordSheet', False);
+  end;
   frmListingRecordSheet.qryRecordSheetItemTime.Edit;
   ButtonsState;
   ConfigureButtons;
-  ChangeStateFields(Self, 'edtIDRecordSheet', True);
+  dbgPatternDetail.ReadOnly := False;
 end;
 
 procedure TfrmRegRecordSheet.btnNewClick(Sender: TObject);
 begin
   inherited;
-  frmListingRecordSheet.qryRecordSheet.Insert;
+  frmListingRecordSheet.qryRecordSheet.Append;
   ButtonsState;
   ConfigureButtons;
   ChangeStateFields(Self, 'edtIDRecordSheet', True);
@@ -116,10 +132,15 @@ end;
 procedure TfrmRegRecordSheet.btnNewDetailClick(Sender: TObject);
 begin
   inherited;
-  frmListingRecordSheet.qryRecordSheetItemTime.Insert;
+  if (frmListingRecordSheet.qryRecordSheet.State in [dsInsert, dsEdit]) then
+  begin
+    frmListingRecordSheet.qryRecordSheet.Post;
+    ChangeStateFields(Self, 'edtIDRecordSheet', False);
+  end;
+  frmListingRecordSheet.qryRecordSheetItemTime.Append;
   ButtonsState;
   ConfigureButtons;
-  ChangeStateFields(Self, 'edtIDRecordSheet', True);
+  dbgPatternDetail.ReadOnly := False;
 end;
 
 procedure TfrmRegRecordSheet.btnNextClick(Sender: TObject);
@@ -144,43 +165,51 @@ procedure TfrmRegRecordSheet.btnSaveClick(Sender: TObject);
 begin
   inherited;
   try
-    if (frmListingRecordSheet.qryRecordSheetItemTime.State in [dsInsert, dsEdit]) then
+    if (frmListingRecordSheet.qryRecordSheet.State in [dsInsert, dsEdit]) then
     begin
-      frmListingRecordSheet.qryRecordSheet.edit;
-      frmListingRecordSheet.qryRecordSheet.Post;
-      frmListingRecordSheet.qryRecordSheetItemTime.Post;
+      frmListingRecordSheet.qryRecordSheet.Post; // Master
+      frmListingRecordSheet.qryRecordSheet.Refresh;
+      ChangeStateFields(Self, 'edtIDRecordSheet', False);
+      ButtonsState;
+      ConfigureButtons;
     end
     else
     begin
-      frmListingRecordSheet.qryRecordSheet.Post;
+      dbgPatternDetail.ReadOnly := True;
+      frmListingRecordSheet.qryRecordSheetItemTime.Post;  // Child
+      frmListingRecordSheet.qryRecordSheetItemTime.Refresh;
+      ButtonsState;
+      ConfigureButtons;
+      ButtonsDetailsState;
     end;
-    //Application.MessageBox('Registro gravado com sucesso!', 'Confirmação', MB_ICONEXCLAMATION + MB_OK);
-    ButtonsState;
-    ConfigureButtons;
-    UpdateRegistration;
-    ChangeStateFields(Self, 'edtIDRecordSheet', False);
-    frmRegRecordSheet.Close;
+    Application.MessageBox('Registro gravado com sucesso!', 'Confirmação', MB_ICONEXCLAMATION + MB_OK);
   except
     Application.MessageBox('NÃO FOI POSSÍVEL GRAVAR O REGISTRO. Reinicie o sistema', 'Falha', MB_ICONERROR + MB_OK);
   end;
 end;
 
-procedure TfrmRegRecordSheet.ButtonsState;
+procedure TfrmRegRecordSheet.ButtonsDetailsState;
 begin
-  btnPrior.Enabled := (frmListingRecordSheet.qryRecordSheet.State in [dsBrowse]) or (frmListingRecordSheet.qryRecordSheetItemTime.State in [dsBrowse]);
-  btnNext.Enabled := (frmListingRecordSheet.qryRecordSheet.State in [dsBrowse]) or (frmListingRecordSheet.qryRecordSheetItemTime.State in [dsBrowse]) ;
-  btnSave.Enabled := (frmListingRecordSheet.qryRecordSheet.State in [dsInsert, dsEdit]) or (frmListingRecordSheet.qryRecordSheetItemTime.State in [dsInsert, dsEdit]) ;
-  btnCancel.Enabled := (frmListingRecordSheet.qryRecordSheet.State in [dsInsert, dsEdit]) or (frmListingRecordSheet.qryRecordSheetItemTime.State in [dsInsert, dsEdit]) ;
-  btnNew.Enabled := (frmListingRecordSheet.qryRecordSheet.State in [dsBrowse]) or (frmListingRecordSheet.qryRecordSheetItemTime.State in [dsBrowse]) ;
-  btnEdit.Enabled := (frmListingRecordSheet.qryRecordSheet.State in [dsBrowse]) or (frmListingRecordSheet.qryRecordSheetItemTime.State in [dsBrowse]) ;
-  btnDelete.Enabled := (frmListingRecordSheet.qryRecordSheet.State in [dsbrowse]) or (frmListingRecordSheet.qryRecordSheetItemTime.State in [dsBrowse]) ;
+  btnEditDetail.Enabled := (not frmListingRecordSheet.qryRecordSheetItemTime.IsEmpty);
+  btnDeleteDetail.Enabled := btnEditDetail.Enabled;
 end;
 
-procedure TfrmRegRecordSheet.UpdateRegistration;
+procedure TfrmRegRecordSheet.ButtonsState;
 begin
-  frmListingRecordSheet.qryRecordSheet.Refresh;
-  frmListingRecordSheet.qryRecordSheetItemTime.Refresh;
-  frmListingRecordSheet.qryConRecordSheet.Refresh;
+  btnSave.Enabled := (frmListingRecordSheet.qryRecordSheet.State in [dsInsert, dsEdit]) or (frmListingRecordSheet.qryRecordSheetItemTime.State in [dsInsert, dsEdit]);
+  btnCancel.Enabled := btnSave.Enabled;
+
+  btnPrior.Enabled := (frmListingRecordSheet.qryRecordSheet.State in [dsBrowse]);
+  btnNext.Enabled := btnPrior.Enabled;
+  btnNew.Enabled := btnPrior.Enabled;
+  btnEdit.Enabled := btnPrior.Enabled;
+  btnDelete.Enabled := btnPrior.Enabled;
+end;
+
+procedure TfrmRegRecordSheet.FormShow(Sender: TObject);
+begin
+  inherited;
+  ButtonsDetailsState;
 end;
 
 end.
