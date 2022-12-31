@@ -38,6 +38,9 @@ type
     procedure btnEditClick(Sender: TObject);
     procedure qryRecordSheetNewRecord(DataSet: TDataSet);
     procedure qryRecordSheetTIME_DAY_TOTALGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+    procedure qryRecordSheetItemTimeTIME_STARTSetText(Sender: TField; const Text: string);
+    procedure qryRecordSheetItemTimeTIME_STARTValidate(Sender: TField);
+    procedure qryRecordSheetItemTimeTIME_ENDSetText(Sender: TField; const Text: string);
   private
     { Private declarations }
   public
@@ -51,7 +54,8 @@ implementation
 
 uses
   dtmConnectionFD,
-  formRegRecordSheet;
+  formRegRecordSheet,
+  System.UITypes;
 
 {$R *.dfm}
 
@@ -129,6 +133,65 @@ begin
     ' from PERSON_EMPLOYEE as P_EMP ' + sLineBreak +
     ' inner join PERSON as PER on (PER.ID_PERSON = P_EMP.CD_PERSON) ';
   qryPersonEmployee.Open;
+end;
+
+procedure TfrmListingRecordSheet.qryRecordSheetItemTimeTIME_ENDSetText(Sender: TField; const Text: string);
+begin
+  inherited;
+  if Text = '  :  ' then
+  begin
+    Sender.AsString := EmptyStr;
+  end
+  else
+  begin
+    try
+      if (not Text.IsEmpty) then
+      begin
+        StrToTime(Text);
+        Sender.AsString := Text;
+      end;
+      except
+      on E: EConvertError do
+      begin
+        MessageDlg('Tempo: "' + Text + '" Inválido', MtError, [MbOk], 0);
+        Abort;
+      end;
+    end;
+  end;
+end;
+
+procedure TfrmListingRecordSheet.qryRecordSheetItemTimeTIME_STARTSetText(Sender: TField; const Text: string);
+begin
+  inherited;
+  if Text = '  :  ' then
+  begin
+    Sender.AsString := EmptyStr;
+  end
+  else
+  begin
+    try
+      if (not Text.IsEmpty) then
+      begin
+        StrToTime(Text);
+        Sender.AsString := Text;
+      end;
+      except
+      on E: EConvertError do
+      begin
+        MessageDlg('Tempo: "' + Text + '" Inválido', MtError, [MbOk], 0);
+        Abort;
+      end;
+    end;
+  end;
+end;
+
+procedure TfrmListingRecordSheet.qryRecordSheetItemTimeTIME_STARTValidate(Sender: TField);
+begin
+  inherited;
+  if Sender.AsString.IsEmpty then
+  begin
+    raise Exception.Create('Tempo início é obrigatório!');
+  end;
 end;
 
 procedure TfrmListingRecordSheet.qryRecordSheetNewRecord(DataSet: TDataSet);

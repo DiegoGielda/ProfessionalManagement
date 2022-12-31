@@ -166,7 +166,6 @@ procedure TfrmRegRecordSheet.btnSaveClick(Sender: TObject);
 begin
   inherited;
   try
-    dbgPatternDetail.ReadOnly := True;
     if (frmListingRecordSheet.qryRecordSheet.State in [dsInsert, dsEdit]) then
     begin
       frmListingRecordSheet.qryRecordSheet.Post; // Master
@@ -180,11 +179,19 @@ begin
       frmListingRecordSheet.qryRecordSheetItemTime.Refresh;
       ButtonsDetailsState;
     end;
+    dbgPatternDetail.ReadOnly := True;
     ButtonsState;
     ConfigureButtons;
     Application.MessageBox('Registro gravado com sucesso!', 'Confirmação', MB_ICONEXCLAMATION + MB_OK);
   except
-    Application.MessageBox('NÃO FOI POSSÍVEL GRAVAR O REGISTRO. Reinicie o sistema', 'Falha', MB_ICONERROR + MB_OK);
+    on E: EAbort do
+    begin
+      // Abort de uma exeção de conversao anterior
+    end;
+    on E: Exception do
+    begin
+      Application.MessageBox('NÃO FOI POSSÍVEL GRAVAR O REGISTRO. Reinicie o sistema', 'Falha', MB_ICONERROR + MB_OK);
+    end;
   end;
 end;
 
