@@ -58,6 +58,38 @@ CREATE GENERATOR GEN_TASK;
 
 
 /******************************************************************************/
+/***                               Exceptions                               ***/
+/******************************************************************************/
+
+CREATE EXCEPTION HOURS_INVALID 'Não foi possível calcular o total de horas trabalhadas para a data em questão. Verifique as horas informadas!';
+
+
+
+/******************************************************************************/
+/***                           Stored procedures                            ***/
+/******************************************************************************/
+
+
+
+SET TERM ^ ;
+
+CREATE PROCEDURE CALCULATE_TOTAL_HOURS_WORKED (
+    CD_RECORD_SHEET INTEGER = 0)
+AS
+BEGIN
+  EXIT;
+END^
+
+
+
+
+
+
+SET TERM ; ^
+
+
+
+/******************************************************************************/
 /***                                 Tables                                 ***/
 /******************************************************************************/
 
@@ -66,8 +98,8 @@ CREATE GENERATOR GEN_TASK;
 CREATE TABLE COMPANY (
     ID_COMPANY              INTEGER NOT NULL,
     DESCRIPTION             VARCHAR(100) NOT NULL,
-    LOG_DATE_INSERT_RECORD  TIMESTAMP default current_timestamp NOT NULL,
-    LOG_DATE_UPDATE_RECORD  TIMESTAMP default current_timestamp NOT NULL
+    LOG_DATE_INSERT_RECORD  TIMESTAMP DEFAULT current_timestamp NOT NULL,
+    LOG_DATE_UPDATE_RECORD  TIMESTAMP DEFAULT current_timestamp NOT NULL
 );
 
 CREATE TABLE FINANCIAL_ACCOUNT (
@@ -84,18 +116,18 @@ CREATE TABLE JOB (
     ID_JOB                  INTEGER NOT NULL,
     DESCRIPTION             VARCHAR(30) NOT NULL,
     CD_COMPANY              INTEGER NOT NULL,
-    DATE_ADMISSION          DATE default current_date NOT NULL,
+    DATE_ADMISSION          DATE DEFAULT current_date NOT NULL,
     DATE_RESIGNATION        DATE,
-    LOG_DATE_INSERT_RECORD  TIMESTAMP default current_timestamp NOT NULL,
-    LOG_DATE_UPDATE_RECORD  TIMESTAMP default current_timestamp NOT NULL
+    LOG_DATE_INSERT_RECORD  TIMESTAMP DEFAULT current_timestamp NOT NULL,
+    LOG_DATE_UPDATE_RECORD  TIMESTAMP DEFAULT current_timestamp NOT NULL
 );
 
 CREATE TABLE PERSON (
     ID_PERSON               INTEGER NOT NULL,
     NAME                    VARCHAR(50) NOT NULL,
     CPF                     CHAR(11) NOT NULL,
-    LOG_DATE_INSERT_RECORD  TIMESTAMP default current_timestamp NOT NULL,
-    LOG_DATE_UPDATE_RECORD  TIMESTAMP default current_timestamp NOT NULL
+    LOG_DATE_INSERT_RECORD  TIMESTAMP DEFAULT current_timestamp NOT NULL,
+    LOG_DATE_UPDATE_RECORD  TIMESTAMP DEFAULT current_timestamp NOT NULL
 );
 
 CREATE TABLE PERSON_EMPLOYEE (
@@ -105,16 +137,17 @@ CREATE TABLE PERSON_EMPLOYEE (
     DATE_ADMISSION          DATE DEFAULT CURRENT_DATE,
     ENROLLMENT              CHAR(10),
     PIS                     CHAR(12),
-    LOG_DATE_INSERT_RECORD  TIMESTAMP default current_timestamp NOT NULL,
-    LOG_DATE_UPDATE_RECORD  TIMESTAMP default current_timestamp NOT NULL
+    LOG_DATE_INSERT_RECORD  TIMESTAMP DEFAULT current_timestamp NOT NULL,
+    LOG_DATE_UPDATE_RECORD  TIMESTAMP DEFAULT current_timestamp NOT NULL
 );
 
 CREATE TABLE RECORD_SHEET (
     ID_RECORD_SHEET         INTEGER NOT NULL,
     CD_PERSON_EMPLOYEE      INTEGER NOT NULL,
     DATE_RECORD             DATE DEFAULT CURRENT_DATE NOT NULL,
-    LOG_DATE_INSERT_RECORD  TIMESTAMP default current_timestamp NOT NULL,
-    LOG_DATE_UPDATE_RECORD  TIMESTAMP default current_timestamp NOT NULL
+    TIME_DAY_TOTAL          TIME DEFAULT '00:00:00' NOT NULL,
+    LOG_DATE_INSERT_RECORD  TIMESTAMP DEFAULT current_timestamp NOT NULL,
+    LOG_DATE_UPDATE_RECORD  TIMESTAMP DEFAULT current_timestamp NOT NULL
 );
 
 CREATE TABLE RECORD_SHEET_TIME (
@@ -136,8 +169,8 @@ CREATE TABLE TASK (
     DATE_REGISTRATION       DATE DEFAULT CURRENT_DATE NOT NULL,
     DATE_TO_DO              DATE,
     DATE_CONCLUDED          DATE,
-    LOG_DATE_INSERT_RECORD  TIMESTAMP default current_timestamp NOT NULL,
-    LOG_DATE_UPDATE_RECORD  TIMESTAMP default current_timestamp NOT NULL
+    LOG_DATE_INSERT_RECORD  TIMESTAMP DEFAULT current_timestamp NOT NULL,
+    LOG_DATE_UPDATE_RECORD  TIMESTAMP DEFAULT current_timestamp NOT NULL
 );
 
 
@@ -181,6 +214,23 @@ SET TERM ^ ;
 /******************************************************************************/
 
 
+
+/* Trigger: TAIUD_TOTAL_HOURS_WORKED */
+CREATE TRIGGER TAIUD_TOTAL_HOURS_WORKED FOR RECORD_SHEET_TIME
+ACTIVE AFTER INSERT OR UPDATE OR DELETE POSITION 1
+as
+begin
+  if ((inserting) or (updating)) then
+  begin
+    execute procedure CALCULATE_TOTAL_HOURS_WORKED(new.CD_RECORD_SHEET);
+  end
+  else
+  if (deleting) then
+  begin
+    execute procedure CALCULATE_TOTAL_HOURS_WORKED(old.CD_RECORD_SHEET);
+  end
+end
+^
 
 /* Trigger: TBIU_COMPANY_LOG */
 CREATE TRIGGER TBIU_COMPANY_LOG FOR COMPANY
@@ -421,6 +471,69 @@ BEGIN
   END
 END
 ^
+SET TERM ; ^
+
+
+
+/******************************************************************************/
+/***                           Stored procedures                            ***/
+/******************************************************************************/
+
+
+
+SET TERM ^ ;
+
+ALTER PROCEDURE CALCULATE_TOTAL_HOURS_WORKED (
+    CD_RECORD_SHEET INTEGER = 0)
+AS
+begin
+  if (:CD_RECORD_SHEET > 0) then
+  begin
+    update RECORD_SHEET RS
+    set RS.TIME_DAY_TOTAL = coalesce((
+                                      select
+                                        cast(extract(hour from EXTRA_HOUR_MINUTE.HOUR_TOT) || ':' ||
+                                        extract(minute from EXTRA_HOUR_MINUTE.HOUR_TOT) || ':00' as time) as TOT_MINUTE
+                                      from
+                                      (
+                                        select
+                                          SEP_HOUR.RECORD,
+                                          dateadd(hour, SEP_HOUR.DATE_HOUR, SEP_HOUR.DATE_MINUTE) as HOUR_TOT
+                                        from
+                                        (
+                                          select
+                                            SEP_MINUTE.RECORD, SEP_MINUTE.DATE_HOUR,
+                                            dateadd(minute, SEP_MINUTE.DATE_MINUTE, cast(current_date as timestamp)) as DATE_MINUTE
+                                          from
+                                          (
+                                            select
+                                              TABLE_TIME.RECORD,
+                                              sum(cast(extract(hour from TABLE_TIME.DIFTIME) as integer)) as DATE_HOUR,
+                                              sum(cast(extract(minute from TABLE_TIME.DIFTIME) as integer)) as DATE_MINUTE
+                                            from
+                                            (
+                                              select
+                                                cast(trunc((cast((RS_TIME.TIME_END - RS_TIME.TIME_START) as integer) / 60) / 60) || ':' || -- HOUR
+                                                mod((cast((RS_TIME.TIME_END - RS_TIME.TIME_START) as integer) / 60), 60) as time) as DIFTIME, -- MINUTE
+                                                RS_TIME.CD_RECORD_SHEET as RECORD
+                                              from RECORD_SHEET_TIME RS_TIME
+                                            ) TABLE_TIME
+                                            group by TABLE_TIME.RECORD
+                                          ) SEP_MINUTE
+                                        ) SEP_HOUR
+                                      ) EXTRA_HOUR_MINUTE
+                                    where RS.ID_RECORD_SHEET = EXTRA_HOUR_MINUTE.RECORD
+                                    ), '00:00:00')
+    where RS.ID_RECORD_SHEET = :CD_RECORD_SHEET;
+    when any do
+    begin
+      exception hours_invalid;
+    end
+  end
+end^
+
+
+
 SET TERM ; ^
 
 

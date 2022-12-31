@@ -4,7 +4,7 @@ inherited frmListingRecordSheet: TfrmListingRecordSheet
   PixelsPerInch = 96
   TextHeight = 13
   inherited dbgPattern: TDBGrid
-    DataSource = dsConRecordSheet
+    DataSource = dsRecordSheet
     OnDblClick = dbgPatternDblClick
     Columns = <
       item
@@ -38,43 +38,15 @@ inherited frmListingRecordSheet: TfrmListingRecordSheet
       item
         Alignment = taCenter
         Expanded = False
-        FieldName = 'ID_RECORD_SHEET_TIME'
+        FieldName = 'TIME_DAY_TOTAL'
         Title.Alignment = taCenter
-        Title.Caption = 'ID TEMPO'
+        Title.Caption = 'TEMPO TOTAL TRABALHADO'
         Title.Font.Charset = DEFAULT_CHARSET
         Title.Font.Color = clMoneyGreen
         Title.Font.Height = -13
         Title.Font.Name = 'Tahoma'
         Title.Font.Style = [fsBold]
-        Width = 87
-        Visible = True
-      end
-      item
-        Alignment = taCenter
-        Expanded = False
-        FieldName = 'TIME_START'
-        Title.Alignment = taCenter
-        Title.Caption = 'TEMPO IN'#205'CIO'
-        Title.Font.Charset = DEFAULT_CHARSET
-        Title.Font.Color = clMoneyGreen
-        Title.Font.Height = -13
-        Title.Font.Name = 'Tahoma'
-        Title.Font.Style = [fsBold]
-        Width = 112
-        Visible = True
-      end
-      item
-        Alignment = taCenter
-        Expanded = False
-        FieldName = 'TIME_END'
-        Title.Alignment = taCenter
-        Title.Caption = 'TEMPO FINAL'
-        Title.Font.Charset = DEFAULT_CHARSET
-        Title.Font.Color = clMoneyGreen
-        Title.Font.Height = -13
-        Title.Font.Name = 'Tahoma'
-        Title.Font.Style = [fsBold]
-        Width = 99
+        Width = 214
         Visible = True
       end>
   end
@@ -85,64 +57,7 @@ inherited frmListingRecordSheet: TfrmListingRecordSheet
     inherited btnNew: TSpeedButton
       Top = 11
       OnClick = btnNewClick
-      ExplicitTop = 11
     end
-  end
-  object qryConRecordSheet: TFDQuery
-    Connection = dmConnectionFD.fdConnection
-    SQL.Strings = (
-      
-        'select R_SHEET.ID_RECORD_SHEET, R_SHEET.CD_PERSON_EMPLOYEE, R_SH' +
-        'EET.DATE_RECORD, RS_TIME.ID_RECORD_SHEET_TIME,'
-      '       RS_TIME.TIME_START, RS_TIME.TIME_END'
-      'from RECORD_SHEET as R_SHEET'
-      
-        'left join RECORD_SHEET_TIME as RS_TIME on (RS_TIME.CD_RECORD_SHE' +
-        'ET = R_SHEET.ID_RECORD_SHEET)')
-    Left = 352
-    Top = 144
-    object qryConRecordSheetID_RECORD_SHEET: TIntegerField
-      FieldName = 'ID_RECORD_SHEET'
-      Origin = 'ID_RECORD_SHEET'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object qryConRecordSheetCD_PERSON_EMPLOYEE: TIntegerField
-      FieldName = 'CD_PERSON_EMPLOYEE'
-      Origin = 'CD_PERSON_EMPLOYEE'
-      Required = True
-    end
-    object qryConRecordSheetDATE_RECORD: TDateField
-      FieldName = 'DATE_RECORD'
-      Origin = 'DATE_RECORD'
-      Required = True
-    end
-    object qryConRecordSheetID_RECORD_SHEET_TIME: TIntegerField
-      AutoGenerateValue = arDefault
-      FieldName = 'ID_RECORD_SHEET_TIME'
-      Origin = 'ID_RECORD_SHEET_TIME'
-      ProviderFlags = []
-      ReadOnly = True
-    end
-    object qryConRecordSheetTIME_START: TTimeField
-      AutoGenerateValue = arDefault
-      FieldName = 'TIME_START'
-      Origin = 'TIME_START'
-      ProviderFlags = []
-      ReadOnly = True
-    end
-    object qryConRecordSheetTIME_END: TTimeField
-      AutoGenerateValue = arDefault
-      FieldName = 'TIME_END'
-      Origin = 'TIME_END'
-      ProviderFlags = []
-      ReadOnly = True
-    end
-  end
-  object dsConRecordSheet: TDataSource
-    DataSet = qryConRecordSheet
-    Left = 352
-    Top = 216
   end
   object qryRecordSheet: TFDQuery
     OnNewRecord = qryRecordSheetNewRecord
@@ -150,7 +65,7 @@ inherited frmListingRecordSheet: TfrmListingRecordSheet
     SQL.Strings = (
       
         'select R_SHEET.ID_RECORD_SHEET, R_SHEET.CD_PERSON_EMPLOYEE, R_SH' +
-        'EET.DATE_RECORD'
+        'EET.DATE_RECORD, R_SHEET.TIME_DAY_TOTAL'
       'from RECORD_SHEET as R_SHEET')
     Left = 456
     Top = 144
@@ -169,6 +84,11 @@ inherited frmListingRecordSheet: TfrmListingRecordSheet
       FieldName = 'DATE_RECORD'
       Origin = 'DATE_RECORD'
       Required = True
+    end
+    object qryRecordSheetTIME_DAY_TOTAL: TTimeField
+      FieldName = 'TIME_DAY_TOTAL'
+      Origin = 'TIME_DAY_TOTAL'
+      OnGetText = qryRecordSheetTIME_DAY_TOTALGetText
     end
   end
   object qryRecordSheetItemTime: TFDQuery
@@ -206,10 +126,17 @@ inherited frmListingRecordSheet: TfrmListingRecordSheet
       FieldName = 'TIME_START'
       Origin = 'TIME_START'
       Required = True
+      OnSetText = qryRecordSheetItemTimeTIME_STARTSetText
+      OnValidate = qryRecordSheetItemTimeTIME_STARTValidate
+      DisplayFormat = 'hh:nn'
+      EditMask = '!90:00;1;_'
     end
     object qryRecordSheetItemTimeTIME_END: TTimeField
       FieldName = 'TIME_END'
       Origin = 'TIME_END'
+      OnSetText = qryRecordSheetItemTimeTIME_ENDSetText
+      DisplayFormat = 'hh:nn'
+      EditMask = '!90:00;1;_'
     end
   end
   object dsRecordSheet: TDataSource
