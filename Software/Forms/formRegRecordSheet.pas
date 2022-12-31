@@ -126,8 +126,10 @@ begin
   inherited;
   frmListingRecordSheet.qryRecordSheet.Append;
   ButtonsState;
+  ButtonsDetailsState;
   ConfigureButtons;
   ChangeStateFields(Self, 'edtIDRecordSheet', True);
+  edtDateRecordRecordSheet.SetFocus;
 end;
 
 procedure TfrmRegRecordSheet.btnNewDetailClick(Sender: TObject);
@@ -149,6 +151,7 @@ begin
   inherited;
   frmListingRecordSheet.qryRecordSheet.Next;
   ButtonsState;
+  ButtonsDetailsState;
   ConfigureButtons;
   ChangeStateFields(Self, 'edtIDRecordSheet', False);
 end;
@@ -158,6 +161,7 @@ begin
   inherited;
   frmListingRecordSheet.qryRecordSheet.Prior;
   ButtonsState;
+  ButtonsDetailsState;
   ConfigureButtons;
   ChangeStateFields(Self, 'edtIDRecordSheet', False);
 end;
