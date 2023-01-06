@@ -10,6 +10,7 @@ uses
   formDefaultListing in '..\Forms\formDefaultListing.pas' {frmDefaultListing},
   formDefaultRegistration in '..\Forms\formDefaultRegistration.pas' {frmDefaultRegistration},
   formDefaultRegistrationDetail in '..\Forms\formDefaultRegistrationDetail.pas' {frmDefaultRegistrationDetail},
+  formListingAttachment in '..\Forms\formListingAttachment.pas' {frmListingAttachment},
   formListingCompany in '..\Forms\formListingCompany.pas' {frmListingCompany},
   formListingFinancialAccount in '..\Forms\formListingFinancialAccount.pas' {frmListingFinancialAccount},
   formListingJob in '..\Forms\formListingJob.pas' {frmListingJob},
