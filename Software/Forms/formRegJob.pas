@@ -92,7 +92,7 @@ end;
 procedure TfrmRegJob.btnNewClick(Sender: TObject);
 begin
   inherited;
-  frmListingJob.qryJob.Insert;
+  frmListingJob.qryJob.Append;
   ButtonsState;
   ConfigureButtons;
   ChangeStateFields(Self, 'edtIDJob', True);

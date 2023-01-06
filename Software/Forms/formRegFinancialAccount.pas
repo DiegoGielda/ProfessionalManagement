@@ -93,7 +93,7 @@ end;
 procedure TfrmRegFinancialAccount.btnNewClick(Sender: TObject);
 begin
   inherited;
-  frmListingFinancialAccount.qryFinancialAccount.Insert;
+  frmListingFinancialAccount.qryFinancialAccount.Append;
   ButtonsState;
   ConfigureButtons;
   ChangeStateFields(Self, 'edtIDFinancialAccount', True);

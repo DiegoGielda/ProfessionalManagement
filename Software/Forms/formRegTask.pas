@@ -100,7 +100,7 @@ end;
 procedure TfrmRegTask.btnNewClick(Sender: TObject);
 begin
   inherited;
-  frmListingTask.qryTask.Insert;
+  frmListingTask.qryTask.Append;
   ButtonsState;
   ConfigureButtons;
   ChangeStateFields(Self, 'edtIDTask', True);
