@@ -139,6 +139,10 @@
             <Form>frmDefaultRegistrationDetail</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="..\Forms\formListingAttachment.pas">
+            <Form>frmListingAttachment</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <DCCReference Include="..\Forms\formListingCompany.pas">
             <Form>frmListingCompany</Form>
         </DCCReference>
@@ -163,6 +167,10 @@
         </DCCReference>
         <DCCReference Include="..\Forms\formMain.pas">
             <Form>frmMain</Form>
+        </DCCReference>
+        <DCCReference Include="..\Forms\formPDFDevExpress.pas">
+            <Form>frmPDFDevExpress</Form>
+            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Forms\formRegCompany.pas">
             <Form>frmRegCompany</Form>
@@ -220,16 +228,16 @@
                 </Excluded_Packages>
             </Delphi.Personality>
             <Deployment Version="3">
+                <DeployFile LocalName="Win32\Debug\ProfessionalManagement.exe" Configuration="Debug" Class="ProjectOutput">
+                    <Platform Name="Win32">
+                        <RemoteName>ProfessionalManagement.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile LocalName="..\..\Files\Icons\Home.ico" Configuration="Debug" Class="UWP_DelphiLogo44">
                     <Platform Name="Win32">
                         <RemoteDir>Assets\</RemoteDir>
                         <RemoteName>Logo44x44.png</RemoteName>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="Win32\Debug\ProfessionalManagement.exe" Configuration="Debug" Class="ProjectOutput">
-                    <Platform Name="Win32">
-                        <RemoteName>ProfessionalManagement.exe</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>

@@ -129,7 +129,6 @@ begin
   ButtonsDetailsState;
   ConfigureButtons;
   ChangeStateFields(Self, 'edtIDRecordSheet', True);
-  edtDateRecordRecordSheet.SetFocus;
 end;
 
 procedure TfrmRegRecordSheet.btnNewDetailClick(Sender: TObject);

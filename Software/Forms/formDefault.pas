@@ -24,6 +24,7 @@ type
     imgSave: TImage;
     imgCancel: TImage;
     imgDelete: TImage;
+    btnAttachment: TSpeedButton;
   private
     { Private declarations }
 

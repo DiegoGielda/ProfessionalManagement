@@ -81,7 +81,7 @@ end;
 procedure TfrmRegPerson.btnNewClick(Sender: TObject);
 begin
   inherited;
-  frmListingPerson.qryPerson.Insert;
+  frmListingPerson.qryPerson.Append;
   ButtonsState;
   ConfigureButtons;
   ChangeStateFields(Self, 'edtIDPerson', True);

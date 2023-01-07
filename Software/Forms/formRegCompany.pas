@@ -84,7 +84,7 @@ end;
 procedure TfrmRegCompany.btnNewClick(Sender: TObject);
 begin
   inherited;
-  frmListingCompany.qryCompany.Insert;
+  frmListingCompany.qryCompany.Append;
   ButtonsState;
   ConfigureButtons;
   ChangeStateFields(Self, 'edtIDCompany', True);
