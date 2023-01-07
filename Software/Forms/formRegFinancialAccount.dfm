@@ -92,6 +92,9 @@ inherited frmRegFinancialAccount: TfrmRegFinancialAccount
       inherited btnDelete: TSpeedButton
         OnClick = btnDeleteClick
       end
+      inherited btnAttachment: TSpeedButton
+        OnClick = btnAttachmentClick
+      end
     end
     object edtDateAccountFinancialAccount: TcxDBDateEdit
       Left = 176

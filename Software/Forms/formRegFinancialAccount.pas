@@ -29,6 +29,7 @@ type
     procedure btnSaveClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure btnAttachmentClick(Sender: TObject);
   private
     { Private declarations }
     procedure ButtonsState;
@@ -46,11 +47,25 @@ implementation
 uses
   dtmFinancialAccountFD,
   formListingFinancialAccount,
+  formListingAttachment,
   Data.db;
 
 {$R *.dfm}
 
 { TfrmRegFinancialAccount }
+
+procedure TfrmRegFinancialAccount.btnAttachmentClick(Sender: TObject);
+begin
+  inherited;
+  frmListingAttachment := TfrmListingAttachment.Create(Self);
+  try
+    frmListingAttachment.TableName := 'FINANCIAL_ACCOUNT';
+    frmListingAttachment.TableID := frmListingFinancialAccount.qryFinancialAccountID_FINANCIAL_ACCOUNT.AsInteger;
+    frmListingAttachment.ShowModal;
+  finally
+    FreeAndNil(frmListingAttachment);
+  end;
+end;
 
 procedure TfrmRegFinancialAccount.btnCancelClick(Sender: TObject);
 begin

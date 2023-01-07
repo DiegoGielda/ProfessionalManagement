@@ -18,6 +18,7 @@ uses
   formListingRecordSheet in '..\Forms\formListingRecordSheet.pas' {frmListingRecordSheet},
   formListingTask in '..\Forms\formListingTask.pas' {frmListingTask},
   formMain in '..\Forms\formMain.pas' {frmMain},
+  formPDFDevExpress in '..\Forms\formPDFDevExpress.pas' {frmPDFDevExpress},
   formRegCompany in '..\Forms\formRegCompany.pas' {frmRegCompany},
   formRegFinancialAccount in '..\Forms\formRegFinancialAccount.pas' {frmRegFinancialAccount},
   formRegJob in '..\Forms\formRegJob.pas' {frmRegJob},

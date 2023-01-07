@@ -5,6 +5,8 @@ inherited frmListingAttachment: TfrmListingAttachment
   TextHeight = 13
   inherited dbgPattern: TDBGrid
     DataSource = dsAttachment
+    PopupMenu = popActionRecordGrid
+    OnDblClick = dbgPatternDblClick
     Columns = <
       item
         Alignment = taCenter
@@ -35,7 +37,16 @@ inherited frmListingAttachment: TfrmListingAttachment
         Visible = True
       end>
   end
+  inherited pnlHeader: TPanel
+    inherited btnEdit: TSpeedButton
+      Visible = False
+    end
+    inherited btnNew: TSpeedButton
+      OnClick = btnNewClick
+    end
+  end
   object qryAttachment: TFDQuery
+    OnNewRecord = qryAttachmentNewRecord
     Connection = dmConnectionFD.fdConnection
     SQL.Strings = (
       
@@ -63,7 +74,6 @@ inherited frmListingAttachment: TfrmListingAttachment
       FieldName = 'ID_ATTACHMENT'
       Origin = 'ID_ATTACHMENT'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
     end
     object qryAttachmentTABLE_NAME: TStringField
       FieldName = 'TABLE_NAME'
@@ -92,5 +102,17 @@ inherited frmListingAttachment: TfrmListingAttachment
     DataSet = qryAttachment
     Left = 248
     Top = 184
+  end
+  object openAttachment: TOpenDialog
+    Left = 440
+    Top = 112
+  end
+  object popActionRecordGrid: TPopupMenu
+    Left = 616
+    Top = 136
+    object popRecordGridDelete: TMenuItem
+      Caption = 'Deletar Anexo'
+      OnClick = popRecordGridDeleteClick
+    end
   end
 end
