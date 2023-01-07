@@ -47,6 +47,7 @@ DEFAULT 0.00;
 /***                               Generators                               ***/
 /******************************************************************************/
 
+CREATE GENERATOR GEN_ATTACHMENT;
 CREATE GENERATOR GEN_COMPANY;
 CREATE GENERATOR GEN_FINANCIAL_ACCOUNT;
 CREATE GENERATOR GEN_JOB;
@@ -94,6 +95,16 @@ SET TERM ; ^
 /******************************************************************************/
 
 
+
+CREATE TABLE ATTACHMENT (
+    ID_ATTACHMENT           INTEGER NOT NULL,
+    TABLE_NAME              VARCHAR(50) NOT NULL,
+    TABLE_ID                INTEGER NOT NULL,
+    ATTACHMENT              BLOB SUB_TYPE 0 SEGMENT SIZE 500 NOT NULL,
+    ATTACHMENT_NAME         VARCHAR(255) NOT NULL,
+    LOG_DATE_INSERT_RECORD  TIMESTAMP default current_timestamp NOT NULL,
+    LOG_DATE_UPDATE_RECORD  TIMESTAMP default current_timestamp NOT NULL
+);
 
 CREATE TABLE COMPANY (
     ID_COMPANY              INTEGER NOT NULL,
@@ -176,9 +187,18 @@ CREATE TABLE TASK (
 
 
 /******************************************************************************/
+/***                           Unique constraints                           ***/
+/******************************************************************************/
+
+ALTER TABLE ATTACHMENT ADD UNIQUE (TABLE_NAME, TABLE_ID, ATTACHMENT_NAME)
+USING INDEX UNQ_ATTACHMENT_RECORD;
+
+
+/******************************************************************************/
 /***                              Primary keys                              ***/
 /******************************************************************************/
 
+ALTER TABLE ATTACHMENT ADD CONSTRAINT PK_ATTACHMENT PRIMARY KEY (ID_ATTACHMENT);
 ALTER TABLE COMPANY ADD CONSTRAINT PK_COMPANY PRIMARY KEY (ID_COMPANY);
 ALTER TABLE JOB ADD CONSTRAINT PK_JOB PRIMARY KEY (ID_JOB);
 ALTER TABLE PERSON ADD CONSTRAINT PK_PERSON PRIMARY KEY (ID_PERSON);
@@ -215,6 +235,17 @@ SET TERM ^ ;
 
 
 
+/* Trigger: TAD_DELETE_ATTACHMENT */
+CREATE TRIGGER TAD_DELETE_ATTACHMENT FOR FINANCIAL_ACCOUNT
+ACTIVE AFTER DELETE POSITION 0
+as
+begin
+  delete from ATTACHMENT
+  where TABLE_NAME = 'FINANCIAL_ACCOUNT' and
+        TABLE_ID = old.ID_FINANCIAL_ACCOUNT;
+end
+^
+
 /* Trigger: TAIUD_TOTAL_HOURS_WORKED */
 CREATE TRIGGER TAIUD_TOTAL_HOURS_WORKED FOR RECORD_SHEET_TIME
 ACTIVE AFTER INSERT OR UPDATE OR DELETE POSITION 1
@@ -228,6 +259,24 @@ begin
   if (deleting) then
   begin
     execute procedure CALCULATE_TOTAL_HOURS_WORKED(old.CD_RECORD_SHEET);
+  end
+end
+^
+
+/* Trigger: TBIU_ATTACHMENT_LOG */
+CREATE TRIGGER TBIU_ATTACHMENT_LOG FOR ATTACHMENT
+ACTIVE BEFORE INSERT OR UPDATE POSITION 1
+as
+begin
+  if (inserting) then
+  begin
+    new.LOG_DATE_INSERT_RECORD = current_timestamp;
+    new.LOG_DATE_UPDATE_RECORD = current_timestamp;
+  end
+  else
+  if (updating) then
+  begin
+    new.LOG_DATE_UPDATE_RECORD = current_timestamp;
   end
 end
 ^
@@ -372,6 +421,18 @@ begin
   if (updating) then
   begin
     new.LOG_DATE_UPDATE_RECORD = current_timestamp;
+  end
+end
+^
+
+/* Trigger: TBI_ATTACHMENT */
+CREATE TRIGGER TBI_ATTACHMENT FOR ATTACHMENT
+ACTIVE BEFORE INSERT POSITION 0
+as
+begin
+  if (new.ID_ATTACHMENT is null) then
+  begin
+    new.ID_ATTACHMENT = gen_id(GEN_ATTACHMENT, 1);
   end
 end
 ^
