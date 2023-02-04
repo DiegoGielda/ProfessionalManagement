@@ -66,7 +66,8 @@ inherited frmListingRecordSheet: TfrmListingRecordSheet
       
         'select R_SHEET.ID_RECORD_SHEET, R_SHEET.CD_PERSON_EMPLOYEE, R_SH' +
         'EET.DATE_RECORD, R_SHEET.TIME_DAY_TOTAL'
-      'from RECORD_SHEET as R_SHEET')
+      'from RECORD_SHEET as R_SHEET'
+      'order by R_SHEET.DATE_RECORD ascending')
     Left = 456
     Top = 144
     object qryRecordSheetID_RECORD_SHEET: TIntegerField
@@ -102,7 +103,8 @@ inherited frmListingRecordSheet: TfrmListingRecordSheet
         'select RS_TIME.ID_RECORD_SHEET_TIME, RS_TIME.CD_RECORD_SHEET, RS' +
         '_TIME.TIME_START, RS_TIME.TIME_END'
       'from RECORD_SHEET_TIME as RS_TIME'
-      'where RS_TIME.CD_RECORD_SHEET = :ID_RECORD_SHEET ')
+      'where RS_TIME.CD_RECORD_SHEET = :ID_RECORD_SHEET '
+      'order by RS_TIME.TIME_START ascending')
     Left = 568
     Top = 144
     ParamData = <
@@ -157,7 +159,8 @@ inherited frmListingRecordSheet: TfrmListingRecordSheet
         'P_EMP.DATE_ADMISSION, P_EMP.ENROLLMENT, P_EMP.PIS,'
       '       PER.NAME'
       'from PERSON_EMPLOYEE as P_EMP'
-      'inner join PERSON as PER on (PER.ID_PERSON = P_EMP.CD_PERSON)')
+      'inner join PERSON as PER on (PER.ID_PERSON = P_EMP.CD_PERSON)'
+      'order by PER.NAME ascending')
     Left = 688
     Top = 144
     object qryPersonEmployeeID_PERSON_EMPLOYEE: TIntegerField

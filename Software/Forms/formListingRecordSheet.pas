@@ -116,7 +116,8 @@ begin
   qryRecordSheet.SQL.Clear;
   qryRecordSheet.SQL.Text :=
     ' select R_SHEET.ID_RECORD_SHEET, R_SHEET.CD_PERSON_EMPLOYEE, R_SHEET.DATE_RECORD, R_SHEET.TIME_DAY_TOTAL ' + sLineBreak +
-    ' from RECORD_SHEET as R_SHEET ';
+    ' from RECORD_SHEET as R_SHEET ' + sLineBreak +
+    ' order by R_SHEET.DATE_RECORD ascending ';
   qryRecordSheet.Open;
 
   qryRecordSheetItemTime.Close;
@@ -124,14 +125,16 @@ begin
   qryRecordSheetItemTime.SQL.Text :=
     ' select RS_TIME.ID_RECORD_SHEET_TIME, RS_TIME.CD_RECORD_SHEET, RS_TIME.TIME_START, RS_TIME.TIME_END ' + sLineBreak +
     ' from RECORD_SHEET_TIME as RS_TIME ' + sLineBreak +
-    ' where RS_TIME.CD_RECORD_SHEET = :ID_RECORD_SHEET ';
+    ' where RS_TIME.CD_RECORD_SHEET = :ID_RECORD_SHEET ' + sLineBreak +
+    ' order by RS_TIME.TIME_START ascending ';
   qryRecordSheetItemTime.Open;
 
   qryPersonEmployee.Close;
   qryPersonEmployee.SQL.Text :=
     ' select P_EMP.ID_PERSON_EMPLOYEE, P_EMP.CD_PERSON, P_EMP.CD_JOB, P_EMP.DATE_ADMISSION, P_EMP.ENROLLMENT, P_EMP.PIS, PER.NAME ' + sLineBreak +
     ' from PERSON_EMPLOYEE as P_EMP ' + sLineBreak +
-    ' inner join PERSON as PER on (PER.ID_PERSON = P_EMP.CD_PERSON) ';
+    ' inner join PERSON as PER on (PER.ID_PERSON = P_EMP.CD_PERSON) ' + sLineBreak +
+    ' order by PER.NAME ascending ';
   qryPersonEmployee.Open;
 end;
 
