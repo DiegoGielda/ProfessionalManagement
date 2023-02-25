@@ -42,6 +42,10 @@ object frmMain: TfrmMain
         Caption = 'Pessoa'
         OnClick = mnPersonClick
       end
+      object mnFinacialInstitution: TMenuItem
+        Caption = 'Insitui'#231#227'o Financeira'
+        OnClick = mnFinacialInstitutionClick
+      end
     end
     object mnTask: TMenuItem
       Caption = 'Tarefas'
