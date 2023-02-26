@@ -33,22 +33,19 @@ uses
 
 procedure TdmConnectionFD.ConfigDatabase;
 var
-{$IFDEF RELEASE}
   lFileINI: TIniFile;
-{$ENDIF}
   lWay: string;
 begin
   lWay := '';
-{$IFDEF RELEASE}
   if not FileExists('Config.ini') then
   begin
-    lWay := GetCurrentDir + '\Database\';
-    lFileINI := TIniFile.create(GetCurrentDir + '\Config.ini');
+    lWay := GetCurrentDir;
+    lFileINI := TIniFile.create(lWay + '\Config.ini');
     try
-      lFileINI.WriteString('ProfessionalManagement', 'database', lWay + 'ProfessionalManagement.FDB');
+      lFileINI.WriteString('ProfessionalManagement', 'database', lWay + '\ProfessionalManagement.FDB');
       lFileINI.WriteString('ProfessionalManagement', 'user_name', 'SYSDBA');
       lFileINI.WriteString('ProfessionalManagement', 'password', 'masterkey');
-      lFileINI.WriteString('ProfessionalManagement', 'fbclient', lWay + 'fbclient.dll');
+      lFileINI.WriteString('ProfessionalManagement', 'fbclient', lWay + '\fbclient.dll');
     finally
       lFileINI.Free;
     end;
@@ -65,25 +62,11 @@ begin
   finally
     lFileINI.Free;
   end;
-{$ENDIF}
-{$IFDEF DEBUG}
-  lWay := Copy(GetCurrentDir, 1, Pos('\ProfessionalManagement', GetCurrentDir));
-  fdConnection.Params.Database := lWay + 'ProfessionalManagement\Database\Development.FDB';
-  fdDriver.VendorLib := lWay + 'ProfessionalManagement\Database\fbclient.dll';
-  fdConnection.Params.UserName := 'sysdba';
-  fdConnection.Params.Password := 'masterkey';
-{$ENDIF}
 end;
 
 procedure TdmConnectionFD.DataModuleCreate(Sender: TObject);
 begin
-  try
-    ConfigDatabase;
-    fdConnection.Connected := true;
-  except
-    on E: Exception do
-      ShowMessage('Verifique sua configuração no arquivo config.INI' + #13 + #13 + 'Erro: ' + E.Message );
-  end;
+  ConfigDatabase;
 end;
 
 end.
