@@ -15,7 +15,7 @@ type
     lblCompany: TLabel;
     lblDescriptionJob: TLabel;
     lblIDJob: TLabel;
-    lookStateTask: TcxDBLookupComboBox;
+    lookDescriptionCompany: TcxDBLookupComboBox;
     edtDateAdmissionJob: TcxDBDateEdit;
     lblDateAdmissionJob: TLabel;
     lblDateResignationJob: TLabel;

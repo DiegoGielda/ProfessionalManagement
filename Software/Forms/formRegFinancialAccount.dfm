@@ -7,7 +7,7 @@ inherited frmRegFinancialAccount: TfrmRegFinancialAccount
   inherited pnlRegistration: TPanel
     object lblDateAccountFinancialAccount: TLabel [0]
       Left = 176
-      Top = 132
+      Top = 194
       Width = 83
       Height = 16
       Caption = 'Data da Conta'
@@ -46,7 +46,7 @@ inherited frmRegFinancialAccount: TfrmRegFinancialAccount
     end
     object lblTypeFinancialAccount: TLabel [3]
       Left = 25
-      Top = 131
+      Top = 193
       Width = 24
       Height = 16
       Caption = 'Tipo'
@@ -59,7 +59,7 @@ inherited frmRegFinancialAccount: TfrmRegFinancialAccount
     end
     object lblValueAccountFinancialAccount: TLabel [4]
       Left = 322
-      Top = 132
+      Top = 194
       Width = 29
       Height = 16
       Caption = 'Valor'
@@ -70,7 +70,21 @@ inherited frmRegFinancialAccount: TfrmRegFinancialAccount
       Font.Style = []
       ParentFont = False
     end
+    object lblDescriptionFinancialInstitution: TLabel [5]
+      Left = 25
+      Top = 132
+      Width = 119
+      Height = 16
+      Caption = 'Insitui'#231#227'o Financeira'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
+    end
     inherited pnlHeader: TPanel
+      TabOrder = 6
       inherited btnNew: TSpeedButton
         OnClick = btnNewClick
       end
@@ -98,11 +112,11 @@ inherited frmRegFinancialAccount: TfrmRegFinancialAccount
     end
     object edtDateAccountFinancialAccount: TcxDBDateEdit
       Left = 176
-      Top = 150
+      Top = 212
       AutoSize = False
       DataBinding.DataField = 'DATA_ACCOUNT'
       DataBinding.DataSource = frmListingFinancialAccount.dsFinancialAccount
-      TabOrder = 1
+      TabOrder = 4
       Height = 24
       Width = 127
     end
@@ -119,7 +133,7 @@ inherited frmRegFinancialAccount: TfrmRegFinancialAccount
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
-      TabOrder = 2
+      TabOrder = 1
     end
     object edtIDFinancialAccount: TDBEdit
       Left = 25
@@ -135,21 +149,21 @@ inherited frmRegFinancialAccount: TfrmRegFinancialAccount
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
-      TabOrder = 3
+      TabOrder = 0
     end
     object edtValueAccountFinancialAccount: TDBEdit
       Left = 322
-      Top = 151
+      Top = 213
       Width = 134
       Height = 24
       AutoSize = False
       DataField = 'VALUE_ACCOUNT'
       DataSource = frmListingFinancialAccount.dsFinancialAccount
-      TabOrder = 4
+      TabOrder = 5
     end
     object lookTypeFinancialAccount: TcxDBLookupComboBox
       Left = 25
-      Top = 150
+      Top = 212
       AutoSize = False
       DataBinding.DataField = 'TYPE_ACCOUNT'
       DataBinding.DataSource = frmListingFinancialAccount.dsFinancialAccount
@@ -174,9 +188,35 @@ inherited frmRegFinancialAccount: TfrmRegFinancialAccount
       Properties.ListFieldIndex = 1
       Properties.ListOptions.ShowHeader = False
       Properties.ListSource = dmFinancialAccountFD.dsFinancialAccountType
-      TabOrder = 5
+      TabOrder = 3
       Height = 24
       Width = 123
+    end
+    object lookDescriptionFinancialInstitution: TcxDBLookupComboBox
+      Left = 25
+      Top = 151
+      AutoSize = False
+      DataBinding.DataField = 'CD_FINANCIAL_INSTITUTION'
+      DataBinding.DataSource = frmListingFinancialAccount.dsFinancialAccount
+      Properties.KeyFieldNames = 'ID_FINANCIAL_INSTITUTION'
+      Properties.ListColumns = <
+        item
+          Caption = 'ID'
+          HeaderAlignment = taCenter
+          FieldName = 'ID_FINANCIAL_INSTITUTION'
+        end
+        item
+          Caption = 'Institui'#231#227'o Financeira'
+          HeaderAlignment = taCenter
+          Width = 604
+          FieldName = 'DESC_FINANCIAL_INSTITUTION'
+        end>
+      Properties.ListFieldIndex = 1
+      Properties.ListOptions.ShowHeader = False
+      Properties.ListSource = frmListingFinancialAccount.dsFinancialInstitution
+      TabOrder = 2
+      Height = 24
+      Width = 431
     end
   end
 end
