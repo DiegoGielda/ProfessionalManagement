@@ -55,7 +55,6 @@ end;
 procedure TfrmRegFinancialInstitution.btnDeleteClick(Sender: TObject);
 begin
   inherited;
-  inherited;
   case Application.MessageBox('Deseja excluir a Instituição Financeira ?', 'Excluir Instituição Financeira', MB_YESNO + MB_ICONQUESTION) of
   IDYES :
     begin

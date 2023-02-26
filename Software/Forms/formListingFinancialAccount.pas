@@ -13,7 +13,6 @@ type
     qryFinancialAccount: TFDQuery;
     dsFinancialAccount: TDataSource;
     qryFinancialAccountID_FINANCIAL_ACCOUNT: TIntegerField;
-    qryFinancialAccountDESCRIPTION: TStringField;
     qryFinancialAccountTYPE_ACCOUNT: TStringField;
     qryFinancialAccountDATA_ACCOUNT: TDateField;
     qryFinancialAccountVALUE_ACCOUNT: TFMTBCDField;
@@ -22,6 +21,12 @@ type
     qryFinancialInstitutionID_FINANCIAL_INSTITUTION: TIntegerField;
     qryFinancialInstitutionDESC_FINANCIAL_INSTITUTION: TStringField;
     qryFinancialAccountCD_FINANCIAL_INSTITUTION: TIntegerField;
+    qryOperation: TFDQuery;
+    qryOperationID_OPERATION: TIntegerField;
+    qryOperationDESC_OPERATION: TStringField;
+    dsOperation: TDataSource;
+    qryFinancialAccountCD_OPERATION: TIntegerField;
+    qryFinancialAccountOBSERVATION_ACCOUNT: TStringField;
     procedure FormCreate(Sender: TObject);
     procedure dbgPatternDblClick(Sender: TObject);
     procedure btnNewClick(Sender: TObject);
@@ -90,6 +95,9 @@ begin
 
   qryFinancialInstitution.Active := false;
   qryFinancialInstitution.Active := true;
+
+  qryOperation.Active := false;
+  qryOperation.Active := true;
 end;
 
 procedure TfrmListingFinancialAccount.FormShow(Sender: TObject);
@@ -98,7 +106,8 @@ begin
   qryFinancialAccount.Close;
   qryFinancialAccount.SQL.Clear;
   qryFinancialAccount.SQL.Text :=
-    ' select FA.ID_FINANCIAL_ACCOUNT, FA.DESCRIPTION, FA.TYPE_ACCOUNT, FA.DATA_ACCOUNT, FA.VALUE_ACCOUNT, FA.CD_FINANCIAL_INSTITUTION ' + sLineBreak +
+    ' select FA.ID_FINANCIAL_ACCOUNT, FA.CD_OPERATION, FA.TYPE_ACCOUNT, FA.DATA_ACCOUNT, FA.VALUE_ACCOUNT, FA.CD_FINANCIAL_INSTITUTION, ' + sLineBreak +
+    '        FA.OBSERVATION AS OBSERVATION_ACCOUNT ' + sLineBreak +
     ' from FINANCIAL_ACCOUNT FA ' + sLineBreak +
     ' order by FA.DATA_ACCOUNT, FA.TYPE_ACCOUNT, FA.VALUE_ACCOUNT desc ';
   qryFinancialAccount.Open;
@@ -110,6 +119,14 @@ begin
     ' from FINANCIAL_INSTITUTION as FI ' + sLineBreak +
     ' order by FI.ID_FINANCIAL_INSTITUTION ';
   qryFinancialInstitution.Open;
+
+  qryOperation.Close;
+  qryOperation.SQL.Clear;
+  qryOperation.SQL.Text :=
+    ' select OP.ID_OPERATION, OP.DESCRIPTION as DESC_OPERATION ' + sLineBreak +
+    ' from OPERATION as OP ' + sLineBreak +
+    ' order by OP.ID_OPERATION ';
+  qryOperation.Open;
 end;
 
 procedure TfrmListingFinancialAccount.qryFinancialAccountNewRecord(DataSet: TDataSet);

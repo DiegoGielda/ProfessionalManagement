@@ -46,6 +46,10 @@ object frmMain: TfrmMain
         Caption = 'Insitui'#231#227'o Financeira'
         OnClick = mnFinacialInstitutionClick
       end
+      object mnOperation: TMenuItem
+        Caption = 'Opera'#231#245'es'
+        OnClick = mnOperationClick
+      end
     end
     object mnTask: TMenuItem
       Caption = 'Tarefas'

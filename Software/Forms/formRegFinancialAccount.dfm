@@ -7,10 +7,11 @@ inherited frmRegFinancialAccount: TfrmRegFinancialAccount
   inherited pnlRegistration: TPanel
     object lblDateAccountFinancialAccount: TLabel [0]
       Left = 176
-      Top = 194
+      Top = 132
       Width = 83
       Height = 16
       Caption = 'Data da Conta'
+      FocusControl = edtDateAccountFinancialAccount
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -13
@@ -18,12 +19,13 @@ inherited frmRegFinancialAccount: TfrmRegFinancialAccount
       Font.Style = []
       ParentFont = False
     end
-    object lblDescriptionFinancialAccount: TLabel [1]
-      Left = 90
-      Top = 69
-      Width = 58
+    object lblObservationFinancialAccount: TLabel [1]
+      Left = 25
+      Top = 193
+      Width = 68
       Height = 16
-      Caption = 'Descri'#231#227'o'
+      Caption = 'Observa'#231#227'o'
+      FocusControl = edtObservationFinancialAccount
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -13
@@ -46,10 +48,11 @@ inherited frmRegFinancialAccount: TfrmRegFinancialAccount
     end
     object lblTypeFinancialAccount: TLabel [3]
       Left = 25
-      Top = 193
+      Top = 132
       Width = 24
       Height = 16
       Caption = 'Tipo'
+      FocusControl = lookTypeFinancialAccount
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -13
@@ -59,10 +62,11 @@ inherited frmRegFinancialAccount: TfrmRegFinancialAccount
     end
     object lblValueAccountFinancialAccount: TLabel [4]
       Left = 322
-      Top = 194
+      Top = 132
       Width = 29
       Height = 16
       Caption = 'Valor'
+      FocusControl = edtValueAccountFinancialAccount
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -13
@@ -71,11 +75,26 @@ inherited frmRegFinancialAccount: TfrmRegFinancialAccount
       ParentFont = False
     end
     object lblDescriptionFinancialInstitution: TLabel [5]
-      Left = 25
-      Top = 132
+      Left = 601
+      Top = 69
       Width = 119
       Height = 16
       Caption = 'Insitui'#231#227'o Financeira'
+      FocusControl = lookDescriptionFinancialInstitution
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lblDescriptionOperation: TLabel [6]
+      Left = 90
+      Top = 69
+      Width = 56
+      Height = 16
+      Caption = 'Opera'#231#227'o'
+      FocusControl = lookDescriptionOperation
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -13
@@ -84,7 +103,7 @@ inherited frmRegFinancialAccount: TfrmRegFinancialAccount
       ParentFont = False
     end
     inherited pnlHeader: TPanel
-      TabOrder = 6
+      TabOrder = 7
       inherited btnNew: TSpeedButton
         OnClick = btnNewClick
       end
@@ -112,7 +131,7 @@ inherited frmRegFinancialAccount: TfrmRegFinancialAccount
     end
     object edtDateAccountFinancialAccount: TcxDBDateEdit
       Left = 176
-      Top = 212
+      Top = 151
       AutoSize = False
       DataBinding.DataField = 'DATA_ACCOUNT'
       DataBinding.DataSource = frmListingFinancialAccount.dsFinancialAccount
@@ -120,12 +139,12 @@ inherited frmRegFinancialAccount: TfrmRegFinancialAccount
       Height = 24
       Width = 127
     end
-    object edtDescriptionFinancialAccount: TDBEdit
-      Left = 90
-      Top = 88
-      Width = 807
+    object edtObservationFinancialAccount: TDBEdit
+      Left = 25
+      Top = 212
+      Width = 776
       Height = 24
-      DataField = 'DESCRIPTION'
+      DataField = 'OBSERVATION_ACCOUNT'
       DataSource = frmListingFinancialAccount.dsFinancialAccount
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -133,7 +152,7 @@ inherited frmRegFinancialAccount: TfrmRegFinancialAccount
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
-      TabOrder = 1
+      TabOrder = 6
     end
     object edtIDFinancialAccount: TDBEdit
       Left = 25
@@ -153,7 +172,7 @@ inherited frmRegFinancialAccount: TfrmRegFinancialAccount
     end
     object edtValueAccountFinancialAccount: TDBEdit
       Left = 322
-      Top = 213
+      Top = 151
       Width = 134
       Height = 24
       AutoSize = False
@@ -163,7 +182,7 @@ inherited frmRegFinancialAccount: TfrmRegFinancialAccount
     end
     object lookTypeFinancialAccount: TcxDBLookupComboBox
       Left = 25
-      Top = 212
+      Top = 151
       AutoSize = False
       DataBinding.DataField = 'TYPE_ACCOUNT'
       DataBinding.DataSource = frmListingFinancialAccount.dsFinancialAccount
@@ -193,8 +212,8 @@ inherited frmRegFinancialAccount: TfrmRegFinancialAccount
       Width = 123
     end
     object lookDescriptionFinancialInstitution: TcxDBLookupComboBox
-      Left = 25
-      Top = 151
+      Left = 601
+      Top = 88
       AutoSize = False
       DataBinding.DataField = 'CD_FINANCIAL_INSTITUTION'
       DataBinding.DataSource = frmListingFinancialAccount.dsFinancialAccount
@@ -216,7 +235,33 @@ inherited frmRegFinancialAccount: TfrmRegFinancialAccount
       Properties.ListSource = frmListingFinancialAccount.dsFinancialInstitution
       TabOrder = 2
       Height = 24
-      Width = 431
+      Width = 200
+    end
+    object lookDescriptionOperation: TcxDBLookupComboBox
+      Left = 90
+      Top = 88
+      AutoSize = False
+      DataBinding.DataField = 'CD_OPERATION'
+      DataBinding.DataSource = frmListingFinancialAccount.dsFinancialAccount
+      Properties.KeyFieldNames = 'ID_OPERATION'
+      Properties.ListColumns = <
+        item
+          Caption = 'ID'
+          HeaderAlignment = taCenter
+          FieldName = 'ID_OPERATION'
+        end
+        item
+          Caption = 'Opera'#231#227'o'
+          HeaderAlignment = taCenter
+          Width = 604
+          FieldName = 'DESC_OPERATION'
+        end>
+      Properties.ListFieldIndex = 1
+      Properties.ListOptions.ShowHeader = False
+      Properties.ListSource = frmListingFinancialAccount.dsOperation
+      TabOrder = 1
+      Height = 24
+      Width = 487
     end
   end
 end
