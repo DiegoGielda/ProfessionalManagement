@@ -13,7 +13,7 @@ type
     qryFinancialInstitution: TFDQuery;
     dsFinancialInstitution: TDataSource;
     qryFinancialInstitutionID_FINANCIAL_INSTITUTION: TIntegerField;
-    qryFinancialInstitutionDESCRIPTION: TStringField;
+    qryFinancialInstitutionDESC_FINANCIAL_INSTITUTION: TStringField;
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
@@ -85,7 +85,7 @@ begin
   qryFinancialInstitution.Close;
   qryFinancialInstitution.SQL.Clear;
   qryFinancialInstitution.SQL.Text :=
-    ' select FI.ID_FINANCIAL_INSTITUTION, FI.DESCRIPTION ' + sLineBreak +
+    ' select FI.ID_FINANCIAL_INSTITUTION, FI.DESCRIPTION as DESC_FINANCIAL_INSTITUTION ' + sLineBreak +
     ' from FINANCIAL_INSTITUTION as FI ' + sLineBreak +
     ' order by FI.ID_FINANCIAL_INSTITUTION ';
   qryFinancialInstitution.Open;

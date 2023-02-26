@@ -122,7 +122,7 @@ inherited frmRegJob: TfrmRegJob
       ParentFont = False
       TabOrder = 2
     end
-    object lookStateTask: TcxDBLookupComboBox
+    object lookDescriptionCompany: TcxDBLookupComboBox
       Left = 25
       Top = 136
       AutoSize = False

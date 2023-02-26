@@ -17,6 +17,11 @@ type
     qryFinancialAccountTYPE_ACCOUNT: TStringField;
     qryFinancialAccountDATA_ACCOUNT: TDateField;
     qryFinancialAccountVALUE_ACCOUNT: TFMTBCDField;
+    qryFinancialInstitution: TFDQuery;
+    dsFinancialInstitution: TDataSource;
+    qryFinancialInstitutionID_FINANCIAL_INSTITUTION: TIntegerField;
+    qryFinancialInstitutionDESC_FINANCIAL_INSTITUTION: TStringField;
+    qryFinancialAccountCD_FINANCIAL_INSTITUTION: TIntegerField;
     procedure FormCreate(Sender: TObject);
     procedure dbgPatternDblClick(Sender: TObject);
     procedure btnNewClick(Sender: TObject);
@@ -80,10 +85,11 @@ end;
 procedure TfrmListingFinancialAccount.FormCreate(Sender: TObject);
 begin
   inherited;
-  if (not qryFinancialAccount.Active) then
-  begin
-    qryFinancialAccount.Active := true;
-  end;
+  qryFinancialAccount.Active := false;
+  qryFinancialAccount.Active := true;
+
+  qryFinancialInstitution.Active := false;
+  qryFinancialInstitution.Active := true;
 end;
 
 procedure TfrmListingFinancialAccount.FormShow(Sender: TObject);
@@ -91,10 +97,19 @@ begin
   inherited;
   qryFinancialAccount.Close;
   qryFinancialAccount.SQL.Clear;
-  qryFinancialAccount.SQL.Add(' select FA.ID_FINANCIAL_ACCOUNT, FA.DESCRIPTION, FA.TYPE_ACCOUNT, FA.DATA_ACCOUNT, FA.VALUE_ACCOUNT ');
-  qryFinancialAccount.SQL.Add(' from FINANCIAL_ACCOUNT FA ');
-  qryFinancialAccount.SQL.Add(' order by FA.DATA_ACCOUNT, FA.TYPE_ACCOUNT, FA.VALUE_ACCOUNT desc ');
+  qryFinancialAccount.SQL.Text :=
+    ' select FA.ID_FINANCIAL_ACCOUNT, FA.DESCRIPTION, FA.TYPE_ACCOUNT, FA.DATA_ACCOUNT, FA.VALUE_ACCOUNT, FA.CD_FINANCIAL_INSTITUTION ' + sLineBreak +
+    ' from FINANCIAL_ACCOUNT FA ' + sLineBreak +
+    ' order by FA.DATA_ACCOUNT, FA.TYPE_ACCOUNT, FA.VALUE_ACCOUNT desc ';
   qryFinancialAccount.Open;
+
+  qryFinancialInstitution.Close;
+  qryFinancialInstitution.SQL.Clear;
+  qryFinancialInstitution.SQL.Text :=
+    ' select FI.ID_FINANCIAL_INSTITUTION, FI.DESCRIPTION as DESC_FINANCIAL_INSTITUTION ' + sLineBreak +
+    ' from FINANCIAL_INSTITUTION as FI ' + sLineBreak +
+    ' order by FI.ID_FINANCIAL_INSTITUTION ';
+  qryFinancialInstitution.Open;
 end;
 
 procedure TfrmListingFinancialAccount.qryFinancialAccountNewRecord(DataSet: TDataSet);

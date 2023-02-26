@@ -91,7 +91,7 @@ inherited frmListingFinancialAccount: TfrmListingFinancialAccount
     SQL.Strings = (
       
         'select FA.ID_FINANCIAL_ACCOUNT, FA.DESCRIPTION, FA.TYPE_ACCOUNT,' +
-        ' FA.DATA_ACCOUNT, FA.VALUE_ACCOUNT'
+        ' FA.DATA_ACCOUNT, FA.VALUE_ACCOUNT, FA.CD_FINANCIAL_INSTITUTION'
       'from FINANCIAL_ACCOUNT FA'
       'order by FA.DATA_ACCOUNT, FA.TYPE_ACCOUNT, FA.VALUE_ACCOUNT desc')
     Left = 480
@@ -129,10 +129,42 @@ inherited frmListingFinancialAccount: TfrmListingFinancialAccount
       Precision = 18
       Size = 2
     end
+    object qryFinancialAccountCD_FINANCIAL_INSTITUTION: TIntegerField
+      FieldName = 'CD_FINANCIAL_INSTITUTION'
+      Origin = 'CD_FINANCIAL_INSTITUTION'
+      Required = True
+    end
   end
   object dsFinancialAccount: TDataSource
     DataSet = qryFinancialAccount
     Left = 480
-    Top = 192
+    Top = 176
+  end
+  object qryFinancialInstitution: TFDQuery
+    Connection = dmConnectionFD.fdConnection
+    SQL.Strings = (
+      
+        'select FI.ID_FINANCIAL_INSTITUTION, FI.DESCRIPTION as DESC_FINAN' +
+        'CIAL_INSTITUTION'
+      'from FINANCIAL_INSTITUTION as FI'
+      'order by FI.ID_FINANCIAL_INSTITUTION')
+    Left = 480
+    Top = 272
+    object qryFinancialInstitutionID_FINANCIAL_INSTITUTION: TIntegerField
+      FieldName = 'ID_FINANCIAL_INSTITUTION'
+      Origin = 'ID_FINANCIAL_INSTITUTION'
+      Required = True
+    end
+    object qryFinancialInstitutionDESC_FINANCIAL_INSTITUTION: TStringField
+      FieldName = 'DESC_FINANCIAL_INSTITUTION'
+      Origin = 'DESCRIPTION'
+      Required = True
+      Size = 100
+    end
+  end
+  object dsFinancialInstitution: TDataSource
+    DataSet = qryFinancialInstitution
+    Left = 480
+    Top = 336
   end
 end

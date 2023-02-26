@@ -20,6 +20,8 @@ type
     lblTypeFinancialAccount: TLabel;
     lblValueAccountFinancialAccount: TLabel;
     lookTypeFinancialAccount: TcxDBLookupComboBox;
+    lblDescriptionFinancialInstitution: TLabel;
+    lookDescriptionFinancialInstitution: TcxDBLookupComboBox;
     procedure btnCancelClick(Sender: TObject);
     procedure btnDeleteClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);

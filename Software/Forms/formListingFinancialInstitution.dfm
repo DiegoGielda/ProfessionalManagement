@@ -24,7 +24,7 @@ inherited frmListingFinancialInstitution: TfrmListingFinancialInstitution
       item
         Alignment = taCenter
         Expanded = False
-        FieldName = 'DESCRIPTION'
+        FieldName = 'DESC_FINANCIAL_INSTITUTION'
         Title.Alignment = taCenter
         Title.Caption = 'DESCRI'#199#195'O'
         Title.Font.Charset = DEFAULT_CHARSET
@@ -47,7 +47,9 @@ inherited frmListingFinancialInstitution: TfrmListingFinancialInstitution
   object qryFinancialInstitution: TFDQuery
     Connection = dmConnectionFD.fdConnection
     SQL.Strings = (
-      'select FI.ID_FINANCIAL_INSTITUTION, FI.DESCRIPTION'
+      
+        'select FI.ID_FINANCIAL_INSTITUTION, FI.DESCRIPTION as DESC_FINAN' +
+        'CIAL_INSTITUTION'
       'from FINANCIAL_INSTITUTION as FI'
       'order by FI.ID_FINANCIAL_INSTITUTION')
     Left = 560
@@ -58,8 +60,8 @@ inherited frmListingFinancialInstitution: TfrmListingFinancialInstitution
       Origin = 'ID_FINANCIAL_INSTITUTION'
       Required = True
     end
-    object qryFinancialInstitutionDESCRIPTION: TStringField
-      FieldName = 'DESCRIPTION'
+    object qryFinancialInstitutionDESC_FINANCIAL_INSTITUTION: TStringField
+      FieldName = 'DESC_FINANCIAL_INSTITUTION'
       Origin = 'DESCRIPTION'
       Required = True
       Size = 100

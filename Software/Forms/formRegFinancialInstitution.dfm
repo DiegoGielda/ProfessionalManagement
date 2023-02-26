@@ -76,7 +76,7 @@ inherited frmRegFinancialInstitution: TfrmRegFinancialInstitution
       Top = 88
       Width = 959
       Height = 24
-      DataField = 'DESCRIPTION'
+      DataField = 'DESC_FINANCIAL_INSTITUTION'
       DataSource = frmListingFinancialInstitution.dsFinancialInstitution
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
