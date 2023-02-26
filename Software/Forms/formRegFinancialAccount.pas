@@ -11,17 +11,19 @@ uses
 type
   TfrmRegFinancialAccount = class(TfrmDefaultRegistration)
     edtDateAccountFinancialAccount: TcxDBDateEdit;
-    edtDescriptionFinancialAccount: TDBEdit;
+    edtObservationFinancialAccount: TDBEdit;
     edtIDFinancialAccount: TDBEdit;
     edtValueAccountFinancialAccount: TDBEdit;
     lblDateAccountFinancialAccount: TLabel;
-    lblDescriptionFinancialAccount: TLabel;
+    lblObservationFinancialAccount: TLabel;
     lblIDFinancialAccount: TLabel;
     lblTypeFinancialAccount: TLabel;
     lblValueAccountFinancialAccount: TLabel;
     lookTypeFinancialAccount: TcxDBLookupComboBox;
     lblDescriptionFinancialInstitution: TLabel;
     lookDescriptionFinancialInstitution: TcxDBLookupComboBox;
+    lookDescriptionOperation: TcxDBLookupComboBox;
+    lblDescriptionOperation: TLabel;
     procedure btnCancelClick(Sender: TObject);
     procedure btnDeleteClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
