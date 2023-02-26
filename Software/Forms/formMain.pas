@@ -109,7 +109,16 @@ end;
 
 procedure TfrmMain.FormCreate(Sender: TObject);
 begin
-  dmConnectionFD := TdmConnectionFD.Create(Self);
+  try
+    dmConnectionFD := TdmConnectionFD.Create(Self);
+    dmConnectionFD.fdConnection.Connected := true;
+  except
+    on E: Exception do
+    begin
+      ShowMessage('Verifique sua configuração no arquivo config.INI' + #13 + #13 + 'Erro: ' + E.Message);
+      Application.Terminate;
+    end;
+  end; 
 end;
 
 procedure TfrmMain.mmPrintAcontClick(Sender: TObject);
