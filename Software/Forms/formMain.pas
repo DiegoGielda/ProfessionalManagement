@@ -32,7 +32,6 @@ type
     procedure mnRegistrationAccountClick(Sender: TObject);
     procedure mnRegistrationRecordSheetClick(Sender: TObject);
     procedure mnPersonClick(Sender: TObject);
-    procedure mmPrintAcontClick(Sender: TObject);
     procedure mnFinacialInstitutionClick(Sender: TObject);
     procedure mnOperationClick(Sender: TObject);
   private
@@ -132,16 +131,6 @@ begin
       Application.Terminate;
     end;
   end; 
-end;
-
-procedure TfrmMain.mmPrintAcontClick(Sender: TObject);
-begin
-  rptDefaultFR := TrptDefaultFR.Create(Self);
-  try
-    rptDefaultFR.ShowModal;
-  finally
-    FreeAndNil(rptDefaultFR);
-  end;
 end;
 
 procedure TfrmMain.mnCompanyClick(Sender: TObject);

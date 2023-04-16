@@ -4,21 +4,26 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.Buttons, Vcl.StdCtrls;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.Buttons, Vcl.StdCtrls, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, frxClass, frxDBSet, Data.DB,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client;
 
 type
   TrptDefaultFR = class(TForm)
     plnFilters: TPanel;
     pnlButtons: TPanel;
     btnBack: TSpeedButton;
-    SpeedButton1: TSpeedButton;
+    btnPrintOut: TSpeedButton;
     pnlReportTitle: TPanel;
     lblReportTitle: TLabel;
+    printReport: TfrxReport;
+    qryPrint: TFDQuery;
+    dsPrint: TfrxDBDataset;
     procedure btnBackClick(Sender: TObject);
   private
     { Private declarations }
   public
-    { Public declarations }
+    procedure PrintOut(const pReport : TfrxReport);
   end;
 
 var
@@ -26,11 +31,19 @@ var
 
 implementation
 
+uses
+  dtmConnectionFD;
+
 {$R *.dfm}
 
 procedure TrptDefaultFR.btnBackClick(Sender: TObject);
 begin
   Self.Close;
+end;
+
+procedure TrptDefaultFR.PrintOut(const pReport: TfrxReport);
+begin
+  pReport.ShowReport;
 end;
 
 end.

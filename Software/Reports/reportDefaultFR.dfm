@@ -42,7 +42,7 @@ object rptDefaultFR: TrptDefaultFR
         Caption = 'Title'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -16
+        Font.Height = -19
         Font.Name = 'Arial'
         Font.Style = [fsBold]
         ParentFont = False
@@ -63,6 +63,11 @@ object rptDefaultFR: TrptDefaultFR
       Width = 124
       Height = 41
       Caption = 'Voltar'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
       Glyph.Data = {
         36100000424D3610000000000000360000002800000020000000200000000100
         2000000000000010000000000000000000000000000000000000000000000000
@@ -194,14 +199,20 @@ object rptDefaultFR: TrptDefaultFR
         0000000000000000000000000000000000000000000000000000000000000000
         0000000000000000000000000000000000000000000000000000000000000000
         0000000000000000000000000000000000000000000000000000}
+      ParentFont = False
       OnClick = btnBackClick
     end
-    object SpeedButton1: TSpeedButton
+    object btnPrintOut: TSpeedButton
       Left = 14
       Top = 10
       Width = 124
       Height = 45
       Caption = 'Imprimir'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
       Glyph.Data = {
         36100000424D3610000000000000360000002800000020000000200000000100
         2000000000000010000000000000000000000000000000000000000000000000
@@ -333,6 +344,56 @@ object rptDefaultFR: TrptDefaultFR
         0000000000000000000000000000000000000000000000000000000000000000
         0000000000000000000000000000000000000000000000000000000000000000
         0000000000000000000000000000000000000000000000000000}
+      ParentFont = False
     end
+  end
+  object printReport: TfrxReport
+    Version = '6.3.5'
+    DotMatrixReport = False
+    IniFile = '\Software\Fast Reports'
+    PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick, pbCopy, pbSelection]
+    PreviewOptions.Zoom = 1.000000000000000000
+    PrintOptions.Printer = 'Default'
+    PrintOptions.PrintOnSheet = 0
+    ReportOptions.CreateDate = 45032.498756481480000000
+    ReportOptions.LastChange = 45032.502121863430000000
+    ScriptLanguage = 'PascalScript'
+    ScriptText.Strings = (
+      'begin'
+      ''
+      'end.')
+    Left = 576
+    Top = 128
+    Datasets = <>
+    Variables = <>
+    Style = <>
+    object Data: TfrxDataPage
+      Height = 1000.000000000000000000
+      Width = 1000.000000000000000000
+    end
+    object Page1: TfrxReportPage
+      PaperWidth = 210.000000000000000000
+      PaperHeight = 297.000000000000000000
+      PaperSize = 9
+      LeftMargin = 5.000000000000000000
+      RightMargin = 5.000000000000000000
+      TopMargin = 5.000000000000000000
+      BottomMargin = 5.000000000000000000
+      Frame.Typ = []
+      MirrorMode = []
+    end
+  end
+  object qryPrint: TFDQuery
+    Connection = dmConnectionFD.fdConnection
+    Left = 576
+    Top = 176
+  end
+  object dsPrint: TfrxDBDataset
+    UserName = 'PrintMain'
+    CloseDataSource = False
+    DataSet = qryPrint
+    BCDToCurrency = False
+    Left = 576
+    Top = 224
   end
 end

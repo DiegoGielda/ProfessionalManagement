@@ -71,7 +71,6 @@ object frmMain: TfrmMain
         Caption = 'Relat'#243'rios'
         object mmPrintAcont: TMenuItem
           Caption = 'Contas a Pagar e a Receber'
-          OnClick = mmPrintAcontClick
         end
       end
     end
