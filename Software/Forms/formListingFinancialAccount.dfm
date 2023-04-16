@@ -24,6 +24,20 @@ inherited frmListingFinancialAccount: TfrmListingFinancialAccount
       item
         Alignment = taCenter
         Expanded = False
+        FieldName = 'OPERATION_DESCRIPTION'
+        Title.Alignment = taCenter
+        Title.Caption = 'OPERA'#199#195'O'
+        Title.Font.Charset = DEFAULT_CHARSET
+        Title.Font.Color = clMoneyGreen
+        Title.Font.Height = -13
+        Title.Font.Name = 'Tahoma'
+        Title.Font.Style = [fsBold]
+        Width = 275
+        Visible = True
+      end
+      item
+        Alignment = taCenter
+        Expanded = False
         FieldName = 'TYPE_ACCOUNT'
         Title.Alignment = taCenter
         Title.Caption = 'TIPO'
@@ -46,6 +60,7 @@ inherited frmListingFinancialAccount: TfrmListingFinancialAccount
         Title.Font.Height = -13
         Title.Font.Name = 'Tahoma'
         Title.Font.Style = [fsBold]
+        Width = 103
         Visible = True
       end
       item
@@ -60,6 +75,20 @@ inherited frmListingFinancialAccount: TfrmListingFinancialAccount
         Title.Font.Name = 'Tahoma'
         Title.Font.Style = [fsBold]
         Width = 103
+        Visible = True
+      end
+      item
+        Alignment = taCenter
+        Expanded = False
+        FieldName = 'OBSERVATION_ACCOUNT'
+        Title.Alignment = taCenter
+        Title.Caption = 'OBSEVA'#199#195'O'
+        Title.Font.Charset = DEFAULT_CHARSET
+        Title.Font.Color = clMoneyGreen
+        Title.Font.Height = -13
+        Title.Font.Name = 'Tahoma'
+        Title.Font.Style = [fsBold]
+        Width = 600
         Visible = True
       end>
   end
@@ -76,10 +105,13 @@ inherited frmListingFinancialAccount: TfrmListingFinancialAccount
     Connection = dmConnectionFD.fdConnection
     SQL.Strings = (
       
-        'select FA.ID_FINANCIAL_ACCOUNT, FA.CD_OPERATION, FA.TYPE_ACCOUNT' +
-        ', FA.DATA_ACCOUNT, FA.VALUE_ACCOUNT, FA.CD_FINANCIAL_INSTITUTION' +
-        ', FA.OBSERVATION AS OBSERVATION_ACCOUNT'
+        'select FA.ID_FINANCIAL_ACCOUNT, FA.CD_OPERATION, OPE.DESCRIPTION' +
+        ' as OPERATION_DESCRIPTION, FA.TYPE_ACCOUNT,'
+      
+        '       FA.DATA_ACCOUNT, FA.VALUE_ACCOUNT, FA.CD_FINANCIAL_INSTIT' +
+        'UTION, FA.OBSERVATION as OBSERVATION_ACCOUNT'
       'from FINANCIAL_ACCOUNT FA'
+      'inner join OPERATION OPE on (OPE.ID_OPERATION = FA.CD_OPERATION)'
       'order by FA.DATA_ACCOUNT, FA.TYPE_ACCOUNT, FA.VALUE_ACCOUNT desc')
     Left = 480
     Top = 120
@@ -93,6 +125,14 @@ inherited frmListingFinancialAccount: TfrmListingFinancialAccount
       FieldName = 'CD_OPERATION'
       Origin = 'CD_OPERATION'
       Required = True
+    end
+    object qryFinancialAccountOPERATION_DESCRIPTION: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'OPERATION_DESCRIPTION'
+      Origin = 'DESCRIPTION'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 255
     end
     object qryFinancialAccountTYPE_ACCOUNT: TStringField
       FieldName = 'TYPE_ACCOUNT'

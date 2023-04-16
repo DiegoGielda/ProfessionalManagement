@@ -27,6 +27,7 @@ type
     dsOperation: TDataSource;
     qryFinancialAccountCD_OPERATION: TIntegerField;
     qryFinancialAccountOBSERVATION_ACCOUNT: TStringField;
+    qryFinancialAccountOPERATION_DESCRIPTION: TStringField;
     procedure FormCreate(Sender: TObject);
     procedure dbgPatternDblClick(Sender: TObject);
     procedure btnNewClick(Sender: TObject);
@@ -106,9 +107,10 @@ begin
   qryFinancialAccount.Close;
   qryFinancialAccount.SQL.Clear;
   qryFinancialAccount.SQL.Text :=
-    ' select FA.ID_FINANCIAL_ACCOUNT, FA.CD_OPERATION, FA.TYPE_ACCOUNT, FA.DATA_ACCOUNT, FA.VALUE_ACCOUNT, FA.CD_FINANCIAL_INSTITUTION, ' + sLineBreak +
-    '        FA.OBSERVATION AS OBSERVATION_ACCOUNT ' + sLineBreak +
+    ' select FA.ID_FINANCIAL_ACCOUNT, FA.CD_OPERATION, OPE.DESCRIPTION as OPERATION_DESCRIPTION, FA.TYPE_ACCOUNT, FA.DATA_ACCOUNT, ' + sLineBreak +
+    '        FA.VALUE_ACCOUNT, FA.CD_FINANCIAL_INSTITUTION, FA.OBSERVATION AS OBSERVATION_ACCOUNT ' + sLineBreak +
     ' from FINANCIAL_ACCOUNT FA ' + sLineBreak +
+    ' inner join OPERATION OPE on (OPE.ID_OPERATION = FA.CD_OPERATION) ' + sLineBreak +
     ' order by FA.DATA_ACCOUNT, FA.TYPE_ACCOUNT, FA.VALUE_ACCOUNT desc ';
   qryFinancialAccount.Open;
 
