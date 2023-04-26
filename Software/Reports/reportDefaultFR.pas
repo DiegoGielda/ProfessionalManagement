@@ -22,8 +22,9 @@ type
     procedure btnBackClick(Sender: TObject);
   private
     { Private declarations }
-  public
-    procedure PrintOut(const pReport : TfrxReport);
+  protected
+    procedure PrintOut(const pReport: TfrxReport); overload;
+    procedure PrintOut(const pReport: TfrxReport; const pQueryMain: TFDQuery); overload;
   end;
 
 var
@@ -43,6 +44,13 @@ end;
 
 procedure TrptDefaultFR.PrintOut(const pReport: TfrxReport);
 begin
+  pReport.ShowReport;
+end;
+
+procedure TrptDefaultFR.PrintOut(const pReport: TfrxReport; const pQueryMain: TFDQuery);
+begin
+  if not pQueryMain.Active then
+    pQueryMain.Open;
   pReport.ShowReport;
 end;
 

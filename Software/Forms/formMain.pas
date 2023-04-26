@@ -34,6 +34,7 @@ type
     procedure mnPersonClick(Sender: TObject);
     procedure mnFinacialInstitutionClick(Sender: TObject);
     procedure mnOperationClick(Sender: TObject);
+    procedure mmPrintAcontClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -57,7 +58,7 @@ uses
   formListingPerson,
   formListingFinancialInstitution,
   formListingOperation,
-  reportDefaultFR;
+  reportFinancialAccountFR;
 
 procedure TfrmMain.mnJobClick(Sender: TObject);
 begin
@@ -131,6 +132,16 @@ begin
       Application.Terminate;
     end;
   end; 
+end;
+
+procedure TfrmMain.mmPrintAcontClick(Sender: TObject);
+begin
+  rptFinancialAccountFR := TrptFinancialAccountFR.Create(Self);
+  try
+    rptFinancialAccountFR.ShowModal;
+  finally
+    FreeAndNil(rptFinancialAccountFR);
+  end;
 end;
 
 procedure TfrmMain.mnCompanyClick(Sender: TObject);
