@@ -29,7 +29,7 @@ object frmMain: TfrmMain
     Top = 8
     object mnRegistration: TMenuItem
       AutoHotkeys = maAutomatic
-      Caption = 'Cadastros'
+      Caption = '&Cadastros'
       object mnCompany: TMenuItem
         Caption = 'Empresa'
         OnClick = mnCompanyClick
@@ -52,31 +52,31 @@ object frmMain: TfrmMain
       end
     end
     object mnTask: TMenuItem
-      Caption = 'Tarefas'
+      Caption = '&Tarefas'
       object mnRegistrationTask: TMenuItem
-        Caption = 'Cadastro de Tarefa'
+        Caption = '&Cadastro de Tarefa'
         OnClick = mnRegistrationTaskClick
       end
     end
     object mnFinancial: TMenuItem
-      Caption = 'Financeiro'
+      Caption = '&Financeiro'
       object mnRegistrationAccount: TMenuItem
-        Caption = 'Conta'
+        Caption = '&Conta'
         OnClick = mnRegistrationAccountClick
       end
       object N1: TMenuItem
         Caption = '-'
       end
       object mnPrintFinancial: TMenuItem
-        Caption = 'Relat'#243'rios'
+        Caption = '&Relat'#243'rios'
         object mmPrintAcont: TMenuItem
-          Caption = 'Contas a Pagar e a Receber'
+          Caption = 'Pagamentos e Recebimentos por &Institui'#231#227'o'
           OnClick = mmPrintAcontClick
         end
       end
     end
     object mmRecordSheet: TMenuItem
-      Caption = 'Folha Registro'
+      Caption = 'Folha &Registro'
       object mnRegistrationRecordSheet: TMenuItem
         Caption = 'Registro'
         OnClick = mnRegistrationRecordSheetClick

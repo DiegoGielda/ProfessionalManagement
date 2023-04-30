@@ -216,6 +216,10 @@
             <Form>rptDefaultFR</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="..\Reports\reportFinancialAccountFR.pas">
+            <Form>rptFinancialAccountFR</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -237,6 +241,7 @@
                     <Source Name="MainSource">ProfessionalManagement.dpr</Source>
                 </Source>
                 <Excluded_Packages>
+                    <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\20.0\Bpl\PascalScript_Core_D26.bpl">RemObjects Pascal Script - Core Package</Excluded_Packages>
                     <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\20.0\Bpl\dclcxPivotGridOLAPRS26.bpl">ExpressPivotGrid OLAP by Developer Express Inc.</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\dcloffice2k260.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
                 </Excluded_Packages>

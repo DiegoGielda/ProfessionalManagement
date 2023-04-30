@@ -30,6 +30,7 @@ uses
   formRegRecordSheet in '..\Forms\formRegRecordSheet.pas' {frmRegRecordSheet},
   formRegTask in '..\Forms\formRegTask.pas' {frmRegTask},
   reportDefaultFR in '..\Reports\reportDefaultFR.pas' {rptDefaultFR},
+  reportFinancialAccountFR in '..\Reports\reportFinancialAccountFR.pas' {rptFinancialAccountFR},
   Vcl.Styles,
   Vcl.Themes;
 
