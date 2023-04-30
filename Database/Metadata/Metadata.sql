@@ -121,6 +121,7 @@ CREATE TABLE FINANCIAL_ACCOUNT (
     TYPE_ACCOUNT              FINANCIAL_ACCOUNT_TYPE NOT NULL,
     DATA_ACCOUNT              DATE NOT NULL,
     VALUE_ACCOUNT             VALUE_FINANCIAL NOT NULL,
+    VALUE_ACCOUNT_MOVEMENT    VALUE_FINANCIAL,
     CD_FINANCIAL_INSTITUTION  INTEGER NOT NULL,
     OBSERVATION               VARCHAR(255),
     LOG_DATE_INSERT_RECORD    TIMESTAMP DEFAULT current_timestamp NOT NULL,
@@ -282,6 +283,26 @@ begin
   if (deleting) then
   begin
     execute procedure CALCULATE_TOTAL_HOURS_WORKED(old.CD_RECORD_SHEET);
+  end
+end
+^
+
+/* Trigger: TAIU_FINANCIAL_ACCOUNT_VALUE */
+CREATE TRIGGER TAIU_FINANCIAL_ACCOUNT_VALUE FOR FINANCIAL_ACCOUNT
+ACTIVE BEFORE INSERT OR UPDATE POSITION 0
+as
+begin
+  if (inserting) then
+  begin
+    new.VALUE_ACCOUNT_MOVEMENT = (coalesce(new.VALUE_ACCOUNT, 0) * -1);
+  end
+  else
+  if (updating) then
+  begin
+    if (new.VALUE_ACCOUNT <> old.VALUE_ACCOUNT) then
+    begin
+      new.VALUE_ACCOUNT_MOVEMENT = (coalesce(new.VALUE_ACCOUNT, 0) * -1);
+    end
   end
 end
 ^
