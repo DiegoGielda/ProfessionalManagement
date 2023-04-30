@@ -18,7 +18,8 @@ type
     lblReportTitle: TLabel;
     printReport: TfrxReport;
     qryPrint: TFDQuery;
-    dsPrint: TfrxDBDataset;
+    frxPrint: TfrxDBDataset;
+    dsPrint: TDataSource;
     procedure btnBackClick(Sender: TObject);
   private
     { Private declarations }

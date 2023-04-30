@@ -10,21 +10,27 @@ uses
 
 type
   TrptFinancialAccountFR = class(TrptDefaultFR)
-    qryPrintID_FINANCIAL_ACCOUNT: TIntegerField;
-    qryPrintCD_OPERATION: TIntegerField;
-    qryPrintOPERATION_DESCRIPTION: TStringField;
-    qryPrintTYPE_ACCOUNT: TStringField;
-    qryPrintDATA_ACCOUNT: TDateField;
-    qryPrintVALUE_ACCOUNT: TFMTBCDField;
-    qryPrintCD_FINANCIAL_INSTITUTION: TIntegerField;
+    qryPrintID_FINANCIAL_INSTITUTION: TIntegerField;
     qryPrintINSTITUTION_DESCRIPTION: TStringField;
-    qryPrintOBSERVATION_ACCOUNT: TStringField;
-    qryPrintVALUE_ACCOUNT_TYPE: TFMTBCDField;
+    qryDetailAccount: TFDQuery;
+    qryDetailAccountID_FINANCIAL_ACCOUNT: TIntegerField;
+    qryDetailAccountCD_OPERATION: TIntegerField;
+    qryDetailAccountOPERATION_DESCRIPTION: TStringField;
+    qryDetailAccountTYPE_ACCOUNT: TStringField;
+    qryDetailAccountDATA_ACCOUNT: TDateField;
+    qryDetailAccountVALUE_ACCOUNT: TFMTBCDField;
+    qryDetailAccountVALUE_ACCOUNT_MOVEMENT: TFMTBCDField;
+    qryDetailAccountCD_FINANCIAL_INSTITUTION: TIntegerField;
+    qryDetailAccountINSTITUTION_DESCRIPTION: TStringField;
+    qryDetailAccountOBSERVATION_ACCOUNT: TStringField;
+    frxDetailAccount: TfrxDBDataset;
+    qryPrintVALUE_ACCOUNT_CURRENT: TFMTBCDField;
     procedure btnPrintOutClick(Sender: TObject);
   private
     { Private declarations }
-    procedure SQLReport(pQry: TFDQuery);
     procedure ValidateFilter;
+    procedure SQLReport(pQry: TFDQuery);
+    procedure SQLReportDetailAccount(pQry: TFDQuery);
   public
     { Public declarations }
   end;
@@ -41,6 +47,7 @@ begin
   inherited;
   ValidateFilter;
 
+  SQLReportDetailAccount(qryDetailAccount);
   SQLReport(qryPrint);
 
   PrintOut(printReport, qryPrint);
@@ -51,17 +58,27 @@ begin
   pQry.Close;
   pQry.SQL.Clear;
   pQry.SQL.Text :=
+    ' select FI.ID_FINANCIAL_INSTITUTION, FI.DESCRIPTION as INSTITUTION_DESCRIPTION, ' + sLineBreak +
+    '        (select sum(FA.VALUE_ACCOUNT_MOVEMENT) ' + sLineBreak +
+    '         from FINANCIAL_ACCOUNT FA ' + sLineBreak +
+    '         where (FA.CD_FINANCIAL_INSTITUTION = FI.ID_FINANCIAL_INSTITUTION)) as VALUE_ACCOUNT_CURRENT ' + sLineBreak +
+    ' from FINANCIAL_INSTITUTION FI ' + sLineBreak +
+    ' order by FI.DESCRIPTION asc ';
+end;
+
+procedure TrptFinancialAccountFR.SQLReportDetailAccount(pQry: TFDQuery);
+begin
+  pQry.Close;
+  pQry.SQL.Clear;
+  pQry.SQL.Text :=
     ' select FA.ID_FINANCIAL_ACCOUNT, FA.CD_OPERATION, OPE.DESCRIPTION as OPERATION_DESCRIPTION, FA.TYPE_ACCOUNT, ' + sLineBreak +
-    '        FA.DATA_ACCOUNT, FA.VALUE_ACCOUNT, FA.CD_FINANCIAL_INSTITUTION, FI.DESCRIPTION as INSTITUTION_DESCRIPTION, ' + sLineBreak +
-    '        FA.OBSERVATION as OBSERVATION_ACCOUNT, ' + sLineBreak +
-    '        case FA.TYPE_ACCOUNT ' + sLineBreak +
-    '          when ''S'' then (FA.VALUE_ACCOUNT * -1) ' + sLineBreak +
-    '          else FA.VALUE_ACCOUNT ' + sLineBreak +
-    '        end as VALUE_ACCOUNT_TYPE ' + sLineBreak +
+    '        FA.DATA_ACCOUNT, FA.VALUE_ACCOUNT, FA.VALUE_ACCOUNT_MOVEMENT, FA.CD_FINANCIAL_INSTITUTION, ' + sLineBreak +
+    '        FI.DESCRIPTION as INSTITUTION_DESCRIPTION, FA.OBSERVATION as OBSERVATION_ACCOUNT ' + sLineBreak +
     ' from FINANCIAL_ACCOUNT FA ' + sLineBreak +
     ' inner join OPERATION OPE on (OPE.ID_OPERATION = FA.CD_OPERATION) ' + sLineBreak +
     ' inner join FINANCIAL_INSTITUTION FI on (FI.ID_FINANCIAL_INSTITUTION = FA.CD_FINANCIAL_INSTITUTION) ' + sLineBreak +
-    ' order by FI.DESCRIPTION asc, FA.DATA_ACCOUNT asc, FA.TYPE_ACCOUNT asc, FA.VALUE_ACCOUNT desc ';
+    ' where (FA.CD_FINANCIAL_INSTITUTION = :ID_FINANCIAL_INSTITUTION) ' + sLineBreak +
+    ' order by FI.DESCRIPTION asc, FA.DATA_ACCOUNT asc, FA.TYPE_ACCOUNT asc, FA.VALUE_ACCOUNT desc   ';
 end;
 
 procedure TrptFinancialAccountFR.ValidateFilter;

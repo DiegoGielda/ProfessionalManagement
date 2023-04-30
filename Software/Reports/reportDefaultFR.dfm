@@ -385,15 +385,20 @@ object rptDefaultFR: TrptDefaultFR
   end
   object qryPrint: TFDQuery
     Connection = dmConnectionFD.fdConnection
-    Left = 584
+    Left = 560
     Top = 168
   end
-  object dsPrint: TfrxDBDataset
+  object frxPrint: TfrxDBDataset
     UserName = 'PrintMain'
     CloseDataSource = False
     DataSet = qryPrint
     BCDToCurrency = False
     Left = 584
     Top = 216
+  end
+  object dsPrint: TDataSource
+    DataSet = qryPrint
+    Left = 609
+    Top = 168
   end
 end
