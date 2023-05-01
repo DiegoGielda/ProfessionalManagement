@@ -51,7 +51,7 @@ inherited frmListingAttachment: TfrmListingAttachment
     SQL.Strings = (
       
         'select ATT.ID_ATTACHMENT, ATT.TABLE_NAME, ATT.TABLE_ID, ATT.ATTA' +
-        'CHMENT, ATT.ATTACHMENT_NAME'
+        'CHMENT, ATT.ATTACHMENT_NAME, ATT.ASSIGNED'
       'from ATTACHMENT as ATT'
       'where ATT.TABLE_NAME = :TABLE_NAME and'
       '      ATT.TABLE_ID = :TABLE_ID')
@@ -89,13 +89,19 @@ inherited frmListingAttachment: TfrmListingAttachment
     object qryAttachmentATTACHMENT: TBlobField
       FieldName = 'ATTACHMENT'
       Origin = 'ATTACHMENT'
-      Required = True
     end
     object qryAttachmentATTACHMENT_NAME: TStringField
       FieldName = 'ATTACHMENT_NAME'
       Origin = 'ATTACHMENT_NAME'
       Required = True
       Size = 255
+    end
+    object qryAttachmentASSIGNED: TStringField
+      FieldName = 'ASSIGNED'
+      Origin = 'ASSIGNED'
+      Required = True
+      FixedChar = True
+      Size = 1
     end
   end
   object dsAttachment: TDataSource
@@ -110,9 +116,20 @@ inherited frmListingAttachment: TfrmListingAttachment
   object popActionRecordGrid: TPopupMenu
     Left = 616
     Top = 136
+    object popRecordGridDonwload: TMenuItem
+      Caption = 'Baixar Anexo'
+      ShortCut = 16450
+      OnClick = popRecordGridDonwloadClick
+    end
     object popRecordGridDelete: TMenuItem
       Caption = 'Deletar Anexo'
+      ShortCut = 16452
       OnClick = popRecordGridDeleteClick
     end
+  end
+  object saveAttachment: TSaveDialog
+    Title = 'Selecione a pasta para salvar o anexo'
+    Left = 440
+    Top = 168
   end
 end
