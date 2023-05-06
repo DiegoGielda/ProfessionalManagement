@@ -67,7 +67,7 @@ begin
     if CheckPDF(FAttachmentName) then
     begin
       qryAttachment.Append;
-      qryAttachmentATTACHMENT_NAME.AsString := Trim(FAttachmentName);
+      qryAttachmentATTACHMENT_NAME.AsString := FAttachmentName;
       qryAttachmentASSIGNED.AsString := 'Y';
       qryAttachmentATTACHMENT.LoadFromFile(openAttachment.FileName);
 
@@ -86,7 +86,7 @@ begin
       qryAttachment.Append;
       if CopyFile(PChar(openAttachment.FileName), PChar(dmConnectionFD.AttachmentPath + FAttachmentName), True) then
       begin
-        qryAttachmentATTACHMENT_NAME.AsString := Trim(FAttachmentName);
+        qryAttachmentATTACHMENT_NAME.AsString := FAttachmentName;
         qryAttachmentASSIGNED.AsString := 'N';
         qryAttachment.Post;
 
@@ -176,13 +176,13 @@ begin
         begin
           if FileExists(lFilePath) then
           begin
-            lTransactionLock := false;
+            lTransactionLock := True;
             ShowMessage('Erro ao excluir o Anexo.' + sLineBreak + lFilePath);
           end;
         end;
       end;
 
-      if lTransactionLock then
+      if not lTransactionLock then
       begin
         qryAttachment.Delete;
         qryAttachment.Refresh;
