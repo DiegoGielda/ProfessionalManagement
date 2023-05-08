@@ -3,7 +3,7 @@ unit formListingAttachment;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Winapi.ShellAPI, Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, formDefaultListing, Data.DB, Vcl.Buttons, Vcl.ExtCtrls, Vcl.Grids, Vcl.DBGrids, FireDAC.Stan.Intf,
   FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.Menus;
@@ -20,22 +20,27 @@ type
     openAttachment: TOpenDialog;
     popActionRecordGrid: TPopupMenu;
     popRecordGridDelete: TMenuItem;
+    popRecordGridDonwload: TMenuItem;
+    saveAttachment: TSaveDialog;
+    qryAttachmentASSIGNED: TStringField;
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnNewClick(Sender: TObject);
     procedure qryAttachmentNewRecord(DataSet: TDataSet);
     procedure dbgPatternDblClick(Sender: TObject);
     procedure popRecordGridDeleteClick(Sender: TObject);
+    procedure popRecordGridDonwloadClick(Sender: TObject);
   private
-    { Private declarations }
     FTableName: string;
     FTableID: Integer;
     FAttachmentName: string;
-    procedure SetTableName(const Value: string);
-    procedure SetTableID(const Value: Integer);
-    function  RecordAlReadyExists: Boolean;
+
+    procedure SetTableName(const pValue: string);
+    procedure SetTableID(const pValue: Integer);
+    function RecordAlReadyExists: Boolean;
+    function CheckPDF(const pFilePath: string): Boolean;
+
   public
-    { Public declarations }
     property TableName: string write SetTableName;
     property TableID: Integer write SetTableID;
   end;
@@ -52,46 +57,86 @@ uses
   formPDFDevExpress;
 
 procedure TfrmListingAttachment.btnNewClick(Sender: TObject);
+const
+  cMensagemSucesso: string = 'Anexo foi armazenado com sucesso!';
 begin
   inherited;
-  qryAttachment.Append;
   if openAttachment.Execute then
   begin
     FAttachmentName := ExtractFileName(openAttachment.FileName);
-    qryAttachmentATTACHMENT_NAME.AsString := FAttachmentName;
-    qryAttachmentATTACHMENT.LoadFromFile(openAttachment.FileName);
+    if CheckPDF(FAttachmentName) then
+    begin
+      qryAttachment.Append;
+      qryAttachmentATTACHMENT_NAME.AsString := FAttachmentName;
+      qryAttachmentASSIGNED.AsString := 'Y';
+      qryAttachmentATTACHMENT.LoadFromFile(openAttachment.FileName);
+
+      if RecordAlReadyExists then
+      begin
+        qryAttachment.Cancel;
+      end
+      else
+      begin
+        qryAttachment.Post;
+        ShowMessage(cMensagemSucesso);
+      end;
+    end
+    else
+    begin
+      qryAttachment.Append;
+      if CopyFile(PChar(openAttachment.FileName), PChar(dmConnectionFD.AttachmentPath + FAttachmentName), True) then
+      begin
+        qryAttachmentATTACHMENT_NAME.AsString := FAttachmentName;
+        qryAttachmentASSIGNED.AsString := 'N';
+        qryAttachment.Post;
+
+        ShowMessage(cMensagemSucesso);
+      end
+      else
+      begin
+        qryAttachment.Cancel;
+        Application.MessageBox('Não foi possível armazenar o anexo.', 'Falha', MB_ICONERROR + MB_OK);
+      end;
+    end;
+
+    qryAttachment.Refresh;
   end;
-  if (FAttachmentName.IsEmpty or RecordAlReadyExists) then
-  begin
-    qryAttachment.Cancel;
-  end
-  else
-  begin
-    qryAttachment.Post;
-  end;
-  qryAttachment.Refresh;
+end;
+
+function TfrmListingAttachment.CheckPDF(const pFilePath: string): Boolean;
+begin
+  Result := (Pos('.PDF', UpperCase(pFilePath)) > 0)
 end;
 
 procedure TfrmListingAttachment.dbgPatternDblClick(Sender: TObject);
 var
   lFile: TStream;
+  lFileName: string;
 begin
   inherited;
-  if (Pos('.PDF', UpperCase(qryAttachmentATTACHMENT_NAME.AsString)) > 0) then
-  begin
-    lFile := qryAttachment.CreateBlobStream(qryAttachmentATTACHMENT, bmRead);
-    frmPDFDevExpress := TfrmPDFDevExpress.Create(Self);
-    try
-      frmPDFDevExpress.viewPDF.LoadFromStream(lFile);
-      frmPDFDevExpress.ShowModal;
-    finally
-      FreeAndNil(lFile);
-      FreeAndNil(frmPDFDevExpress);
+  lFileName := qryAttachmentATTACHMENT_NAME.AsString;
+  try
+    if (lFileName <> '') then
+    begin
+      if (qryAttachmentASSIGNED.AsString = 'Y') and CheckPDF(lFileName) then
+      begin
+        lFile := qryAttachment.CreateBlobStream(qryAttachmentATTACHMENT, bmRead);
+        frmPDFDevExpress := TfrmPDFDevExpress.Create(Self);
+        try
+          frmPDFDevExpress.viewPDF.LoadFromStream(lFile);
+          frmPDFDevExpress.ShowModal;
+        finally
+          FreeAndNil(frmPDFDevExpress);
+          FreeAndNil(lFile);
+        end;
+      end
+      else
+      begin
+        ShellExecuteW(Screen.ActiveForm.Handle, 'open', PChar(dmConnectionFD.AttachmentPath + lFileName), nil, nil, SW_SHOWNORMAL);
+      end;
     end;
-  end
-  else
-  begin
-    raise Exception.Create('Não é possível abrir o arquivo. Somente ".PDF"');
+  except
+    raise Exception.Create('Não é possível abrir o arquivo.');
   end;
 end;
 
@@ -108,7 +153,7 @@ begin
   qryAttachment.Close;
   qryAttachment.SQL.Clear;
   qryAttachment.SQL.Text :=
-    ' select ATT.ID_ATTACHMENT, ATT.TABLE_NAME, ATT.TABLE_ID, ATT.ATTACHMENT, ATT.ATTACHMENT_NAME ' + sLineBreak +
+    ' select ATT.ID_ATTACHMENT, ATT.TABLE_NAME, ATT.TABLE_ID, ATT.ATTACHMENT, ATT.ATTACHMENT_NAME, ATT.ASSIGNED ' + sLineBreak +
     ' from ATTACHMENT as ATT ' + sLineBreak +
     ' where ATT.TABLE_NAME = :TABLE_NAME and ' + sLineBreak +
     '       ATT.TABLE_ID = :TABLE_ID ';
@@ -118,19 +163,67 @@ begin
 end;
 
 procedure TfrmListingAttachment.popRecordGridDeleteClick(Sender: TObject);
+var
+  lFilePath: string;
+  lTransactionLock: Boolean;
 begin
   inherited;
+  lTransactionLock := False;
   case Application.MessageBox('Deseja excluir o Anexo ?', 'Excluir Anexo', MB_YESNO + MB_ICONQUESTION) of
   IDYES :
     begin
-     qryAttachment.Delete;
-     qryAttachment.Refresh;
-     ShowMessage('O Anexo foi excluído.');
+      lFilePath := dmConnectionFD.AttachmentPath + qryAttachmentATTACHMENT_NAME.AsString;
+      if (qryAttachmentASSIGNED.AsString = 'N') then
+      begin
+        if not DeleteFile(lFilePath) then
+        begin
+          if FileExists(lFilePath) then
+          begin
+            lTransactionLock := True;
+            ShowMessage('Erro ao excluir o Anexo.' + sLineBreak + lFilePath);
+          end;
+        end;
+      end;
+
+      if not lTransactionLock then
+      begin
+        qryAttachment.Delete;
+        qryAttachment.Refresh;
+        ShowMessage('O Anexo foi excluído.');
+      end;
     end;
   IDNO :
     begin
       exit;
     end;
+  end;
+end;
+
+procedure TfrmListingAttachment.popRecordGridDonwloadClick(Sender: TObject);
+var
+  lFileName: string;
+begin
+  lFileName := qryAttachmentATTACHMENT_NAME.AsString;
+  if (qryAttachmentASSIGNED.AsString = 'Y') and CheckPDF(qryAttachmentATTACHMENT_NAME.AsString) then
+  begin
+    saveAttachment.FileName := lFileName;
+    if saveAttachment.Execute(Screen.ActiveForm.Handle) then
+    begin
+      if FileExists(saveAttachment.FileName) then
+      begin
+        raise Exception.Create('Este arquivo já existe.');
+      end
+      else
+      begin
+        qryAttachmentATTACHMENT.SaveToFile(saveAttachment.FileName);
+      end;
+    end;
+
+    ShellExecuteW(Screen.ActiveForm.Handle, 'open', PChar(saveAttachment.FileName), nil, nil, SW_SHOWNORMAL);
+  end
+  else
+  begin
+    ShellExecuteW(Handle, nil, PChar('explorer.exe'), PChar('/select,' + dmConnectionFD.AttachmentPath + lFileName), nil, SW_SHOWNORMAL);
   end;
 end;
 
@@ -164,14 +257,14 @@ begin
   end;
 end;
 
-procedure TfrmListingAttachment.SetTableID(const Value: Integer);
+procedure TfrmListingAttachment.SetTableID(const pValue: Integer);
 begin
-  FTableID := Value;
+  FTableID := pValue;
 end;
 
-procedure TfrmListingAttachment.SetTableName(const Value: string);
+procedure TfrmListingAttachment.SetTableName(const pValue: string);
 begin
-  FTableName := Value;
+  FTableName := pValue;
 end;
 
 end.

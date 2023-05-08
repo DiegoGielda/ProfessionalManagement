@@ -15,10 +15,11 @@ type
     fdErroDialog: TFDGUIxErrorDialog;
     procedure DataModuleCreate(Sender: TObject);
   private
-    { Private declarations }
+    FAttachmentPath: string;
+
     procedure ConfigDatabase;
   public
-    { Public declarations }
+    property AttachmentPath: string read FAttachmentPath;
   end;
 
 var
@@ -42,23 +43,28 @@ begin
     lWay := GetCurrentDir;
     lFileINI := TIniFile.create(lWay + '\Config.ini');
     try
-      lFileINI.WriteString('ProfessionalManagement', 'database', lWay + '\ProfessionalManagement.FDB');
-      lFileINI.WriteString('ProfessionalManagement', 'user_name', 'SYSDBA');
-      lFileINI.WriteString('ProfessionalManagement', 'password', 'masterkey');
-      lFileINI.WriteString('ProfessionalManagement', 'fbclient', lWay + '\fbclient.dll');
+      lFileINI.WriteString('ProfessionalManagementConnection', 'database', lWay + '\ProfessionalManagement.FDB');
+      lFileINI.WriteString('ProfessionalManagementConnection', 'user_name', 'SYSDBA');
+      lFileINI.WriteString('ProfessionalManagementConnection', 'password', 'masterkey');
+      lFileINI.WriteString('ProfessionalManagementConnection', 'fbclient', lWay + '\fbclient.dll');
+
+      { TODO : Implementar correção de classe para arquivo de configuração,
+        lembrar de criar a pasta Attachment caso ela não existir. }
+      lFileINI.WriteString('ProfessionalManagementAttachment', 'attachment_path', lWay + '\Attachment\');
     finally
       lFileINI.Free;
     end;
     ShowMessage('Configure o arquivo "Config.ini" corretamente.');
   end;
 
-  lWay := Copy(GetCurrentDir, 1, Pos('\ProfessionalManagement', GetCurrentDir));
   lFileINI := TIniFile.create(GetCurrentDir + '\Config.ini');
   try
-    fdConnection.Params.Database := lFileINI.ReadString('ProfessionalManagement', 'database', '');
-    fdConnection.Params.UserName := lFileINI.ReadString('ProfessionalManagement', 'user_name', '');
-    fdConnection.Params.Password := lFileINI.ReadString('ProfessionalManagement', 'password', '');
-    fdDriver.VendorLib := lFileINI.ReadString('ProfessionalManagement', 'fbclient', '');
+    fdConnection.Params.Database := lFileINI.ReadString('ProfessionalManagementConnection', 'database', '');
+    fdConnection.Params.UserName := lFileINI.ReadString('ProfessionalManagementConnection', 'user_name', '');
+    fdConnection.Params.Password := lFileINI.ReadString('ProfessionalManagementConnection', 'password', '');
+    fdDriver.VendorLib := lFileINI.ReadString('ProfessionalManagementConnection', 'fbclient', '');
+
+    FAttachmentPath := Trim(lFileINI.ReadString('ProfessionalManagementAttachment', 'attachment_path', ''));
   finally
     lFileINI.Free;
   end;

@@ -102,8 +102,9 @@ CREATE TABLE ATTACHMENT (
     ID_ATTACHMENT           INTEGER NOT NULL,
     TABLE_NAME              VARCHAR(50) NOT NULL,
     TABLE_ID                INTEGER NOT NULL,
-    ATTACHMENT              BLOB SUB_TYPE 0 SEGMENT SIZE 500 NOT NULL,
+    ATTACHMENT              BLOB SUB_TYPE 0 SEGMENT SIZE 500,
     ATTACHMENT_NAME         VARCHAR(255) NOT NULL,
+    ASSIGNED                LOGICAL NOT NULL,
     LOG_DATE_INSERT_RECORD  TIMESTAMP default current_timestamp NOT NULL,
     LOG_DATE_UPDATE_RECORD  TIMESTAMP default current_timestamp NOT NULL
 );
@@ -291,17 +292,20 @@ end
 CREATE TRIGGER TAIU_FINANCIAL_ACCOUNT_VALUE FOR FINANCIAL_ACCOUNT
 ACTIVE BEFORE INSERT OR UPDATE POSITION 0
 as
+declare variable MOVEMENT integer;
 begin
+  -- IF TERNARY
+  MOVEMENT = case when new.TYPE_ACCOUNT = 'E' then 1 else -1 end;
+
   if (inserting) then
   begin
-    new.VALUE_ACCOUNT_MOVEMENT = (coalesce(new.VALUE_ACCOUNT, 0) * -1);
+    new.VALUE_ACCOUNT_MOVEMENT = (coalesce(new.VALUE_ACCOUNT, 0) * MOVEMENT);
   end
   else
-  if (updating) then
   begin
-    if (new.VALUE_ACCOUNT <> old.VALUE_ACCOUNT) then
+    if ((new.VALUE_ACCOUNT <> old.VALUE_ACCOUNT) or (new.TYPE_ACCOUNT <> old.TYPE_ACCOUNT)) then
     begin
-      new.VALUE_ACCOUNT_MOVEMENT = (coalesce(new.VALUE_ACCOUNT, 0) * -1);
+      new.VALUE_ACCOUNT_MOVEMENT = (coalesce(new.VALUE_ACCOUNT, 0) * MOVEMENT);
     end
   end
 end
