@@ -290,7 +290,7 @@ inherited rptFinancialAccountFR: TrptFinancialAccountFR
           Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
-            '[dFinanceiro."VALUE_ACCOUNT"]')
+            '[dFinanceiro."VALUE_ACCOUNT_MOVEMENT"]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter

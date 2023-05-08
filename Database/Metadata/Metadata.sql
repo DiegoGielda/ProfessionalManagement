@@ -292,17 +292,20 @@ end
 CREATE TRIGGER TAIU_FINANCIAL_ACCOUNT_VALUE FOR FINANCIAL_ACCOUNT
 ACTIVE BEFORE INSERT OR UPDATE POSITION 0
 as
+declare variable MOVEMENT integer;
 begin
+  -- IF TERNARY
+  MOVEMENT = case when new.TYPE_ACCOUNT = 'E' then 1 else -1 end;
+
   if (inserting) then
   begin
-    new.VALUE_ACCOUNT_MOVEMENT = (coalesce(new.VALUE_ACCOUNT, 0) * -1);
+    new.VALUE_ACCOUNT_MOVEMENT = (coalesce(new.VALUE_ACCOUNT, 0) * MOVEMENT);
   end
   else
-  if (updating) then
   begin
-    if (new.VALUE_ACCOUNT <> old.VALUE_ACCOUNT) then
+    if ((new.VALUE_ACCOUNT <> old.VALUE_ACCOUNT) or (new.TYPE_ACCOUNT <> old.TYPE_ACCOUNT)) then
     begin
-      new.VALUE_ACCOUNT_MOVEMENT = (coalesce(new.VALUE_ACCOUNT, 0) * -1);
+      new.VALUE_ACCOUNT_MOVEMENT = (coalesce(new.VALUE_ACCOUNT, 0) * MOVEMENT);
     end
   end
 end
