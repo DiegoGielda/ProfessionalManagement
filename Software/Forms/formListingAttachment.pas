@@ -116,21 +116,24 @@ begin
   inherited;
   lFileName := qryAttachmentATTACHMENT_NAME.AsString;
   try
-    if (qryAttachmentASSIGNED.AsString = 'Y') and CheckPDF(lFileName) then
+    if (lFileName <> '') then
     begin
-      lFile := qryAttachment.CreateBlobStream(qryAttachmentATTACHMENT, bmRead);
-      frmPDFDevExpress := TfrmPDFDevExpress.Create(Self);
-      try
-        frmPDFDevExpress.viewPDF.LoadFromStream(lFile);
-        frmPDFDevExpress.ShowModal;
-      finally
-        FreeAndNil(frmPDFDevExpress);
-        FreeAndNil(lFile);
+      if (qryAttachmentASSIGNED.AsString = 'Y') and CheckPDF(lFileName) then
+      begin
+        lFile := qryAttachment.CreateBlobStream(qryAttachmentATTACHMENT, bmRead);
+        frmPDFDevExpress := TfrmPDFDevExpress.Create(Self);
+        try
+          frmPDFDevExpress.viewPDF.LoadFromStream(lFile);
+          frmPDFDevExpress.ShowModal;
+        finally
+          FreeAndNil(frmPDFDevExpress);
+          FreeAndNil(lFile);
+        end;
+      end
+      else
+      begin
+        ShellExecuteW(Screen.ActiveForm.Handle, 'open', PChar(dmConnectionFD.AttachmentPath + lFileName), nil, nil, SW_SHOWNORMAL);
       end;
-    end
-    else
-    begin
-      ShellExecuteW(Screen.ActiveForm.Handle, 'open', PChar(dmConnectionFD.AttachmentPath + lFileName), nil, nil, SW_SHOWNORMAL);
     end;
   except
     raise Exception.Create('Não é possível abrir o arquivo.');

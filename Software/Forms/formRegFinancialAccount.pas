@@ -61,6 +61,9 @@ uses
 procedure TfrmRegFinancialAccount.btnAttachmentClick(Sender: TObject);
 begin
   inherited;
+  if frmListingFinancialAccount.qryFinancialAccount.State in [dsInsert, dsEdit] then
+    raise Exception.Create('Salve o registro antes de anexar.');
+
   frmListingAttachment := TfrmListingAttachment.Create(Self);
   try
     frmListingAttachment.TableName := 'FINANCIAL_ACCOUNT';
