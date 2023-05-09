@@ -184,6 +184,10 @@
             <Form>frmPDFDevExpress</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="..\Forms\formRegAttachmentGroup.pas">
+            <Form>frmRegAttachmentGroup</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <DCCReference Include="..\Forms\formRegCompany.pas">
             <Form>frmRegCompany</Form>
             <FormType>dfm</FormType>

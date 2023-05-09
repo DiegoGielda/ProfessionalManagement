@@ -5,6 +5,7 @@ inherited frmListingAttachmentGroup: TfrmListingAttachmentGroup
   TextHeight = 13
   inherited dbgPattern: TDBGrid
     DataSource = dsAttachmentGroup
+    OnDblClick = dbgPatternDblClick
     Columns = <
       item
         Expanded = False
@@ -47,6 +48,14 @@ inherited frmListingAttachmentGroup: TfrmListingAttachmentGroup
         Width = 400
         Visible = True
       end>
+  end
+  inherited pnlHeader: TPanel
+    inherited btnEdit: TSpeedButton
+      OnClick = btnEditClick
+    end
+    inherited btnNew: TSpeedButton
+      OnClick = btnNewClick
+    end
   end
   object qryAttachmentGroup: TFDQuery
     Connection = dmConnectionFD.fdConnection

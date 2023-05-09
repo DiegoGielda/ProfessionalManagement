@@ -17,6 +17,9 @@ type
     qryAttachmentGroupPATH_GROUP: TStringField;
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure dbgPatternDblClick(Sender: TObject);
+    procedure btnNewClick(Sender: TObject);
+    procedure btnEditClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -31,7 +34,44 @@ implementation
 {$R *.dfm}
 
 uses
-  dtmConnectionFD;
+  dtmConnectionFD,
+  formRegAttachmentGroup;
+
+procedure TfrmListingAttachmentGroup.btnEditClick(Sender: TObject);
+begin
+  inherited;
+  frmRegAttachmentGroup := TfrmRegAttachmentGroup.Create(Self);
+  try
+    frmRegAttachmentGroup.btnEdit.Click;
+    frmRegAttachmentGroup.ShowModal;
+  finally
+    FreeAndNil(frmRegAttachmentGroup)
+  end;
+end;
+
+procedure TfrmListingAttachmentGroup.btnNewClick(Sender: TObject);
+begin
+  inherited;
+  frmRegAttachmentGroup := TfrmRegAttachmentGroup.Create(Self);
+  try
+    frmRegAttachmentGroup.btnNew.Click;
+    frmRegAttachmentGroup.ShowModal;
+  finally
+    FreeAndNil(frmRegAttachmentGroup)
+  end;
+end;
+
+procedure TfrmListingAttachmentGroup.dbgPatternDblClick(Sender: TObject);
+begin
+  inherited;
+  frmRegAttachmentGroup := TfrmRegAttachmentGroup.Create(Self);
+  try
+    frmRegAttachmentGroup.btnEdit.Click;
+    frmRegAttachmentGroup.ShowModal;
+  finally
+    FreeAndNil(frmRegAttachmentGroup)
+  end;
+end;
 
 procedure TfrmListingAttachmentGroup.FormCreate(Sender: TObject);
 begin

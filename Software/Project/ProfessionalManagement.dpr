@@ -22,6 +22,7 @@ uses
   formListingTask in '..\Forms\formListingTask.pas' {frmListingTask},
   formMain in '..\Forms\formMain.pas' {frmMain},
   formPDFDevExpress in '..\Forms\formPDFDevExpress.pas' {frmPDFDevExpress},
+  formRegAttachmentGroup in '..\Forms\formRegAttachmentGroup.pas' {frmRegAttachmentGroup},
   formRegCompany in '..\Forms\formRegCompany.pas' {frmRegCompany},
   formRegFinancialAccount in '..\Forms\formRegFinancialAccount.pas' {frmRegFinancialAccount},
   formRegFinancialInstitution in '..\Forms\formRegFinancialInstitution.pas' {frmRegFinancialInstitution},
