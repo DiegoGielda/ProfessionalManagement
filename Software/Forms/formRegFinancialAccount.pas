@@ -80,7 +80,7 @@ begin
   frmListingFinancialAccount.qryFinancialAccount.Cancel;
   ButtonsState;
   ConfigureButtons;
-  ChangeStateFields(Self, 'edtIDFinancialAccount', False);
+  ChangeStateFields(Self, ['edtIDFinancialAccount'], False);
 end;
 
 procedure TfrmRegFinancialAccount.btnDeleteClick(Sender: TObject);
@@ -94,7 +94,7 @@ begin
      ButtonsState;
      ConfigureButtons;
      UpdateRegistration;
-     ChangeStateFields(Self, 'edtIDFinancialAccount', False);
+     ChangeStateFields(Self, ['edtIDFinancialAccount'], False);
     end;
   IDNO :
     begin
@@ -109,7 +109,7 @@ begin
   frmListingFinancialAccount.qryFinancialAccount.Edit;
   ButtonsState;
   ConfigureButtons;
-  ChangeStateFields(Self, 'edtIDFinancialAccount', True);
+  ChangeStateFields(Self, ['edtIDFinancialAccount'], True);
 end;
 
 procedure TfrmRegFinancialAccount.btnNewClick(Sender: TObject);
@@ -118,7 +118,7 @@ begin
   frmListingFinancialAccount.qryFinancialAccount.Append;
   ButtonsState;
   ConfigureButtons;
-  ChangeStateFields(Self, 'edtIDFinancialAccount', True);
+  ChangeStateFields(Self, ['edtIDFinancialAccount'], True);
 end;
 
 procedure TfrmRegFinancialAccount.btnNextClick(Sender: TObject);
@@ -127,7 +127,7 @@ begin
   frmListingFinancialAccount.qryFinancialAccount.Next;
   ButtonsState;
   ConfigureButtons;
-  ChangeStateFields(Self, 'edtIDFinancialAccount', False);
+  ChangeStateFields(Self, ['edtIDFinancialAccount'], False);
 end;
 
 procedure TfrmRegFinancialAccount.btnPriorClick(Sender: TObject);
@@ -136,7 +136,7 @@ begin
   frmListingFinancialAccount.qryFinancialAccount.Prior;
   ButtonsState;
   ConfigureButtons;
-  ChangeStateFields(Self, 'edtIDFinancialAccount', False);
+  ChangeStateFields(Self, ['edtIDFinancialAccount'], False);
 end;
 
 procedure TfrmRegFinancialAccount.btnSaveClick(Sender: TObject);
@@ -151,7 +151,7 @@ begin
   except
     Application.MessageBox('NÃO FOI POSSÍVEL GRAVAR O REGISTRO. Reinicie o sistema', 'Falha', MB_ICONERROR + MB_OK);
   end;
-  ChangeStateFields(Self, 'edtIDFinancialAccount', False);
+  ChangeStateFields(Self, ['edtIDFinancialAccount'], False);
 end;
 
 procedure TfrmRegFinancialAccount.ButtonsState;

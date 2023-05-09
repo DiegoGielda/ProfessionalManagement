@@ -368,6 +368,7 @@ inherited frmRegAttachmentDetach: TfrmRegAttachmentDetach
       Height = 24
       DataField = 'ATTACHMENT_DETACHED_NAME'
       DataSource = frmListingAttachmentDetach.dsAttachmentDetach
+      Enabled = False
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -13

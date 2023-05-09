@@ -47,7 +47,7 @@ begin
   frmListingAttachmentGroup.qryAttachmentGroup.Cancel;
   ButtonsState;
   ConfigureButtons;
-  ChangeStateFields(Self, 'edtIDAttachmentGroup', False);
+  ChangeStateFields(Self, ['edtIDAttachmentGroup'], False);
 end;
 
 procedure TfrmRegAttachmentGroup.btnDeleteClick(Sender: TObject);
@@ -61,7 +61,7 @@ begin
      ButtonsState;
      ConfigureButtons;
      UpdateRegistration;
-     ChangeStateFields(Self, 'edtIDAttachmentGroup', False);
+     ChangeStateFields(Self, ['edtIDAttachmentGroup'], False);
     end;
   IDNO :
     begin
@@ -76,7 +76,7 @@ begin
   frmListingAttachmentGroup.qryAttachmentGroup.Edit;
   ButtonsState;
   ConfigureButtons;
-  ChangeStateFields(Self, 'edtIDAttachmentGroup', True);
+  ChangeStateFields(Self, ['edtIDAttachmentGroup'], True);
 end;
 
 procedure TfrmRegAttachmentGroup.btnNewClick(Sender: TObject);
@@ -85,7 +85,7 @@ begin
   frmListingAttachmentGroup.qryAttachmentGroup.Append;
   ButtonsState;
   ConfigureButtons;
-  ChangeStateFields(Self, 'edtIDAttachmentGroup', True);
+  ChangeStateFields(Self, ['edtIDAttachmentGroup'], True);
 end;
 
 procedure TfrmRegAttachmentGroup.btnNextClick(Sender: TObject);
@@ -94,7 +94,7 @@ begin
   frmListingAttachmentGroup.qryAttachmentGroup.Next;
   ButtonsState;
   ConfigureButtons;
-  ChangeStateFields(Self, 'edtIDAttachmentGroup', False);
+  ChangeStateFields(Self, ['edtIDAttachmentGroup'], False);
 end;
 
 procedure TfrmRegAttachmentGroup.btnPriorClick(Sender: TObject);
@@ -103,7 +103,7 @@ begin
   frmListingAttachmentGroup.qryAttachmentGroup.Prior;
   ButtonsState;
   ConfigureButtons;
-  ChangeStateFields(Self, 'edtIDAttachmentGroup', False);
+  ChangeStateFields(Self, ['edtIDAttachmentGroup'], False);
 end;
 
 procedure TfrmRegAttachmentGroup.btnSaveClick(Sender: TObject);
@@ -118,7 +118,7 @@ begin
   except
     Application.MessageBox('NÃO FOI POSSÍVEL GRAVAR O REGISTRO. Reinicie o sistema', 'Falha', MB_ICONERROR + MB_OK);
   end;
-  ChangeStateFields(Self, 'edtIDAttachmentGroup', False);
+  ChangeStateFields(Self, ['edtIDAttachmentGroup'], False);
 end;
 
 procedure TfrmRegAttachmentGroup.ButtonsState;

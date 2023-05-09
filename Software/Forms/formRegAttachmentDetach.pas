@@ -126,7 +126,7 @@ begin
   frmListingAttachmentDetach.qryAttachmentDetach.Cancel;
   ButtonsState;
   ConfigureButtons;
-  ChangeStateFields(Self, 'edtIDAttachmentDetach', False);
+  ChangeStateFields(Self, ['edtIDAttachmentDetach', 'edtDescriptionAttachmentDetach'], False);
 end;
 
 procedure TfrmRegAttachmentDetach.btnDeleteClick(Sender: TObject);
@@ -163,7 +163,7 @@ begin
         ButtonsState;
         ConfigureButtons;
         UpdateRegistration;
-        ChangeStateFields(Self, 'edtIDAttachmentDetach', False);
+        ChangeStateFields(Self, ['edtIDAttachmentDetach', 'edtDescriptionAttachmentDetach'], False);
       end;
     end;
   IDNO :
@@ -179,7 +179,7 @@ begin
   // Não pode editar
   ButtonsState;
   ConfigureButtons;
-  ChangeStateFields(Self, 'edtIDAttachmentDetach', False);
+  ChangeStateFields(Self, ['edtIDAttachmentDetach', 'edtDescriptionAttachmentDetach'], False);
 end;
 
 procedure TfrmRegAttachmentDetach.btnNewClick(Sender: TObject);
@@ -190,7 +190,7 @@ begin
   begin
     ButtonsState;
     ConfigureButtons;
-    ChangeStateFields(Self, 'edtIDAttachmentDetach', True);
+    ChangeStateFields(Self, ['edtIDAttachmentDetach', 'edtDescriptionAttachmentDetach'], True);
   end
   else
   begin
@@ -204,7 +204,7 @@ begin
   frmListingAttachmentDetach.qryAttachmentDetach.Next;
   ButtonsState;
   ConfigureButtons;
-  ChangeStateFields(Self, 'edtIDAttachmentDetach', False);
+  ChangeStateFields(Self, ['edtIDAttachmentDetach', 'edtDescriptionAttachmentDetach'], False);
 end;
 
 procedure TfrmRegAttachmentDetach.btnPriorClick(Sender: TObject);
@@ -213,7 +213,7 @@ begin
   frmListingAttachmentDetach.qryAttachmentDetach.Prior;
   ButtonsState;
   ConfigureButtons;
-  ChangeStateFields(Self, 'edtIDAttachmentDetach', False);
+  ChangeStateFields(Self, ['edtIDAttachmentDetach', 'edtDescriptionAttachmentDetach'], False);
 end;
 
 procedure TfrmRegAttachmentDetach.btnSaveClick(Sender: TObject);
@@ -261,7 +261,7 @@ begin
   ButtonsState;
   ConfigureButtons;
   UpdateRegistration;
-  ChangeStateFields(Self, 'edtIDAttachmentDetach', False);
+  ChangeStateFields(Self, ['edtIDAttachmentDetach', 'edtDescriptionAttachmentDetach'], False);
 end;
 
 procedure TfrmRegAttachmentDetach.ButtonsState;

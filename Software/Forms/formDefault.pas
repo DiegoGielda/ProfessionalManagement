@@ -30,7 +30,7 @@ type
 
   strict protected
     procedure ConfigureButtons;
-    procedure ChangeStateFields(pTForm: TForm; pIDForm: string = ''; pEnabled: Boolean = False);
+    procedure ChangeStateFields(pTForm: TForm; pArrayIDForm: Array of string; pEnabled: Boolean = False);
 
   public
   end;
@@ -43,17 +43,20 @@ implementation
 {$R *.dfm}
 
 uses
-  Vcl.DBCtrls, cxDBLookupComboBox, cxDBEdit;
+  Vcl.DBCtrls,
+  System.StrUtils,
+  cxDBLookupComboBox,
+  cxDBEdit;
 
 { TfrmDefaultCadastro }
 
-procedure TfrmDefault.ChangeStateFields(pTForm: TForm; pIDForm: string = ''; pEnabled: Boolean = False);
+procedure TfrmDefault.ChangeStateFields(pTForm: TForm; pArrayIDForm: Array of string; pEnabled: Boolean = False);
 var
   lCouter: Integer;
 begin
   for lCouter := 0 to pTForm.ComponentCount -1 do
   begin
-    if (pTForm.Components[lCouter].Name <> pIDForm) then
+    if not MatchStr(pTForm.Components[lCouter].Name, pArrayIDForm) then
     begin
       if (pTForm.Components[lCouter] is TDBEdit) then
       begin

@@ -21,6 +21,7 @@ type
     qryAttachmentGroupID_ATTACHMENT_DETACHED_GROUP: TIntegerField;
     qryAttachmentGroupDESC_ATTACHMENT_GROUP: TStringField;
     dsAttachmentGroup: TDataSource;
+    qryAttachmentDetachPATH_GROUP: TStringField;
     procedure btnNewClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
     procedure dbgPatternDblClick(Sender: TObject);
@@ -93,7 +94,7 @@ begin
   qryAttachmentDetach.SQL.Clear;
   qryAttachmentDetach.SQL.Text :=
     ' select ATT_DET.ID_ATTACHMENT_DETACHED, ATT_DET.ATTACHMENT_DETACHED, ATT_DET.ATTACHMENT_DETACHED_NAME, ATT_DET.ASSIGNED, ' + sLineBreak +
-    '        ATT_DET.CD_ATTACHMENT_DETACHED_GROUP, ATT_GROUP.DESCRIPTION as GROUP_ATTACHMENT ' + sLineBreak +
+    '        ATT_DET.CD_ATTACHMENT_DETACHED_GROUP, ATT_GROUP.DESCRIPTION as GROUP_ATTACHMENT, ATT_GROUP.PATH_GROUP ' + sLineBreak +
     ' from ATTACHMENT_DETACHED ATT_DET ' + sLineBreak +
     ' inner join ATTACHMENT_DETACHED_GROUP ATT_GROUP on (ATT_GROUP.ID_ATTACHMENT_DETACHED_GROUP = ATT_DET.CD_ATTACHMENT_DETACHED_GROUP) ' + sLineBreak +
     ' order by ATT_GROUP.DESCRIPTION asc ';

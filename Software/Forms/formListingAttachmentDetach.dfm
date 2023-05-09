@@ -45,7 +45,21 @@ inherited frmListingAttachmentDetach: TfrmListingAttachmentDetach
         Title.Font.Height = -13
         Title.Font.Name = 'Tahoma'
         Title.Font.Style = [fsBold]
-        Width = 366
+        Width = 346
+        Visible = True
+      end
+      item
+        Alignment = taCenter
+        Expanded = False
+        FieldName = 'PATH_GROUP'
+        Title.Alignment = taCenter
+        Title.Caption = 'DIRET'#211'RIO'
+        Title.Font.Charset = DEFAULT_CHARSET
+        Title.Font.Color = clMoneyGreen
+        Title.Font.Height = -13
+        Title.Font.Name = 'Tahoma'
+        Title.Font.Style = [fsBold]
+        Width = 259
         Visible = True
       end>
   end
@@ -65,7 +79,7 @@ inherited frmListingAttachmentDetach: TfrmListingAttachmentDetach
         'ED, ATT_DET.ATTACHMENT_DETACHED_NAME, ATT_DET.ASSIGNED,'
       
         '       ATT_DET.CD_ATTACHMENT_DETACHED_GROUP, ATT_GROUP.DESCRIPTI' +
-        'ON as GROUP_ATTACHMENT'
+        'ON as GROUP_ATTACHMENT, ATT_GROUP.PATH_GROUP'
       'from ATTACHMENT_DETACHED ATT_DET'
       
         'inner join ATTACHMENT_DETACHED_GROUP ATT_GROUP on (ATT_GROUP.ID_' +
@@ -107,6 +121,14 @@ inherited frmListingAttachmentDetach: TfrmListingAttachmentDetach
       AutoGenerateValue = arDefault
       FieldName = 'GROUP_ATTACHMENT'
       Origin = 'DESCRIPTION'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 100
+    end
+    object qryAttachmentDetachPATH_GROUP: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'PATH_GROUP'
+      Origin = 'PATH_GROUP'
       ProviderFlags = []
       ReadOnly = True
       Size = 100
