@@ -11,6 +11,7 @@ uses
   formDefaultRegistration in '..\Forms\formDefaultRegistration.pas' {frmDefaultRegistration},
   formDefaultRegistrationDetail in '..\Forms\formDefaultRegistrationDetail.pas' {frmDefaultRegistrationDetail},
   formListingAttachment in '..\Forms\formListingAttachment.pas' {frmListingAttachment},
+  formListingAttachmentGroup in '..\Forms\formListingAttachmentGroup.pas' {frmListingAttachmentGroup},
   formListingCompany in '..\Forms\formListingCompany.pas' {frmListingCompany},
   formListingFinancialAccount in '..\Forms\formListingFinancialAccount.pas' {frmListingFinancialAccount},
   formListingFinancialInstitution in '..\Forms\formListingFinancialInstitution.pas' {frmListingFinancialInstitution},
