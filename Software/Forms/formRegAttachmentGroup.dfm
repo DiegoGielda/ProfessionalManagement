@@ -64,6 +64,9 @@ inherited frmRegAttachmentGroup: TfrmRegAttachmentGroup
       inherited btnDelete: TSpeedButton
         OnClick = btnDeleteClick
       end
+      inherited btnAttachment: TSpeedButton
+        Visible = False
+      end
     end
     object edtIDAttachmentGroup: TDBEdit
       Left = 25

@@ -86,5 +86,9 @@ object frmMain: TfrmMain
         OnClick = mnRegistrationRecordSheetClick
       end
     end
+    object mnAttachmentDetach: TMenuItem
+      Caption = 'Anexos Avulsos'
+      OnClick = mnAttachmentDetachClick
+    end
   end
 end

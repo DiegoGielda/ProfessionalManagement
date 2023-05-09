@@ -54,7 +54,8 @@ inherited frmListingCompany: TfrmListingCompany
     Connection = dmConnectionFD.fdConnection
     SQL.Strings = (
       'select COM.ID_COMPANY, COM.DESCRIPTION'
-      'from COMPANY as COM')
+      'from COMPANY as COM'
+      'order by COM.DESCRIPTION asc')
     Left = 584
     Top = 224
     object qryCompanyID_COMPANY: TIntegerField

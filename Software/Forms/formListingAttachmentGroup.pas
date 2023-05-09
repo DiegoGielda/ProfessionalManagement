@@ -90,7 +90,6 @@ begin
     ' from ATTACHMENT_DETACHED_GROUP ATT_GROUP ' + sLineBreak +
     ' order by ATT_GROUP.DESCRIPTION asc ';
   qryAttachmentGroup.Open;
-
 end;
 
 end.

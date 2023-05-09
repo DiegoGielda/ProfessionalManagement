@@ -26,6 +26,7 @@ type
     mnFinacialInstitution: TMenuItem;
     mnOperation: TMenuItem;
     mnAttachmentGroup: TMenuItem;
+    mnAttachmentDetach: TMenuItem;
     procedure mnCompanyClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure mnJobClick(Sender: TObject);
@@ -37,6 +38,7 @@ type
     procedure mnOperationClick(Sender: TObject);
     procedure mmPrintAcontClick(Sender: TObject);
     procedure mnAttachmentGroupClick(Sender: TObject);
+    procedure mnAttachmentDetachClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -61,7 +63,8 @@ uses
   formListingFinancialInstitution,
   formListingOperation,
   reportFinancialAccountFR,
-  formListingAttachmentGroup;
+  formListingAttachmentGroup,
+  formListingAttachmentDetach;
 
 procedure TfrmMain.mnJobClick(Sender: TObject);
 begin
@@ -144,6 +147,16 @@ begin
     rptFinancialAccountFR.ShowModal;
   finally
     FreeAndNil(rptFinancialAccountFR);
+  end;
+end;
+
+procedure TfrmMain.mnAttachmentDetachClick(Sender: TObject);
+begin
+  frmListingAttachmentDetach := TfrmListingAttachmentDetach.Create(Self);
+  try
+    frmListingAttachmentDetach.ShowModal;
+  finally
+    FreeAndNil(frmListingAttachmentDetach);
   end;
 end;
 

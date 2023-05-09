@@ -58,7 +58,7 @@ uses
 
 procedure TfrmListingAttachment.btnNewClick(Sender: TObject);
 const
-  cMensagemSucesso: string = 'Anexo foi armazenado com sucesso!';
+  cSuccessMessage: string = 'Anexo foi armazenado com sucesso!';
 begin
   inherited;
   if openAttachment.Execute then
@@ -78,7 +78,7 @@ begin
       else
       begin
         qryAttachment.Post;
-        ShowMessage(cMensagemSucesso);
+        ShowMessage(cSuccessMessage);
       end;
     end
     else
@@ -90,7 +90,7 @@ begin
         qryAttachmentASSIGNED.AsString := 'N';
         qryAttachment.Post;
 
-        ShowMessage(cMensagemSucesso);
+        ShowMessage(cSuccessMessage);
       end
       else
       begin
@@ -105,7 +105,7 @@ end;
 
 function TfrmListingAttachment.CheckPDF(const pFilePath: string): Boolean;
 begin
-  Result := (Pos('.PDF', UpperCase(pFilePath)) > 0)
+  Result := (Pos('.PDF', UpperCase(pFilePath)) > 0);
 end;
 
 procedure TfrmListingAttachment.dbgPatternDblClick(Sender: TObject);

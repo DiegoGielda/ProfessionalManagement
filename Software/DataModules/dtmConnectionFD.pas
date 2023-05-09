@@ -16,10 +16,12 @@ type
     procedure DataModuleCreate(Sender: TObject);
   private
     FAttachmentPath: string;
+    FAttachmentDetachPath: string;
 
     procedure ConfigDatabase;
   public
     property AttachmentPath: string read FAttachmentPath;
+    property AttachmentDetachPath: string read FAttachmentDetachPath;
   end;
 
 var
@@ -50,7 +52,8 @@ begin
 
       { TODO : Implementar correção de classe para arquivo de configuração,
         lembrar de criar a pasta Attachment caso ela não existir. }
-      lFileINI.WriteString('ProfessionalManagementAttachment', 'attachment_path', lWay + '\Attachment\');
+      lFileINI.WriteString('ProfessionalManagementAttachment', 'attachment_path', lWay + '\Attachment\Record');
+      lFileINI.WriteString('ProfessionalManagementAttachment', 'attachment_detach_path', lWay + '\Attachment\Detach');
     finally
       lFileINI.Free;
     end;
@@ -65,6 +68,7 @@ begin
     fdDriver.VendorLib := lFileINI.ReadString('ProfessionalManagementConnection', 'fbclient', '');
 
     FAttachmentPath := Trim(lFileINI.ReadString('ProfessionalManagementAttachment', 'attachment_path', ''));
+    FAttachmentDetachPath := Trim(lFileINI.ReadString('ProfessionalManagementAttachment', 'attachment_detach_path', ''));
   finally
     lFileINI.Free;
   end;
