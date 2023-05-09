@@ -204,7 +204,7 @@ var
   lFileName: string;
 begin
   lFileName := qryAttachmentATTACHMENT_NAME.AsString;
-  if (qryAttachmentASSIGNED.AsString = 'Y') and CheckPDF(qryAttachmentATTACHMENT_NAME.AsString) then
+  if (qryAttachmentASSIGNED.AsString = 'Y') and CheckPDF(lFileName) then
   begin
     saveAttachment.FileName := lFileName;
     if saveAttachment.Execute(Screen.ActiveForm.Handle) then

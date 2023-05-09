@@ -19,6 +19,7 @@ type
     openAttachmentDetach: TOpenDialog;
     saveAttachmentDetach: TSaveDialog;
     btnAttachmentDetachView: TSpeedButton;
+    btnAttachmentDetachDonwload: TSpeedButton;
     procedure btnNewClick(Sender: TObject);
     procedure btnDeleteClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
@@ -26,6 +27,8 @@ type
     procedure btnPriorClick(Sender: TObject);
     procedure btnSaveClick(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
+    procedure btnAttachmentDetachViewClick(Sender: TObject);
+    procedure btnAttachmentDetachDonwloadClick(Sender: TObject);
   private
     FAttachmentName: string;
 
@@ -45,11 +48,77 @@ var
 implementation
 
 uses
+  Data.DB,
+  Winapi.ShellAPI,
   formListingAttachmentDetach,
   dtmConnectionFD,
-  Data.DB;
+  formPDFDevExpress;
 
 {$R *.dfm}
+
+procedure TfrmRegAttachmentDetach.btnAttachmentDetachDonwloadClick(Sender: TObject);
+var
+  lFileName, lFileNameGroup: string;
+begin
+  lFileName := frmListingAttachmentDetach.qryAttachmentDetachATTACHMENT_DETACHED_NAME.AsString;
+  if (frmListingAttachmentDetach.qryAttachmentDetachASSIGNED.AsString = 'Y') and CheckPDF(lFileName) then
+  begin
+    saveAttachmentDetach.FileName := lFileName;
+    if saveAttachmentDetach.Execute(Screen.ActiveForm.Handle) then
+    begin
+      if FileExists(saveAttachmentDetach.FileName) then
+      begin
+        raise Exception.Create('Este arquivo já existe.');
+      end
+      else
+      begin
+        frmListingAttachmentDetach.qryAttachmentDetachATTACHMENT_DETACHED.SaveToFile(saveAttachmentDetach.FileName);
+      end;
+    end;
+
+    ShellExecuteW(Screen.ActiveForm.Handle, 'open', PChar(saveAttachmentDetach.FileName), nil, nil, SW_SHOWNORMAL);
+  end
+  else
+  begin
+    lFileNameGroup := FetchPathGroup(frmListingAttachmentDetach.qryAttachmentDetachCD_ATTACHMENT_DETACHED_GROUP.AsInteger);
+    lFileName := dmConnectionFD.AttachmentDetachPath + lFileNameGroup + '\' + lFileName;
+    ShellExecuteW(Handle, nil, PChar('explorer.exe'), PChar('/select,' + lFileName), nil, SW_SHOWNORMAL);
+  end;
+end;
+
+procedure TfrmRegAttachmentDetach.btnAttachmentDetachViewClick(Sender: TObject);
+var
+  lFile: TStream;
+  lFileName, lFileNameGroup: string;
+begin
+  inherited;
+  lFileName := frmListingAttachmentDetach.qryAttachmentDetachATTACHMENT_DETACHED_NAME.AsString;
+  try
+    if (lFileName <> '') then
+    begin
+      if (frmListingAttachmentDetach.qryAttachmentDetachASSIGNED.AsString = 'Y') and CheckPDF(lFileName) then
+      begin
+        lFile := frmListingAttachmentDetach.qryAttachmentDetach.CreateBlobStream(frmListingAttachmentDetach.qryAttachmentDetachATTACHMENT_DETACHED, bmRead);
+        frmPDFDevExpress := TfrmPDFDevExpress.Create(Self);
+        try
+          frmPDFDevExpress.viewPDF.LoadFromStream(lFile);
+          frmPDFDevExpress.ShowModal;
+        finally
+          FreeAndNil(frmPDFDevExpress);
+          FreeAndNil(lFile);
+        end;
+      end
+      else
+      begin
+        lFileNameGroup := FetchPathGroup(frmListingAttachmentDetach.qryAttachmentDetachCD_ATTACHMENT_DETACHED_GROUP.AsInteger);
+        lFileName := dmConnectionFD.AttachmentDetachPath + lFileNameGroup + '\' + lFileName;
+        ShellExecuteW(Screen.ActiveForm.Handle, 'open', PChar(lFileName), nil, nil, SW_SHOWNORMAL);
+      end;
+    end;
+  except
+    raise Exception.Create('Não é possível abrir o arquivo.');
+  end;
+end;
 
 procedure TfrmRegAttachmentDetach.btnCancelClick(Sender: TObject);
 begin
@@ -108,6 +177,9 @@ procedure TfrmRegAttachmentDetach.btnEditClick(Sender: TObject);
 begin
   inherited;
   // Não pode editar
+  ButtonsState;
+  ConfigureButtons;
+  ChangeStateFields(Self, 'edtIDAttachmentDetach', False);
 end;
 
 procedure TfrmRegAttachmentDetach.btnNewClick(Sender: TObject);
@@ -151,6 +223,7 @@ var
   lPathAttachmentDetach, lPathGroup: string;
 begin
   inherited;
+  Self.ActiveControl := nil;
   if (frmListingAttachmentDetach.qryAttachmentDetachCD_ATTACHMENT_DETACHED_GROUP.AsInteger <= 0) then
   begin
     raise Exception.Create('Informe um grupo para o Anexo.');
@@ -200,6 +273,9 @@ begin
   btnNew.Enabled := frmListingAttachmentDetach.qryAttachmentDetach.State in [dsBrowse];
   btnEdit.Enabled := frmListingAttachmentDetach.qryAttachmentDetach.State in [dsBrowse];
   btnDelete.Enabled := frmListingAttachmentDetach.qryAttachmentDetach.State in [dsbrowse];
+
+  btnAttachmentDetachView.Visible := frmListingAttachmentDetach.qryAttachmentDetach.State in [dsBrowse];
+  btnAttachmentDetachDonwload.Visible := frmListingAttachmentDetach.qryAttachmentDetach.State in [dsBrowse];
 end;
 
 function TfrmRegAttachmentDetach.CheckPDF(const pFilePath: string): Boolean;
