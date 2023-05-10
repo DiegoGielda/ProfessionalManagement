@@ -46,7 +46,7 @@ begin
   frmListingPerson.qryPerson.Cancel;
   ButtonsState;
   ConfigureButtons;
-  ChangeStateFields(Self, 'edtIDPerson', False);
+  ChangeStateFields(Self, ['edtIDPerson'], False);
 end;
 
 procedure TfrmRegPerson.btnDeleteClick(Sender: TObject);
@@ -60,7 +60,7 @@ begin
      ButtonsState;
      ConfigureButtons;
      UpdateRegistration;
-     ChangeStateFields(Self, 'edtIDPerson', False);
+     ChangeStateFields(Self, ['edtIDPerson'], False);
     end;
   IDNO :
     begin
@@ -75,7 +75,7 @@ begin
   frmListingPerson.qryPerson.Edit;
   ButtonsState;
   ConfigureButtons;
-  ChangeStateFields(Self, 'edtIDPerson', True);
+  ChangeStateFields(Self, ['edtIDPerson'], True);
 end;
 
 procedure TfrmRegPerson.btnNewClick(Sender: TObject);
@@ -84,7 +84,7 @@ begin
   frmListingPerson.qryPerson.Append;
   ButtonsState;
   ConfigureButtons;
-  ChangeStateFields(Self, 'edtIDPerson', True);
+  ChangeStateFields(Self, ['edtIDPerson'], True);
 end;
 
 procedure TfrmRegPerson.btnNextClick(Sender: TObject);
@@ -93,7 +93,7 @@ begin
   frmListingPerson.qryPerson.Next;
   ButtonsState;
   ConfigureButtons;
-  ChangeStateFields(Self, 'edtIDPerson', False);
+  ChangeStateFields(Self, ['edtIDPerson'], False);
 end;
 
 procedure TfrmRegPerson.btnPriorClick(Sender: TObject);
@@ -103,7 +103,7 @@ begin
   frmListingPerson.qryPerson.Prior;
   ButtonsState;
   ConfigureButtons;
-  ChangeStateFields(Self, 'edtIDPerson', False);
+  ChangeStateFields(Self, ['edtIDPerson'], False);
 end;
 
 procedure TfrmRegPerson.btnSaveClick(Sender: TObject);
@@ -118,7 +118,7 @@ begin
   except
     Application.MessageBox('NÃO FOI POSSÍVEL GRAVAR O REGISTRO. Reinicie o sistema', 'Falha', MB_ICONERROR + MB_OK);
   end;
-  ChangeStateFields(Self, 'edtIDPerson', False);
+  ChangeStateFields(Self, ['edtIDPerson'], False);
 
 end;
 

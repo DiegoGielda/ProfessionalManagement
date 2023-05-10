@@ -51,7 +51,7 @@ begin
   frmListingOperation.qryOperation.Cancel;
   ButtonsState;
   ConfigureButtons;
-  ChangeStateFields(Self, 'edtIDOperation', False);
+  ChangeStateFields(Self, ['edtIDOperation'], False);
 end;
 
 procedure TfrmRegOperation.btnDeleteClick(Sender: TObject);
@@ -65,7 +65,7 @@ begin
      ButtonsState;
      ConfigureButtons;
      UpdateRegistration;
-     ChangeStateFields(Self, 'edtIDOperation', False);
+     ChangeStateFields(Self, ['edtIDOperation'], False);
     end;
   IDNO :
     begin
@@ -80,7 +80,7 @@ begin
   frmListingOperation.qryOperation.Edit;
   ButtonsState;
   ConfigureButtons;
-  ChangeStateFields(Self, 'edtIDOperation', True);
+  ChangeStateFields(Self, ['edtIDOperation'], True);
 end;
 
 procedure TfrmRegOperation.btnNewClick(Sender: TObject);
@@ -89,7 +89,7 @@ begin
   frmListingOperation.qryOperation.Append;
   ButtonsState;
   ConfigureButtons;
-  ChangeStateFields(Self, 'edtIDOperation', True);
+  ChangeStateFields(Self, ['edtIDOperation'], True);
 end;
 
 procedure TfrmRegOperation.btnNextClick(Sender: TObject);
@@ -98,7 +98,7 @@ begin
   frmListingOperation.qryOperation.Next;
   ButtonsState;
   ConfigureButtons;
-  ChangeStateFields(Self, 'edtIDOperation', False);
+  ChangeStateFields(Self, ['edtIDOperation'], False);
 end;
 
 procedure TfrmRegOperation.btnPriorClick(Sender: TObject);
@@ -107,7 +107,7 @@ begin
   frmListingOperation.qryOperation.Prior;
   ButtonsState;
   ConfigureButtons;
-  ChangeStateFields(Self, 'edtIDOperation', False);
+  ChangeStateFields(Self, ['edtIDOperation'], False);
 end;
 
 procedure TfrmRegOperation.btnSaveClick(Sender: TObject);
@@ -122,7 +122,7 @@ begin
   except
     Application.MessageBox('NÃO FOI POSSÍVEL GRAVAR O REGISTRO. Reinicie o sistema', 'Falha', MB_ICONERROR + MB_OK);
   end;
-  ChangeStateFields(Self, 'edtIDOperation', False);
+  ChangeStateFields(Self, ['edtIDOperation'], False);
 end;
 
 procedure TfrmRegOperation.ButtonsState;

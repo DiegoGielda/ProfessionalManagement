@@ -60,7 +60,7 @@ begin
   end;
   ButtonsState;
   ConfigureButtons;
-  ChangeStateFields(Self, 'edtIDRecordSheet', False);
+  ChangeStateFields(Self, ['edtIDRecordSheet'], False);
 end;
 
 procedure TfrmRegRecordSheet.btnDeleteClick(Sender: TObject);
@@ -75,7 +75,7 @@ begin
       frmListingRecordSheet.qryRecordSheetItemTime.Refresh;
       ButtonsState;
       ConfigureButtons;
-      ChangeStateFields(Self, 'edtIDRecordSheet', False);
+      ChangeStateFields(Self, ['edtIDRecordSheet'], False);
     end;
     IDNO :
     begin
@@ -90,7 +90,7 @@ begin
   if (frmListingRecordSheet.qryRecordSheet.State in [dsInsert, dsEdit]) then
   begin
     frmListingRecordSheet.qryRecordSheet.Post;
-    ChangeStateFields(Self, 'edtIDRecordSheet', False);
+    ChangeStateFields(Self, ['edtIDRecordSheet'], False);
   end;
   frmListingRecordSheet.qryRecordSheetItemTime.Delete;
   ButtonsState;
@@ -104,7 +104,7 @@ begin
   frmListingRecordSheet.qryRecordSheet.Edit;
   ButtonsState;
   ConfigureButtons;
-  ChangeStateFields(Self, 'edtIDRecordSheet', True);
+  ChangeStateFields(Self, ['edtIDRecordSheet'], True);
 end;
 
 procedure TfrmRegRecordSheet.btnEditDetailClick(Sender: TObject);
@@ -113,7 +113,7 @@ begin
   if (frmListingRecordSheet.qryRecordSheet.State in [dsInsert, dsEdit]) then
   begin
     frmListingRecordSheet.qryRecordSheet.Post;
-    ChangeStateFields(Self, 'edtIDRecordSheet', False);
+    ChangeStateFields(Self, ['edtIDRecordSheet'], False);
   end;
   frmListingRecordSheet.qryRecordSheetItemTime.Edit;
   ButtonsState;
@@ -128,7 +128,7 @@ begin
   ButtonsState;
   ButtonsDetailsState;
   ConfigureButtons;
-  ChangeStateFields(Self, 'edtIDRecordSheet', True);
+  ChangeStateFields(Self, ['edtIDRecordSheet'], True);
 end;
 
 procedure TfrmRegRecordSheet.btnNewDetailClick(Sender: TObject);
@@ -137,7 +137,7 @@ begin
   if (frmListingRecordSheet.qryRecordSheet.State in [dsInsert, dsEdit]) then
   begin
     frmListingRecordSheet.qryRecordSheet.Post;
-    ChangeStateFields(Self, 'edtIDRecordSheet', False);
+    ChangeStateFields(Self, ['edtIDRecordSheet'], False);
   end;
   frmListingRecordSheet.qryRecordSheetItemTime.Append;
   ButtonsState;
@@ -152,7 +152,7 @@ begin
   ButtonsState;
   ButtonsDetailsState;
   ConfigureButtons;
-  ChangeStateFields(Self, 'edtIDRecordSheet', False);
+  ChangeStateFields(Self, ['edtIDRecordSheet'], False);
 end;
 
 procedure TfrmRegRecordSheet.btnPriorClick(Sender: TObject);
@@ -162,7 +162,7 @@ begin
   ButtonsState;
   ButtonsDetailsState;
   ConfigureButtons;
-  ChangeStateFields(Self, 'edtIDRecordSheet', False);
+  ChangeStateFields(Self, ['edtIDRecordSheet'], False);
 end;
 
 procedure TfrmRegRecordSheet.btnSaveClick(Sender: TObject);
@@ -173,7 +173,7 @@ begin
     begin
       frmListingRecordSheet.qryRecordSheet.Post; // Master
       frmListingRecordSheet.qryRecordSheet.Refresh;
-      ChangeStateFields(Self, 'edtIDRecordSheet', False);
+      ChangeStateFields(Self, ['edtIDRecordSheet'], False);
     end
     else
     if (frmListingRecordSheet.qryRecordSheetItemTime.State in [dsInsert, dsEdit]) then

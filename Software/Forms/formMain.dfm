@@ -50,6 +50,10 @@ object frmMain: TfrmMain
         Caption = 'Opera'#231#245'es'
         OnClick = mnOperationClick
       end
+      object mnAttachmentGroup: TMenuItem
+        Caption = 'Grupos de Anexo'
+        OnClick = mnAttachmentGroupClick
+      end
     end
     object mnTask: TMenuItem
       Caption = '&Tarefas'
@@ -81,6 +85,10 @@ object frmMain: TfrmMain
         Caption = 'Registro'
         OnClick = mnRegistrationRecordSheetClick
       end
+    end
+    object mnAttachmentDetach: TMenuItem
+      Caption = 'Anexos Avulsos'
+      OnClick = mnAttachmentDetachClick
     end
   end
 end

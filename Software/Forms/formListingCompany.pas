@@ -44,7 +44,7 @@ begin
     frmRegCompany.btnEdit.Click;
     frmRegCompany.ShowModal;
   finally
-    FreeAndNil(frmRegCompany)
+    FreeAndNil(frmRegCompany);
   end;
 end;
 
@@ -56,7 +56,7 @@ begin
     frmRegCompany.btnNew.Click;
     frmRegCompany.ShowModal;
   finally
-    frmRegCompany.Free;
+    FreeAndNil(frmRegCompany)
   end;
 end;
 
@@ -68,7 +68,7 @@ begin
     frmRegCompany.btnEdit.Click;
     frmRegCompany.ShowModal;
   finally
-    frmRegCompany.Free;
+    FreeAndNil(frmRegCompany)
   end;
 end;
 
@@ -84,8 +84,10 @@ begin
   inherited;
   qryCompany.Close;
   qryCompany.SQL.Clear;
-  qryCompany.SQL.Add(' select COM.ID_COMPANY, COM.DESCRIPTION ');
-  qryCompany.SQL.Add(' from COMPANY as COM ');
+  qryCompany.SQL.Text :=
+    ' select COM.ID_COMPANY, COM.DESCRIPTION ' + sLineBreak +
+    ' from COMPANY as COM ' + sLineBreak +
+    ' order by COM.DESCRIPTION asc ';
   qryCompany.Open;
 end;
 

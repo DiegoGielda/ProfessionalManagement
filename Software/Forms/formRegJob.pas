@@ -57,7 +57,7 @@ begin
   frmListingJob.qryJob.Cancel;
   ButtonsState;
   ConfigureButtons;
-  ChangeStateFields(Self, 'edtIDJob', False);
+  ChangeStateFields(Self, ['edtIDJob'], False);
 end;
 
 procedure TfrmRegJob.btnDeleteClick(Sender: TObject);
@@ -71,7 +71,7 @@ begin
       ButtonsState;
       ConfigureButtons;
       UpdateRegistration;
-      ChangeStateFields(Self, 'edtIDJob', False);
+      ChangeStateFields(Self, ['edtIDJob'], False);
     end;
     IDNO :
     begin
@@ -86,7 +86,7 @@ begin
   frmListingJob.qryJob.Edit;
   ButtonsState;
   ConfigureButtons;
-  ChangeStateFields(Self, 'edtIDJob', True);
+  ChangeStateFields(Self, ['edtIDJob'], True);
 end;
 
 procedure TfrmRegJob.btnNewClick(Sender: TObject);
@@ -95,7 +95,7 @@ begin
   frmListingJob.qryJob.Append;
   ButtonsState;
   ConfigureButtons;
-  ChangeStateFields(Self, 'edtIDJob', True);
+  ChangeStateFields(Self, ['edtIDJob'], True);
 end;
 
 procedure TfrmRegJob.btnNextClick(Sender: TObject);
@@ -104,7 +104,7 @@ begin
   frmListingJob.qryJob.Next;
   ButtonsState;
   ConfigureButtons;
-  ChangeStateFields(Self, 'edtIDJob', False);
+  ChangeStateFields(Self, ['edtIDJob'], False);
 end;
 
 procedure TfrmRegJob.btnPriorClick(Sender: TObject);
@@ -113,7 +113,7 @@ begin
   frmListingJob.qryJob.Prior;
   ButtonsState;
   ConfigureButtons;
-  ChangeStateFields(Self, 'edtIDJob', False);
+  ChangeStateFields(Self, ['edtIDJob'], False);
 end;
 
 procedure TfrmRegJob.btnSaveClick(Sender: TObject);
@@ -125,7 +125,7 @@ begin
     ButtonsState;
     ConfigureButtons;
     UpdateRegistration;
-    ChangeStateFields(Self, 'edtIDJob', False);
+    ChangeStateFields(Self, ['edtIDJob'], False);
   except
     Application.MessageBox('NÃO FOI POSSÍVEL GRAVAR O REGISTRO. Reinicie o sistema', 'Falha', MB_ICONERROR + MB_OK);
   end;
