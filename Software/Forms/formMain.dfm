@@ -54,6 +54,10 @@ object frmMain: TfrmMain
         Caption = 'Grupos de Anexo'
         OnClick = mnAttachmentGroupClick
       end
+      object mnCardInvoice: TMenuItem
+        Caption = 'Fatura do Cart'#227'o'
+        OnClick = mnCardInvoiceClick
+      end
     end
     object mnTask: TMenuItem
       Caption = '&Tarefas'

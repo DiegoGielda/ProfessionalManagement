@@ -13,6 +13,7 @@ uses
   formListingAttachment in '..\Forms\formListingAttachment.pas' {frmListingAttachment},
   formListingAttachmentDetach in '..\Forms\formListingAttachmentDetach.pas' {frmListingAttachmentDetach},
   formListingAttachmentGroup in '..\Forms\formListingAttachmentGroup.pas' {frmListingAttachmentGroup},
+  formListingCardInvoice in '..\Forms\formListingCardInvoice.pas' {frmListingCardInvoice},
   formListingCompany in '..\Forms\formListingCompany.pas' {frmListingCompany},
   formListingFinancialAccount in '..\Forms\formListingFinancialAccount.pas' {frmListingFinancialAccount},
   formListingFinancialInstitution in '..\Forms\formListingFinancialInstitution.pas' {frmListingFinancialInstitution},
@@ -25,6 +26,7 @@ uses
   formPDFDevExpress in '..\Forms\formPDFDevExpress.pas' {frmPDFDevExpress},
   formRegAttachmentDetach in '..\Forms\formRegAttachmentDetach.pas' {frmRegAttachmentDetach},
   formRegAttachmentGroup in '..\Forms\formRegAttachmentGroup.pas' {frmRegAttachmentGroup},
+  formRegCardInvoice in '..\Forms\formRegCardInvoice.pas' {frmRegCardInvoice},
   formRegCompany in '..\Forms\formRegCompany.pas' {frmRegCompany},
   formRegFinancialAccount in '..\Forms\formRegFinancialAccount.pas' {frmRegFinancialAccount},
   formRegFinancialInstitution in '..\Forms\formRegFinancialInstitution.pas' {frmRegFinancialInstitution},
@@ -35,6 +37,7 @@ uses
   formRegTask in '..\Forms\formRegTask.pas' {frmRegTask},
   reportDefaultFR in '..\Reports\reportDefaultFR.pas' {rptDefaultFR},
   reportFinancialAccountFR in '..\Reports\reportFinancialAccountFR.pas' {rptFinancialAccountFR},
+  uTypeMonth in '..\Types\uTypeMonth.pas',
   Vcl.Styles,
   Vcl.Themes;
 
