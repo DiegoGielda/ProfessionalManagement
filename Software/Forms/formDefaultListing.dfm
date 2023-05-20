@@ -49,6 +49,7 @@ object frmDefaultListing: TfrmDefaultListing
     OnDrawColumnCell = dbgPatternDrawColumnCell
     Columns = <
       item
+        Alignment = taCenter
         Expanded = False
         Title.Alignment = taCenter
         Title.Font.Charset = DEFAULT_CHARSET

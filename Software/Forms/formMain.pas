@@ -27,6 +27,7 @@ type
     mnOperation: TMenuItem;
     mnAttachmentGroup: TMenuItem;
     mnAttachmentDetach: TMenuItem;
+    mnCardInvoice: TMenuItem;
     procedure mnCompanyClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure mnJobClick(Sender: TObject);
@@ -39,6 +40,7 @@ type
     procedure mmPrintAcontClick(Sender: TObject);
     procedure mnAttachmentGroupClick(Sender: TObject);
     procedure mnAttachmentDetachClick(Sender: TObject);
+    procedure mnCardInvoiceClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -64,7 +66,8 @@ uses
   formListingOperation,
   reportFinancialAccountFR,
   formListingAttachmentGroup,
-  formListingAttachmentDetach;
+  formListingAttachmentDetach,
+  formListingCardInvoice;
 
 procedure TfrmMain.mnJobClick(Sender: TObject);
 begin
@@ -167,6 +170,16 @@ begin
     frmListingAttachmentGroup.ShowModal;
   finally
     FreeAndNil(frmListingAttachmentGroup);
+  end;
+end;
+
+procedure TfrmMain.mnCardInvoiceClick(Sender: TObject);
+begin
+  frmListingCardInvoice := TfrmListingCardInvoice.Create(Self);
+  try
+    frmListingCardInvoice.ShowModal;
+  finally
+    FreeAndNil(frmListingCardInvoice);
   end;
 end;
 

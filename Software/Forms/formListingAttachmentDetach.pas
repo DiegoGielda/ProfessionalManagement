@@ -85,6 +85,9 @@ begin
   inherited;
   qryAttachmentDetach.Active := False;
   qryAttachmentDetach.Active := True;
+
+  qryAttachmentGroup.Active := False;
+  qryAttachmentGroup.Active := True;
 end;
 
 procedure TfrmListingAttachmentDetach.FormShow(Sender: TObject);

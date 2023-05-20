@@ -28,10 +28,10 @@ type
     procedure btnDeleteClick(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
   private
-    { Private declarations }
-  public
     procedure ButtonsState;
     procedure UpdateRegistration;
+  public
+    { Public declarations }
   end;
 
 var
