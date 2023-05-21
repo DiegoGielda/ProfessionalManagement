@@ -4,10 +4,10 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, formDefault, dxGDIPlusClasses, Vcl.ExtCtrls, Vcl.Buttons, Data.DB, Vcl.Grids, Vcl.DBGrids;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, formDefaultRegistration, dxGDIPlusClasses, Vcl.ExtCtrls, Vcl.Buttons, Data.DB, Vcl.Grids, Vcl.DBGrids;
 
 type
-  TfrmDefaultRegistrationDetail = class(TfrmDefault)
+  TfrmDefaultRegistrationDetail = class(TfrmDefaultRegistration)
     gridDetail: TGridPanel;
     gridDetailButtons: TGridPanel;
     dbgPatternDetail: TDBGrid;
