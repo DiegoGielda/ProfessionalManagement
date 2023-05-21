@@ -1,10 +1,12 @@
 inherited frmRegFinancialAccount: TfrmRegFinancialAccount
   Caption = 'Cadastro de Conta'
+  ClientWidth = 994
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   PixelsPerInch = 96
   TextHeight = 13
   inherited pnlRegistration: TPanel
+    Width = 994
     object lblDateAccountFinancialAccount: TLabel [0]
       Left = 176
       Top = 132
@@ -77,9 +79,9 @@ inherited frmRegFinancialAccount: TfrmRegFinancialAccount
     object lblDescriptionFinancialInstitution: TLabel [5]
       Left = 601
       Top = 69
-      Width = 119
+      Width = 123
       Height = 16
-      Caption = 'Insitui'#231#227'o Financeira'
+      Caption = 'Institui'#231#227'o Financeira'
       FocusControl = lookDescriptionFinancialInstitution
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -102,8 +104,22 @@ inherited frmRegFinancialAccount: TfrmRegFinancialAccount
       Font.Style = []
       ParentFont = False
     end
+    object lblInstallmentNumber: TLabel [7]
+      Left = 825
+      Top = 69
+      Width = 62
+      Height = 16
+      Caption = 'N'#186' Parcela'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
+    end
     inherited pnlHeader: TPanel
-      TabOrder = 7
+      Width = 992
+      TabOrder = 9
       inherited btnNew: TSpeedButton
         OnClick = btnNewClick
       end
@@ -152,7 +168,7 @@ inherited frmRegFinancialAccount: TfrmRegFinancialAccount
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
-      TabOrder = 6
+      TabOrder = 7
     end
     object edtIDFinancialAccount: TDBEdit
       Left = 25
@@ -262,6 +278,300 @@ inherited frmRegFinancialAccount: TfrmRegFinancialAccount
       TabOrder = 1
       Height = 24
       Width = 487
+    end
+    object flpPortion: TFlowPanel
+      Left = 1
+      Top = 256
+      Width = 992
+      Height = 257
+      Align = alBottom
+      TabOrder = 10
+      Visible = False
+      object grpCardInvoicePortion: TGridPanel
+        AlignWithMargins = True
+        Left = 24
+        Top = 1
+        Width = 214
+        Height = 49
+        Margins.Left = 23
+        Margins.Top = 0
+        Margins.Right = 10
+        Margins.Bottom = 0
+        BevelOuter = bvNone
+        ColumnCollection = <
+          item
+            Value = 100.000000000000000000
+          end>
+        ControlCollection = <
+          item
+            Column = 0
+            Control = lblCardInvoicePortion
+            Row = 0
+          end
+          item
+            Column = 0
+            Control = lookCardInvoicePortion
+            Row = 1
+          end>
+        RowCollection = <
+          item
+            SizeStyle = ssAbsolute
+            Value = 25.000000000000000000
+          end
+          item
+            Value = 100.000000000000000000
+          end>
+        TabOrder = 1
+        object lblCardInvoicePortion: TLabel
+          Left = 0
+          Top = 9
+          Width = 214
+          Height = 16
+          Align = alBottom
+          Caption = 'Fatura do Cart'#227'o'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+        end
+        object lookCardInvoicePortion: TcxDBLookupComboBox
+          Left = 0
+          Top = 25
+          Align = alClient
+          AutoSize = False
+          DataBinding.DataField = 'CD_CARD_INVOICE'
+          DataBinding.DataSource = frmListingFinancialAccount.dsFinancialAccount
+          Properties.KeyFieldNames = 'ID_FINANCIAL_INSTITUTION'
+          Properties.ListColumns = <
+            item
+              Caption = 'ID'
+              HeaderAlignment = taCenter
+              FieldName = 'ID_CARD_INVOICE'
+            end
+            item
+              Caption = 'Fatura Cart'#227'o'
+              HeaderAlignment = taCenter
+              Width = 200
+              FieldName = 'DESC_CARD_INVOICE'
+            end>
+          Properties.ListFieldIndex = 1
+          Properties.ListOptions.ShowHeader = False
+          Properties.ListSource = frmListingFinancialAccount.dsCardInvoice
+          TabOrder = 0
+          Height = 24
+          Width = 214
+        end
+      end
+      object grpTotalInstallments: TGridPanel
+        AlignWithMargins = True
+        Left = 258
+        Top = 1
+        Width = 120
+        Height = 49
+        Margins.Left = 10
+        Margins.Top = 0
+        Margins.Right = 10
+        Margins.Bottom = 0
+        BevelOuter = bvNone
+        ColumnCollection = <
+          item
+            Value = 100.000000000000000000
+          end>
+        ControlCollection = <
+          item
+            Column = 0
+            Control = lblTotalinstallments
+            Row = 0
+          end
+          item
+            Column = 0
+            Control = edtTotalInstallments
+            Row = 1
+          end>
+        RowCollection = <
+          item
+            SizeStyle = ssAbsolute
+            Value = 25.000000000000000000
+          end
+          item
+            Value = 100.000000000000000000
+          end>
+        TabOrder = 0
+        object lblTotalinstallments: TLabel
+          Left = 0
+          Top = 9
+          Width = 120
+          Height = 16
+          Align = alBottom
+          Caption = 'Total de Parcelas'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+        end
+        object edtTotalInstallments: TcxCurrencyEdit
+          Left = 0
+          Top = 25
+          Align = alClient
+          Properties.AssignedValues.DisplayFormat = True
+          Properties.DecimalPlaces = 0
+          Properties.ReadOnly = False
+          Properties.ValidateOnEnter = False
+          TabOrder = 0
+          Width = 120
+        end
+      end
+    end
+    object editInstallmentNumberRemove: TDBEdit
+      Left = 825
+      Top = 88
+      Width = 64
+      Height = 24
+      DataField = 'INSTALLMENT_NUMBER'
+      DataSource = frmListingFinancialAccount.dsFinancialAccount
+      Enabled = False
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 8
+    end
+    object flpCardInvoice: TFlowPanel
+      Left = 471
+      Top = 125
+      Width = 362
+      Height = 65
+      TabOrder = 6
+      object grpInstallments: TGridPanel
+        AlignWithMargins = True
+        Left = 11
+        Top = 11
+        Width = 101
+        Height = 49
+        Margins.Left = 10
+        Margins.Top = 10
+        Margins.Right = 10
+        Margins.Bottom = 0
+        BevelOuter = bvNone
+        ColumnCollection = <
+          item
+            Value = 100.000000000000000000
+          end>
+        ControlCollection = <
+          item
+            Column = 0
+            Control = cbxInstallments
+            Row = 0
+          end>
+        RowCollection = <
+          item
+            Value = 100.000000000000000000
+          end>
+        TabOrder = 1
+        Visible = False
+        DesignSize = (
+          101
+          49)
+        object cbxInstallments: TCheckBox
+          Left = 0
+          Top = 12
+          Width = 101
+          Height = 24
+          Anchors = []
+          Caption = 'Parcelamento'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 0
+          OnClick = cbxInstallmentsClick
+        end
+      end
+      object grpCardInvoice: TGridPanel
+        AlignWithMargins = True
+        Left = 132
+        Top = 1
+        Width = 214
+        Height = 49
+        Margins.Left = 10
+        Margins.Top = 0
+        Margins.Right = 10
+        Margins.Bottom = 0
+        BevelOuter = bvNone
+        ColumnCollection = <
+          item
+            Value = 100.000000000000000000
+          end>
+        ControlCollection = <
+          item
+            Column = 0
+            Control = lblCardInvoice
+            Row = 0
+          end
+          item
+            Column = 0
+            Control = lookDescriptionCardInvoice
+            Row = 1
+          end>
+        RowCollection = <
+          item
+            SizeStyle = ssAbsolute
+            Value = 25.000000000000000000
+          end
+          item
+            Value = 100.000000000000000000
+          end>
+        TabOrder = 0
+        object lblCardInvoice: TLabel
+          Left = 0
+          Top = 9
+          Width = 214
+          Height = 16
+          Align = alBottom
+          Caption = 'Fatura do Cart'#227'o'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+        end
+        object lookDescriptionCardInvoice: TcxDBLookupComboBox
+          Left = 0
+          Top = 25
+          Align = alClient
+          AutoSize = False
+          DataBinding.DataField = 'CD_CARD_INVOICE'
+          DataBinding.DataSource = frmListingFinancialAccount.dsFinancialAccount
+          Properties.KeyFieldNames = 'ID_CARD_INVOICE'
+          Properties.ListColumns = <
+            item
+              Caption = 'ID'
+              HeaderAlignment = taCenter
+              FieldName = 'ID_CARD_INVOICE'
+            end
+            item
+              Caption = 'Fatura Cart'#227'o'
+              HeaderAlignment = taCenter
+              Width = 200
+              FieldName = 'DESC_CARD_INVOICE'
+            end>
+          Properties.ListFieldIndex = 1
+          Properties.ListOptions.ShowHeader = False
+          Properties.ListSource = frmListingFinancialAccount.dsCardInvoice
+          TabOrder = 0
+          Height = 24
+          Width = 214
+        end
+      end
     end
   end
 end
