@@ -116,7 +116,7 @@ inherited frmListingFinancialAccount: TfrmListingFinancialAccount
       
         'order by FA.DATA_ACCOUNT asc, FA.TYPE_ACCOUNT asc, FA.VALUE_ACCO' +
         'UNT desc')
-    Left = 480
+    Left = 481
     Top = 120
     object qryFinancialAccountID_FINANCIAL_ACCOUNT: TIntegerField
       AutoGenerateValue = arAutoInc
@@ -180,7 +180,7 @@ inherited frmListingFinancialAccount: TfrmListingFinancialAccount
   end
   object dsFinancialAccount: TDataSource
     DataSet = qryFinancialAccount
-    Left = 480
+    Left = 481
     Top = 176
   end
   object qryFinancialInstitution: TFDQuery
@@ -191,7 +191,7 @@ inherited frmListingFinancialAccount: TfrmListingFinancialAccount
         'CIAL_INSTITUTION'
       'from FINANCIAL_INSTITUTION as FI'
       'order by FI.ID_FINANCIAL_INSTITUTION')
-    Left = 480
+    Left = 481
     Top = 272
     object qryFinancialInstitutionID_FINANCIAL_INSTITUTION: TIntegerField
       FieldName = 'ID_FINANCIAL_INSTITUTION'
@@ -207,7 +207,7 @@ inherited frmListingFinancialAccount: TfrmListingFinancialAccount
   end
   object dsFinancialInstitution: TDataSource
     DataSet = qryFinancialInstitution
-    Left = 480
+    Left = 481
     Top = 336
   end
   object qryOperation: TFDQuery
