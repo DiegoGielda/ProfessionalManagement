@@ -33,6 +33,7 @@
   ```
 <hr/>
   <h3><li>3° Execute .exe from this directory.</li></h3>
+  <h3><li>4° To carry out code modifications or Debug/Release readme "Readme.dev.txt"</li></h3>
 </ul>
 <br/>
 <br/>
@@ -76,4 +77,5 @@
   ```
 <hr/>
   <h3><li>3° Executar o .exe deste diretório.</li></h3>
+  <h3><li>4° Para realizar modificações de código ou depuração Debug/Release leia "Readme.dev.txt"</li></h3>  
 </ul>
