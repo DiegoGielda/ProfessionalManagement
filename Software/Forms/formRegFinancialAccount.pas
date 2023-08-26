@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, formDefaultRegistration, cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters, cxContainer, cxEdit,
   cxDropDownEdit, cxLookupEdit, cxDBLookupEdit, cxDBLookupComboBox, Vcl.StdCtrls, Vcl.Mask, Vcl.DBCtrls, cxTextEdit, cxMaskEdit, cxCalendar, cxDBEdit,
-  dxGDIPlusClasses, Vcl.ExtCtrls, Vcl.Buttons, cxCurrencyEdit;
+  dxGDIPlusClasses, Vcl.ExtCtrls, Vcl.Buttons, cxCurrencyEdit, dxSkinsCore, dxSkinsDefaultPainters;
 
 type
   TfrmRegFinancialAccount = class(TfrmDefaultRegistration)
@@ -24,13 +24,6 @@ type
     lookDescriptionFinancialInstitution: TcxDBLookupComboBox;
     lookDescriptionOperation: TcxDBLookupComboBox;
     lblDescriptionOperation: TLabel;
-    flpPortion: TFlowPanel;
-    grpTotalInstallments: TGridPanel;
-    lblTotalinstallments: TLabel;
-    edtTotalInstallments: TcxCurrencyEdit;
-    grpCardInvoicePortion: TGridPanel;
-    lblCardInvoicePortion: TLabel;
-    lookCardInvoicePortion: TcxDBLookupComboBox;
     editInstallmentNumberRemove: TDBEdit;
     lblInstallmentNumber: TLabel;
     flpCardInvoice: TFlowPanel;
@@ -39,6 +32,9 @@ type
     lookDescriptionCardInvoice: TcxDBLookupComboBox;
     grpInstallments: TGridPanel;
     cbxInstallments: TCheckBox;
+    grpTotalInstallments: TGridPanel;
+    lblTotalinstallments: TLabel;
+    edtTotalInstallments: TcxCurrencyEdit;
     procedure btnCancelClick(Sender: TObject);
     procedure btnDeleteClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
@@ -56,7 +52,6 @@ type
     procedure UpdateRegistration;
     procedure UpdateScreenComponents;
     procedure GenerateInstallments;
-
   public
     { Public declarations }
   end;
@@ -195,7 +190,7 @@ end;
 procedure TfrmRegFinancialAccount.cbxInstallmentsClick(Sender: TObject);
 begin
   inherited;
-  // flpPortion.Visible := cbxInstallments.Checked;
+  grpTotalInstallments.Visible := (cbxInstallments.Checked);
 end;
 
 procedure TfrmRegFinancialAccount.FormCreate(Sender: TObject);
@@ -212,7 +207,7 @@ end;
 
 procedure TfrmRegFinancialAccount.GenerateInstallments;
 begin
-  //
+  { TODO : Criar processamento para realizar replicação de registro para o banco de multiplas parcelas }
 end;
 
 procedure TfrmRegFinancialAccount.UpdateRegistration;
@@ -223,8 +218,7 @@ end;
 procedure TfrmRegFinancialAccount.UpdateScreenComponents;
 begin
   { TODO : Criar um enumerado para os estados do dataset para controle dos componentes }
-  //grpInstallments.Visible := frmListingFinancialAccount.qryFinancialAccount.State in [dsInsert];
-  //grpCardInvoice.Visible := (not grpInstallments.Visible);
+  grpInstallments.Visible := frmListingFinancialAccount.qryFinancialAccount.State in [dsInsert];
 end;
 
 end.

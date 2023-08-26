@@ -4,7 +4,7 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, Vcl.ExtCtrls;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, Vcl.ExtCtrls, Vcl.Buttons;
 
 type
   TfrmMain = class(TForm)
@@ -28,6 +28,7 @@ type
     mnAttachmentGroup: TMenuItem;
     mnAttachmentDetach: TMenuItem;
     mnCardInvoice: TMenuItem;
+    btnShortcutRegistrationAccount: TSpeedButton;
     procedure mnCompanyClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure mnJobClick(Sender: TObject);
@@ -41,6 +42,8 @@ type
     procedure mnAttachmentGroupClick(Sender: TObject);
     procedure mnAttachmentDetachClick(Sender: TObject);
     procedure mnCardInvoiceClick(Sender: TObject);
+    procedure btnShortcutRegistrationAccountClick(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -129,6 +132,16 @@ begin
   end;
 end;
 
+procedure TfrmMain.btnShortcutRegistrationAccountClick(Sender: TObject);
+begin
+  frmListingFinancialAccount := TfrmListingFinancialAccount.Create(Self);
+  try
+    frmListingFinancialAccount.ShowModal;
+  finally
+    FreeAndNil(frmListingFinancialAccount);
+  end;
+end;
+
 procedure TfrmMain.FormCreate(Sender: TObject);
 begin
   try
@@ -141,6 +154,14 @@ begin
       Application.Terminate;
     end;
   end; 
+end;
+
+procedure TfrmMain.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #27 then
+  begin
+    Self.Close;
+  end;
 end;
 
 procedure TfrmMain.mmPrintAcontClick(Sender: TObject);
