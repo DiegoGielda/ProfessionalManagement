@@ -14,6 +14,7 @@ type
     btnNew: TSpeedButton;
     procedure dbgPatternDrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure FormShow(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -51,6 +52,14 @@ begin
   dbgPattern.DefaultDrawColumnCell(Rect, DataCol, Column, State);
 
   dbgPattern.Canvas.TextRect(Rect, Rect.Left + 8, Rect.Top + 0, Column.Field.DisplayText);
+end;
+
+procedure TfrmDefaultListing.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #27 then
+  begin
+    Self.Close;
+  end;
 end;
 
 procedure TfrmDefaultListing.FormShow(Sender: TObject);

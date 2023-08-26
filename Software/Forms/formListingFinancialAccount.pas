@@ -28,6 +28,12 @@ type
     qryFinancialAccountCD_OPERATION: TIntegerField;
     qryFinancialAccountOBSERVATION_ACCOUNT: TStringField;
     qryFinancialAccountOPERATION_DESCRIPTION: TStringField;
+    qryFinancialAccountINSTALLMENT_NUMBER: TIntegerField;
+    qryFinancialAccountCD_CARD_INVOICE: TIntegerField;
+    qryCardInvoice: TFDQuery;
+    dsCardInvoice: TDataSource;
+    qryCardInvoiceID_CARD_INVOICE: TIntegerField;
+    qryCardInvoiceDESC_CARD_INVOICE: TStringField;
     procedure FormCreate(Sender: TObject);
     procedure dbgPatternDblClick(Sender: TObject);
     procedure btnNewClick(Sender: TObject);
@@ -91,44 +97,53 @@ end;
 procedure TfrmListingFinancialAccount.FormCreate(Sender: TObject);
 begin
   inherited;
-  qryFinancialAccount.Active := false;
-  qryFinancialAccount.Active := true;
+  qryFinancialAccount.Active := False;
+  qryFinancialAccount.Active := True;
 
-  qryFinancialInstitution.Active := false;
-  qryFinancialInstitution.Active := true;
+  qryFinancialInstitution.Active := False;
+  qryFinancialInstitution.Active := True;
 
-  qryOperation.Active := false;
-  qryOperation.Active := true;
+  qryOperation.Active := False;
+  qryOperation.Active := True;
+
+  qryCardInvoice.Active := False;
+  qryCardInvoice.Active := True;
 end;
 
 procedure TfrmListingFinancialAccount.FormShow(Sender: TObject);
 begin
   inherited;
   qryFinancialAccount.Close;
-  qryFinancialAccount.SQL.Clear;
   qryFinancialAccount.SQL.Text :=
     ' select FA.ID_FINANCIAL_ACCOUNT, FA.CD_OPERATION, OPE.DESCRIPTION as OPERATION_DESCRIPTION, FA.TYPE_ACCOUNT, FA.DATA_ACCOUNT, ' + sLineBreak +
-    '        FA.VALUE_ACCOUNT, FA.CD_FINANCIAL_INSTITUTION, FA.OBSERVATION AS OBSERVATION_ACCOUNT ' + sLineBreak +
+    '        FA.VALUE_ACCOUNT, FA.CD_FINANCIAL_INSTITUTION, FA.OBSERVATION AS OBSERVATION_ACCOUNT, ' + sLineBreak +
+    '        FA.INSTALLMENT_NUMBER, FA.CD_CARD_INVOICE ' + sLineBreak +
     ' from FINANCIAL_ACCOUNT FA ' + sLineBreak +
     ' inner join OPERATION OPE on (OPE.ID_OPERATION = FA.CD_OPERATION) ' + sLineBreak +
-    ' order by FA.DATA_ACCOUNT, FA.TYPE_ACCOUNT, FA.VALUE_ACCOUNT desc ';
+    ' order by FA.DATA_ACCOUNT asc, FA.TYPE_ACCOUNT asc, FA.VALUE_ACCOUNT desc ';
   qryFinancialAccount.Open;
 
   qryFinancialInstitution.Close;
-  qryFinancialInstitution.SQL.Clear;
   qryFinancialInstitution.SQL.Text :=
     ' select FI.ID_FINANCIAL_INSTITUTION, FI.DESCRIPTION as DESC_FINANCIAL_INSTITUTION ' + sLineBreak +
     ' from FINANCIAL_INSTITUTION as FI ' + sLineBreak +
-    ' order by FI.ID_FINANCIAL_INSTITUTION ';
+    ' order by FI.ID_FINANCIAL_INSTITUTION asc ';
   qryFinancialInstitution.Open;
 
   qryOperation.Close;
-  qryOperation.SQL.Clear;
   qryOperation.SQL.Text :=
     ' select OP.ID_OPERATION, OP.DESCRIPTION as DESC_OPERATION ' + sLineBreak +
     ' from OPERATION as OP ' + sLineBreak +
-    ' order by OP.ID_OPERATION ';
+    ' order by OP.ID_OPERATION asc ';
   qryOperation.Open;
+
+  qryCardInvoice.Close;
+  qryCardInvoice.SQL.Text :=
+    ' select CARD.ID_CARD_INVOICE, CARD.DESCRIPTION as DESC_CARD_INVOICE ' + sLineBreak +
+    ' from CARD_INVOICE as CARD ' + sLineBreak +
+    ' order by CARD.ID_CARD_INVOICE asc ';
+  qryCardInvoice.Open;
+
 end;
 
 procedure TfrmListingFinancialAccount.qryFinancialAccountNewRecord(DataSet: TDataSet);
@@ -136,6 +151,7 @@ begin
   inherited;
   qryFinancialAccountTYPE_ACCOUNT.AsString := 'S';
   qryFinancialAccountDATA_ACCOUNT.AsDateTime := Date();
+  qryFinancialAccountINSTALLMENT_NUMBER.AsInteger := 1;
 end;
 
 procedure TfrmListingFinancialAccount.qryFinancialAccountTYPE_ACCOUNTGetText(Sender: TField; var Text: string; DisplayText: Boolean);

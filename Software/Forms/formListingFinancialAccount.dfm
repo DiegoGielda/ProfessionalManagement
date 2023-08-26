@@ -109,11 +109,14 @@ inherited frmListingFinancialAccount: TfrmListingFinancialAccount
         ' as OPERATION_DESCRIPTION, FA.TYPE_ACCOUNT,'
       
         '       FA.DATA_ACCOUNT, FA.VALUE_ACCOUNT, FA.CD_FINANCIAL_INSTIT' +
-        'UTION, FA.OBSERVATION as OBSERVATION_ACCOUNT'
+        'UTION, FA.OBSERVATION as OBSERVATION_ACCOUNT,'
+      '       FA.INSTALLMENT_NUMBER, FA.CD_CARD_INVOICE'
       'from FINANCIAL_ACCOUNT FA'
       'inner join OPERATION OPE on (OPE.ID_OPERATION = FA.CD_OPERATION)'
-      'order by FA.DATA_ACCOUNT, FA.TYPE_ACCOUNT, FA.VALUE_ACCOUNT desc')
-    Left = 480
+      
+        'order by FA.DATA_ACCOUNT asc, FA.TYPE_ACCOUNT asc, FA.VALUE_ACCO' +
+        'UNT desc')
+    Left = 481
     Top = 120
     object qryFinancialAccountID_FINANCIAL_ACCOUNT: TIntegerField
       AutoGenerateValue = arAutoInc
@@ -165,10 +168,19 @@ inherited frmListingFinancialAccount: TfrmListingFinancialAccount
       Origin = 'OBSERVATION'
       Size = 255
     end
+    object qryFinancialAccountINSTALLMENT_NUMBER: TIntegerField
+      FieldName = 'INSTALLMENT_NUMBER'
+      Origin = 'INSTALLMENT_NUMBER'
+      Required = True
+    end
+    object qryFinancialAccountCD_CARD_INVOICE: TIntegerField
+      FieldName = 'CD_CARD_INVOICE'
+      Origin = 'CD_CARD_INVOICE'
+    end
   end
   object dsFinancialAccount: TDataSource
     DataSet = qryFinancialAccount
-    Left = 480
+    Left = 481
     Top = 176
   end
   object qryFinancialInstitution: TFDQuery
@@ -179,7 +191,7 @@ inherited frmListingFinancialAccount: TfrmListingFinancialAccount
         'CIAL_INSTITUTION'
       'from FINANCIAL_INSTITUTION as FI'
       'order by FI.ID_FINANCIAL_INSTITUTION')
-    Left = 480
+    Left = 481
     Top = 272
     object qryFinancialInstitutionID_FINANCIAL_INSTITUTION: TIntegerField
       FieldName = 'ID_FINANCIAL_INSTITUTION'
@@ -195,7 +207,7 @@ inherited frmListingFinancialAccount: TfrmListingFinancialAccount
   end
   object dsFinancialInstitution: TDataSource
     DataSet = qryFinancialInstitution
-    Left = 480
+    Left = 481
     Top = 336
   end
   object qryOperation: TFDQuery
@@ -223,6 +235,34 @@ inherited frmListingFinancialAccount: TfrmListingFinancialAccount
   object dsOperation: TDataSource
     DataSet = qryOperation
     Left = 592
+    Top = 336
+  end
+  object qryCardInvoice: TFDQuery
+    Connection = dmConnectionFD.fdConnection
+    SQL.Strings = (
+      
+        'select CARD.ID_CARD_INVOICE, CARD.DESCRIPTION as DESC_CARD_INVOI' +
+        'CE'
+      'from CARD_INVOICE as CARD'
+      'order by CARD.ID_CARD_INVOICE asc')
+    Left = 704
+    Top = 272
+    object qryCardInvoiceID_CARD_INVOICE: TIntegerField
+      FieldName = 'ID_CARD_INVOICE'
+      Origin = 'ID_CARD_INVOICE'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object qryCardInvoiceDESC_CARD_INVOICE: TStringField
+      FieldName = 'DESC_CARD_INVOICE'
+      Origin = 'DESCRIPTION'
+      Required = True
+      Size = 255
+    end
+  end
+  object dsCardInvoice: TDataSource
+    DataSet = qryCardInvoice
+    Left = 704
     Top = 336
   end
 end

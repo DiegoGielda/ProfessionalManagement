@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, formDefaultRegistration, cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters, cxContainer, cxEdit,
   cxDropDownEdit, cxLookupEdit, cxDBLookupEdit, cxDBLookupComboBox, Vcl.StdCtrls, Vcl.Mask, Vcl.DBCtrls, cxTextEdit, cxMaskEdit, cxCalendar, cxDBEdit,
-  dxGDIPlusClasses, Vcl.ExtCtrls, Vcl.Buttons;
+  dxGDIPlusClasses, Vcl.ExtCtrls, Vcl.Buttons, cxCurrencyEdit, dxSkinsCore, dxSkinsDefaultPainters;
 
 type
   TfrmRegFinancialAccount = class(TfrmDefaultRegistration)
@@ -24,6 +24,17 @@ type
     lookDescriptionFinancialInstitution: TcxDBLookupComboBox;
     lookDescriptionOperation: TcxDBLookupComboBox;
     lblDescriptionOperation: TLabel;
+    editInstallmentNumberRemove: TDBEdit;
+    lblInstallmentNumber: TLabel;
+    flpCardInvoice: TFlowPanel;
+    grpCardInvoice: TGridPanel;
+    lblCardInvoice: TLabel;
+    lookDescriptionCardInvoice: TcxDBLookupComboBox;
+    grpInstallments: TGridPanel;
+    cbxInstallments: TCheckBox;
+    grpTotalInstallments: TGridPanel;
+    lblTotalinstallments: TLabel;
+    edtTotalInstallments: TcxCurrencyEdit;
     procedure btnCancelClick(Sender: TObject);
     procedure btnDeleteClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
@@ -34,11 +45,13 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure btnAttachmentClick(Sender: TObject);
+    procedure cbxInstallmentsClick(Sender: TObject);
   private
     { Private declarations }
     procedure ButtonsState;
     procedure UpdateRegistration;
-
+    procedure UpdateScreenComponents;
+    procedure GenerateInstallments;
   public
     { Public declarations }
   end;
@@ -80,7 +93,8 @@ begin
   frmListingFinancialAccount.qryFinancialAccount.Cancel;
   ButtonsState;
   ConfigureButtons;
-  ChangeStateFields(Self, ['edtIDFinancialAccount'], False);
+  UpdateScreenComponents;
+  ChangeStateFields(Self, ['edtIDFinancialAccount', 'editInstallmentNumber'], False);
 end;
 
 procedure TfrmRegFinancialAccount.btnDeleteClick(Sender: TObject);
@@ -94,7 +108,7 @@ begin
      ButtonsState;
      ConfigureButtons;
      UpdateRegistration;
-     ChangeStateFields(Self, ['edtIDFinancialAccount'], False);
+     ChangeStateFields(Self, ['edtIDFinancialAccount', 'editInstallmentNumber'], False);
     end;
   IDNO :
     begin
@@ -109,7 +123,8 @@ begin
   frmListingFinancialAccount.qryFinancialAccount.Edit;
   ButtonsState;
   ConfigureButtons;
-  ChangeStateFields(Self, ['edtIDFinancialAccount'], True);
+  UpdateScreenComponents;
+  ChangeStateFields(Self, ['edtIDFinancialAccount', 'editInstallmentNumber'], True);
 end;
 
 procedure TfrmRegFinancialAccount.btnNewClick(Sender: TObject);
@@ -118,7 +133,8 @@ begin
   frmListingFinancialAccount.qryFinancialAccount.Append;
   ButtonsState;
   ConfigureButtons;
-  ChangeStateFields(Self, ['edtIDFinancialAccount'], True);
+  UpdateScreenComponents;
+  ChangeStateFields(Self, ['edtIDFinancialAccount', 'editInstallmentNumber'], True);
 end;
 
 procedure TfrmRegFinancialAccount.btnNextClick(Sender: TObject);
@@ -127,7 +143,7 @@ begin
   frmListingFinancialAccount.qryFinancialAccount.Next;
   ButtonsState;
   ConfigureButtons;
-  ChangeStateFields(Self, ['edtIDFinancialAccount'], False);
+  ChangeStateFields(Self, ['edtIDFinancialAccount', 'editInstallmentNumber'], False);
 end;
 
 procedure TfrmRegFinancialAccount.btnPriorClick(Sender: TObject);
@@ -136,7 +152,7 @@ begin
   frmListingFinancialAccount.qryFinancialAccount.Prior;
   ButtonsState;
   ConfigureButtons;
-  ChangeStateFields(Self, ['edtIDFinancialAccount'], False);
+  ChangeStateFields(Self, ['edtIDFinancialAccount', 'editInstallmentNumber'], False);
 end;
 
 procedure TfrmRegFinancialAccount.btnSaveClick(Sender: TObject);
@@ -144,14 +160,20 @@ begin
   inherited;
   try
     frmListingFinancialAccount.qryFinancialAccount.Post;
+    if cbxInstallments.Checked then
+    begin
+      GenerateInstallments;
+    end;
+
     Application.MessageBox('Registro gravado com sucesso!', 'Confirmação', MB_ICONEXCLAMATION + MB_OK);
     ButtonsState;
     ConfigureButtons;
     UpdateRegistration;
+    UpdateScreenComponents;
   except
     Application.MessageBox('NÃO FOI POSSÍVEL GRAVAR O REGISTRO. Reinicie o sistema', 'Falha', MB_ICONERROR + MB_OK);
   end;
-  ChangeStateFields(Self, ['edtIDFinancialAccount'], False);
+  ChangeStateFields(Self, ['edtIDFinancialAccount', 'editInstallmentNumber'], False);
 end;
 
 procedure TfrmRegFinancialAccount.ButtonsState;
@@ -163,6 +185,12 @@ begin
   btnNew.Enabled := frmListingFinancialAccount.qryFinancialAccount.State in [dsBrowse];
   btnEdit.Enabled := frmListingFinancialAccount.qryFinancialAccount.State in [dsBrowse];
   btnDelete.Enabled := frmListingFinancialAccount.qryFinancialAccount.State in [dsbrowse];
+end;
+
+procedure TfrmRegFinancialAccount.cbxInstallmentsClick(Sender: TObject);
+begin
+  inherited;
+  grpTotalInstallments.Visible := (cbxInstallments.Checked);
 end;
 
 procedure TfrmRegFinancialAccount.FormCreate(Sender: TObject);
@@ -177,9 +205,20 @@ begin
   FreeAndNil(dmFinancialAccountFD);
 end;
 
+procedure TfrmRegFinancialAccount.GenerateInstallments;
+begin
+  { TODO : Criar processamento para realizar replicação de registro para o banco de multiplas parcelas }
+end;
+
 procedure TfrmRegFinancialAccount.UpdateRegistration;
 begin
   frmListingFinancialAccount.qryFinancialAccount.Refresh;
+end;
+
+procedure TfrmRegFinancialAccount.UpdateScreenComponents;
+begin
+  { TODO : Criar um enumerado para os estados do dataset para controle dos componentes }
+  grpInstallments.Visible := frmListingFinancialAccount.qryFinancialAccount.State in [dsInsert];
 end;
 
 end.
